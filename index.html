@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Medieval Idle Skilling Game</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .game-container {
+            width: 100%;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            border: 1px solid #000;
+            background-color: #f4f4f4;
+        }
+        .btn {
+            width: 100%;
+            margin-top: 10px;
+        }
+        .resource {
+            font-weight: bold;
+            font-size: 1.2em;
+            width: 100px;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+    <div class="game-container">
+        <h1 class="text-center">Medieval Idle Skilling Game</h1>
+        <div class="row">
+            <div class="col-4">
+                <p class="resource">XP: <span id="xp">0</span></p>
+            </div>
+            <div class="col-4">
+                <p class="resource">Level: <span id="level">1</span></p>
+            </div>
+            <div class="col-4">
+                <p class="resource">Coins: <span id="goldCoins">0</span></p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-4">
+                <p class="resource">Wood: <span id="wood">0</span></p>
+            </div>
+            <div class="col-4">
+                <p class="resource">Stone: <span id="stone">0</span></p>
+            </div>
+            <div class="col-4">
+                <p class="resource">Gold: <span id="gold">0</span></p>
+            </div>
+        </div>
+        <button class="btn btn-primary" id="gatherBtn">Gather</button>
+        <button class="btn btn-secondary" id="mineBtn">Mine</button>
+        <button class="btn btn-success" id="craftBtn">Craft</button>
+        <button class="btn btn-warning" id="autoTrainBtn">Auto-Train</button>
+    </div>
+    <script>
+        let xp = 0;
+        let level = 1;
+        let resources = {wood: 0, stone: 0, gold: 0};
+        let skills = {gather: 1, mine: 1};
+        let goldCoins = 0;
+        let autoTraining = false;
+
+        function updateUI() {
+            document.getElementById('xp').innerText = xp;
+            document.getElementById('level').innerText = level;
+            document.getElementById('wood').innerText = resources.wood;
+            document.getElementById('stone').innerText = resources.stone;
+            document.getElementById('gold').innerText = resources.gold;
+            document.getElementById('goldCoins').innerText = goldCoins;
+        }
+
+        function gatherResources() {
+            resources.wood += 5 * skills.gather;
+            xp += 5;
+            checkLevelUp();
+            updateUI();
+            saveGame();
+        }
+
+        function mineResources() {
+            resources.stone += 3 * skills.mine;
+            resources.gold += 2 * skills.mine;
+            xp += 10;
+            checkLevelUp();
+            updateUI();
+            saveGame();
+        }
+
+        function craftItems() {
+            if(resources.wood >= 10 && resources.stone >= 5){
+                resources.wood -= 10;
+                resources.stone -= 5;
+                goldCoins += 10;
+                xp += 20;
+                checkLevelUp();
+                updateUI();
+                saveGame();
+            }
+        }
+
+        function checkLevelUp() {
+            if (xp >= 100) {
+                xp -= 100;
+                level++;
+            }
+        }
+
+        function autoTrain() {
+            if (!autoTraining) {
+                autoTraining = setInterval(function() {
+                    gatherResources();
+                    mineResources();
+                }, 10000); // auto-train every 10 seconds
+            } else {
+                clearInterval(autoTraining);
+                autoTraining = false;
+            }
+        }
+
+        function saveGame() {
+            let gameData = {
+                xp: xp,
+                level: level,
+                resources: resources,
+                skills: skills,
+                goldCoins: goldCoins
+            };
+            localStorage.setItem('gameData', JSON.stringify(gameData));
+        }
+
+        function loadGame() {
+            let gameData = JSON.parse(localStorage.getItem('gameData'));
+            if (gameData) {
+                xp = gameData.xp;
+                level = gameData.level;
+                resources = gameData.resources;
+                skills = gameData.skills;
+                goldCoins = gameData.goldCoins;
+                updateUI();
+            }
+        }
+
+        document.getElementById('gatherBtn').addEventListener('click', gatherResources);
+        document.getElementById('mineBtn').addEventListener('click', mineResources);
+        document.getElementById('craftBtn').addEventListener('click', craftItems);
+        document.getElementById('autoTrainBtn').addEventListener('click', autoTrain);
+
+        // Load the game progress
+        loadGame();
+    </script>
+</body>
+</html>
