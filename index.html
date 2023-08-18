@@ -2,48 +2,41 @@
 <html>
 <head>
   <title>Medieval Idle Game</title>
-  <style>
-    .resource {
-      display: inline-block;
-      width: 100px;
-      font-weight: bold;
-    }
-
-    .modal {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0,0,0,0.5);
-    }
-
-    .modal-content {
-      position: relative;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background-color: white;
-      padding: 20px;
-      text-align: center;
-    }
-  </style>
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </head>
 <body>
-  <div class="game-container">
-    <p><span class="resource">Wood:</span> <span id="wood">0</span></p>
-    <p><span class="resource">Stone:</span> <span id="stone">0</span></p>
-    <p><span class="resource">Gold Coins:</span> <span id="gold">0</span></p>
-    <button onclick="gather()">Gather</button>
-    <button onclick="mine()">Mine</button>
-    <button onclick="craft()">Craft</button>
-    <button onclick="toggleAutoTrain()">Auto-Train</button>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm">
+        <p>Wood: <span id="wood">0</span></p>
+        <p>Stone: <span id="stone">0</span></p>
+        <p>Gold Coins: <span id="gold">0</span></p>
+      </div>
+      <div class="col-sm">
+        <button class="btn btn-primary" onclick="gather()">Gather</button>
+        <button class="btn btn-primary" onclick="mine()">Mine</button>
+        <button class="btn btn-primary" onclick="craft()">Craft</button>
+        <button class="btn btn-primary" onclick="toggleAutoTrain()">Auto-Train</button>
+      </div>
+    </div>
   </div>
-  <div id="tutorialModal" class="modal">
-    <div class="modal-content">
-      <p id="tutorialText"></p>
-      <button onclick="nextTutorial()">Next</button>
+  <div class="modal" id="tutorialModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Tutorial</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body">
+          <p id="tutorialText"></p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" onclick="nextTutorial()">Next</button>
+        </div>
+      </div>
     </div>
   </div>
   <script>
@@ -97,14 +90,14 @@
     }
 
     function showTutorial() {
-      document.getElementById('tutorialModal').style.display = 'block';
+      $('#tutorialModal').modal('show');
       document.getElementById('tutorialText').innerText = tutorialSteps[currentTutorialStep];
     }
 
     function nextTutorial() {
       currentTutorialStep++;
       if (currentTutorialStep >= tutorialSteps.length) {
-        document.getElementById('tutorialModal').style.display = 'none';
+        $('#tutorialModal').modal('hide');
       } else {
         document.getElementById('tutorialText').innerText = tutorialSteps[currentTutorialStep];
       }
