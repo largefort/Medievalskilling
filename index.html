@@ -25,14 +25,6 @@
             width: 100px;
             display: inline-block;
         }
-        .notification {
-            width: 100%;
-            margin-top: 20px;
-            padding: 10px;
-            border: 1px solid #000;
-            background-color: #fff;
-            text-align: center;
-        }
     </style>
 </head>
 <body>
@@ -64,7 +56,7 @@
         <button class="btn btn-secondary" id="mineBtn">Mine</button>
         <button class="btn btn-success" id="craftBtn">Craft</button>
         <button class="btn btn-warning" id="autoTrainBtn">Auto-Train</button>
-        <div class="notification" id="notification"></div>
+        <textarea id="log" rows="5" style="width:100%; margin-top: 10px;"></textarea>
     </div>
     <script>
         let xp = 0;
@@ -74,30 +66,11 @@
         let goldCoins = 0;
         let autoTraining = false;
         let autoTrainInterval;
+        let gameLog = document.getElementById('log');
 
-        function formatNumber(num) {
-            if (num < 1e3) return num;
-            if (num >= 1e3 && num < 1e6) return +(num / 1e3).toFixed(1) + "K";
-            if (num >= 1e6 && num < 1e9) return +(num / 1e6).toFixed(1) + "M";
-            if (num >= 1e9 && num < 1e12) return +(num / 1e9).toFixed(1) + "B";
-            if (num >= 1e12) return +(num / 1e12).toFixed(1) + "T";
-        }
-
-        function updateUI() {
-            document.getElementById('xp').innerText = formatNumber(xp);
-            document.getElementById('level').innerText = formatNumber(level);
-            document.getElementById('wood').innerText = formatNumber(resources.wood);
-            document.getElementById('stone').innerText = formatNumber(resources.stone);
-            document.getElementById('gold').innerText = formatNumber(resources.gold);
-            document.getElementById('goldCoins').innerText = formatNumber(goldCoins);
-        }
-
-        function showNotification(message) {
-            const notification = document.getElementById('notification');
-            notification.innerText = message;
-            setTimeout(() => {
-                notification.innerText = '';
-            }, 3000);
+        function log(message) {
+            gameLog.value += message + '\n';
+            gameLog.scrollTop = gameLog.scrollHeight;
         }
 
         function gatherResources() {
@@ -105,8 +78,8 @@
             xp += 5;
             checkLevelUp();
             updateUI();
+            log('Gathered resources.');
             saveGame();
-            showNotification('Gathered resources!');
         }
 
         function mineResources() {
@@ -115,8 +88,8 @@
             xp += 10;
             checkLevelUp();
             updateUI();
+            log('Mined resources.');
             saveGame();
-            showNotification('Mined resources!');
         }
 
         function craftItems() {
@@ -127,60 +100,61 @@
                 xp += 20;
                 checkLevelUp();
                 updateUI();
+                log('Crafted items.');
                 saveGame();
-                showNotification('Crafted items!');
-            }else{
-                showNotification('Not enough resources!');
             }
-        }
-
-        function autoTrain() {
-            if(autoTraining){
-                clearInterval(autoTrainInterval);
-                document.getElementById('autoTrainBtn').innerText = 'Auto-Train';
-            }else{
-                autoTrainInterval = setInterval(() => {
-                    gatherResources();
-                    mineResources();
-                }, 5000);
-                document.getElementById('autoTrainBtn').innerText = 'Stop Auto-Train';
-            }
-            autoTraining = !autoTraining;
         }
 
         function checkLevelUp() {
-            if (xp >= level * 100) {
-                xp -= level * 100;
+            if (xp >= 100) {
+                xp -= 100;
                 level++;
-                skills.gather++;
-                skills.mine++;
+                log('Leveled up!');
             }
         }
 
+        function updateUI() {
+            document.getElementById('xp').innerText = xp;
+            document.getElementById('level').innerText = level;
+            document.getElementById('wood').innerText = resources.wood;
+            document.getElementById('stone').innerText = resources.stone;
+            document.getElementById('gold').innerText = resources.gold;
+            document.getElementById('goldCoins').innerText = goldCoins;
+        }
+
         function saveGame() {
-            const gameData = {xp, level, resources, skills, goldCoins};
-            localStorage.setItem('idleGame', JSON.stringify(gameData));
+            localStorage.setItem('xp', xp);
+            localStorage.setItem('level', level);
+            localStorage.setItem('goldCoins', goldCoins);
+            localStorage.setItem('resources', JSON.stringify(resources));
+            localStorage.setItem('skills', JSON.stringify(skills));
         }
 
         function loadGame() {
-            const gameData = JSON.parse(localStorage.getItem('idleGame'));
-            if (gameData) {
-                xp = gameData.xp;
-                level = gameData.level;
-                resources = gameData.resources;
-                skills = gameData.skills;
-                goldCoins = gameData.goldCoins;
-                updateUI();
+            xp = parseInt(localStorage.getItem('xp')) || 0;
+            level = parseInt(localStorage.getItem('level')) || 1;
+            goldCoins = parseInt(localStorage.getItem('goldCoins')) || 0;
+            resources = JSON.parse(localStorage.getItem('resources')) || {wood: 0, stone: 0, gold: 0};
+            skills = JSON.parse(localStorage.getItem('skills')) || {gather: 1, mine: 1};
+            updateUI();
+        }
+
+        function startAutoTraining() {
+            if (!autoTraining) {
+                autoTrainInterval = setInterval(gatherResources, 1000);
+                autoTraining = true;
+            } else {
+                clearInterval(autoTrainInterval);
+                autoTraining = false;
             }
         }
 
         document.getElementById('gatherBtn').addEventListener('click', gatherResources);
         document.getElementById('mineBtn').addEventListener('click', mineResources);
         document.getElementById('craftBtn').addEventListener('click', craftItems);
-        document.getElementById('autoTrainBtn').addEventListener('click', autoTrain);
+        document.getElementById('autoTrainBtn').addEventListener('click', startAutoTraining);
 
         window.onload = loadGame;
-        window.onbeforeunload = saveGame;
     </script>
 </body>
 </html>
