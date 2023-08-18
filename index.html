@@ -66,14 +66,23 @@
         let autoTraining = false;
         let autoTrainInterval;
 
-       function updateUI() {
-    document.getElementById('xp').innerText = formatNumber(xp);
-    document.getElementById('level').innerText = formatNumber(level);
-    document.getElementById('wood').innerText = formatNumber(resources.wood);
-    document.getElementById('stone').innerText = formatNumber(resources.stone);
-    document.getElementById('gold').innerText = formatNumber(resources.gold);
-    document.getElementById('goldCoins').innerText = formatNumber(goldCoins);
-}
+        function formatNumber(num) {
+            if (num < 1e3) return num;
+            if (num >= 1e3 && num < 1e6) return +(num / 1e3).toFixed(1) + "K";
+            if (num >= 1e6 && num < 1e9) return +(num / 1e6).toFixed(1) + "M";
+            if (num >= 1e9 && num < 1e12) return +(num / 1e9).toFixed(1) + "B";
+            if (num >= 1e12) return +(num / 1e12).toFixed(1) + "T";
+        }
+
+        function updateUI() {
+            document.getElementById('xp').innerText = formatNumber(xp);
+            document.getElementById('level').innerText = formatNumber(level);
+            document.getElementById('wood').innerText = formatNumber(resources.wood);
+            document.getElementById('stone').innerText = formatNumber(resources.stone);
+            document.getElementById('gold').innerText = formatNumber(resources.gold);
+            document.getElementById('goldCoins').innerText = formatNumber(goldCoins);
+        }
+
         function gatherResources() {
             resources.wood += 5 * skills.gather;
             xp += 5;
@@ -115,7 +124,7 @@
                 autoTrainInterval = setInterval(function() {
                     gatherResources();
                     mineResources();
-                }, 5000); // auto-train every 5 seconds
+                }, 10000); // auto-train every 10 seconds
                 autoTraining = true;
                 document.getElementById('autoTrainBtn').innerText = "Stop Auto-Train";
             } else {
