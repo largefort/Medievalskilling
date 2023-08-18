@@ -56,7 +56,6 @@
         <button class="btn btn-secondary" id="mineBtn">Mine</button>
         <button class="btn btn-success" id="craftBtn">Craft</button>
         <button class="btn btn-warning" id="autoTrainBtn">Auto-Train</button>
-        <textarea id="log" rows="5" style="width:100%; margin-top: 10px;"></textarea>
     </div>
     <script>
         let xp = 0;
@@ -66,11 +65,15 @@
         let goldCoins = 0;
         let autoTraining = false;
         let autoTrainInterval;
-        let gameLog = document.getElementById('log');
 
-        function log(message) {
-            gameLog.value += message + '\n';
-            gameLog.scrollTop = gameLog.scrollHeight;
+        function compactNotation(number, decimals = 1) {
+            const suffixes = ['K', 'M', 'B', 'T', 'Qa', 'Qi', 'Sx', 'Sp', 'Oc', 'No', 'De'];
+            let i = 0;
+            while (number >= 1000) {
+                number /= 1000;
+                i++;
+            }
+            return i === 0 ? number.toString() : number.toFixed(decimals) + suffixes[i - 1];
         }
 
         function gatherResources() {
@@ -78,7 +81,6 @@
             xp += 5;
             checkLevelUp();
             updateUI();
-            log('Gathered resources.');
             saveGame();
         }
 
@@ -88,7 +90,6 @@
             xp += 10;
             checkLevelUp();
             updateUI();
-            log('Mined resources.');
             saveGame();
         }
 
@@ -100,7 +101,6 @@
                 xp += 20;
                 checkLevelUp();
                 updateUI();
-                log('Crafted items.');
                 saveGame();
             }
         }
@@ -109,17 +109,16 @@
             if (xp >= 100) {
                 xp -= 100;
                 level++;
-                log('Leveled up!');
             }
         }
 
         function updateUI() {
-            document.getElementById('xp').innerText = xp;
+            document.getElementById('xp').innerText = compactNotation(xp);
             document.getElementById('level').innerText = level;
-            document.getElementById('wood').innerText = resources.wood;
-            document.getElementById('stone').innerText = resources.stone;
-            document.getElementById('gold').innerText = resources.gold;
-            document.getElementById('goldCoins').innerText = goldCoins;
+            document.getElementById('wood').innerText = compactNotation(resources.wood);
+            document.getElementById('stone').innerText = compactNotation(resources.stone);
+            document.getElementById('gold').innerText = compactNotation(resources.gold);
+            document.getElementById('goldCoins').innerText = compactNotation(goldCoins);
         }
 
         function saveGame() {
