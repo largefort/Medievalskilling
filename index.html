@@ -64,6 +64,7 @@
         let skills = {gather: 1, mine: 1};
         let goldCoins = 0;
         let autoTraining = false;
+        let autoTrainInterval;
 
         function updateUI() {
             document.getElementById('xp').innerText = xp;
@@ -112,13 +113,16 @@
 
         function autoTrain() {
             if (!autoTraining) {
-                autoTraining = setInterval(function() {
+                autoTrainInterval = setInterval(function() {
                     gatherResources();
                     mineResources();
                 }, 10000); // auto-train every 10 seconds
+                autoTraining = true;
+                document.getElementById('autoTrainBtn').innerText = "Stop Auto-Train";
             } else {
-                clearInterval(autoTraining);
+                clearInterval(autoTrainInterval);
                 autoTraining = false;
+                document.getElementById('autoTrainBtn').innerText = "Auto-Train";
             }
         }
 
