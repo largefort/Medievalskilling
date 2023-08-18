@@ -66,15 +66,14 @@
         let autoTraining = false;
         let autoTrainInterval;
 
-        function updateUI() {
-            document.getElementById('xp').innerText = xp;
-            document.getElementById('level').innerText = level;
-            document.getElementById('wood').innerText = resources.wood;
-            document.getElementById('stone').innerText = resources.stone;
-            document.getElementById('gold').innerText = resources.gold;
-            document.getElementById('goldCoins').innerText = goldCoins;
-        }
-
+       function updateUI() {
+    document.getElementById('xp').innerText = formatNumber(xp);
+    document.getElementById('level').innerText = formatNumber(level);
+    document.getElementById('wood').innerText = formatNumber(resources.wood);
+    document.getElementById('stone').innerText = formatNumber(resources.stone);
+    document.getElementById('gold').innerText = formatNumber(resources.gold);
+    document.getElementById('goldCoins').innerText = formatNumber(goldCoins);
+}
         function gatherResources() {
             resources.wood += 5 * skills.gather;
             xp += 5;
