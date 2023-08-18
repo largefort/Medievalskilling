@@ -25,6 +25,14 @@
             width: 100px;
             display: inline-block;
         }
+        .notification {
+            width: 100%;
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #000;
+            background-color: #fff;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
@@ -56,6 +64,7 @@
         <button class="btn btn-secondary" id="mineBtn">Mine</button>
         <button class="btn btn-success" id="craftBtn">Craft</button>
         <button class="btn btn-warning" id="autoTrainBtn">Auto-Train</button>
+        <div class="notification" id="notification"></div>
     </div>
     <script>
         let xp = 0;
@@ -83,12 +92,21 @@
             document.getElementById('goldCoins').innerText = formatNumber(goldCoins);
         }
 
+        function showNotification(message) {
+            const notification = document.getElementById('notification');
+            notification.innerText = message;
+            setTimeout(() => {
+                notification.innerText = '';
+            }, 3000);
+        }
+
         function gatherResources() {
             resources.wood += 5 * skills.gather;
             xp += 5;
             checkLevelUp();
             updateUI();
             saveGame();
+            showNotification('Gathered resources!');
         }
 
         function mineResources() {
@@ -98,6 +116,7 @@
             checkLevelUp();
             updateUI();
             saveGame();
+            showNotification('Mined resources!');
         }
 
         function craftItems() {
@@ -109,44 +128,42 @@
                 checkLevelUp();
                 updateUI();
                 saveGame();
-            }
-        }
-
-        function checkLevelUp() {
-            if (xp >= 100) {
-                xp -= 100;
-                level++;
+                showNotification('Crafted items!');
+            }else{
+                showNotification('Not enough resources!');
             }
         }
 
         function autoTrain() {
-            if (!autoTraining) {
-                autoTrainInterval = setInterval(function() {
+            if(autoTraining){
+                clearInterval(autoTrainInterval);
+                document.getElementById('autoTrainBtn').innerText = 'Auto-Train';
+            }else{
+                autoTrainInterval = setInterval(() => {
                     gatherResources();
                     mineResources();
-                }, 10000); // auto-train every 10 seconds
-                autoTraining = true;
-                document.getElementById('autoTrainBtn').innerText = "Stop Auto-Train";
-            } else {
-                clearInterval(autoTrainInterval);
-                autoTraining = false;
-                document.getElementById('autoTrainBtn').innerText = "Auto-Train";
+                }, 5000);
+                document.getElementById('autoTrainBtn').innerText = 'Stop Auto-Train';
+            }
+            autoTraining = !autoTraining;
+        }
+
+        function checkLevelUp() {
+            if (xp >= level * 100) {
+                xp -= level * 100;
+                level++;
+                skills.gather++;
+                skills.mine++;
             }
         }
 
         function saveGame() {
-            let gameData = {
-                xp: xp,
-                level: level,
-                resources: resources,
-                skills: skills,
-                goldCoins: goldCoins
-            };
-            localStorage.setItem('gameData', JSON.stringify(gameData));
+            const gameData = {xp, level, resources, skills, goldCoins};
+            localStorage.setItem('idleGame', JSON.stringify(gameData));
         }
 
         function loadGame() {
-            let gameData = JSON.parse(localStorage.getItem('gameData'));
+            const gameData = JSON.parse(localStorage.getItem('idleGame'));
             if (gameData) {
                 xp = gameData.xp;
                 level = gameData.level;
@@ -162,8 +179,8 @@
         document.getElementById('craftBtn').addEventListener('click', craftItems);
         document.getElementById('autoTrainBtn').addEventListener('click', autoTrain);
 
-        // Load the game progress
-        loadGame();
+        window.onload = loadGame;
+        window.onbeforeunload = saveGame;
     </script>
 </body>
 </html>
