@@ -1,10 +1,25 @@
-var coins = 0;
+ var coins = 0;
 var knightCount = 0;
 var archerCount = 0;
 var wizardCount = 0;
 var counter = document.getElementById("counter");
 
-loadGame();
+var db;
+var request = indexedDB.open("MedievalClickerDB", 1);
+
+request.onupgradeneeded = function(event) {
+    db = event.target.result;
+    db.createObjectStore("gameState", { keyPath: "id" });
+};
+
+request.onsuccess = function(event) {
+    db = event.target.result;
+    loadGame();
+};
+
+request.onerror = function(event) {
+    console.error("Error opening database:", event);
+};
 
 function clickCastle() {
     coins += 1;
@@ -69,22 +84,28 @@ function startAutoIncome(type, income) {
 }
 
 function saveGame() {
-    localStorage.setItem("coins", coins);
-    localStorage.setItem("knightCount", knightCount);
-    localStorage.setItem("archerCount", archerCount);
-    localStorage.setItem("wizardCount", wizardCount);
+    var transaction = db.transaction(["gameState"], "readwrite");
+    var store = transaction.objectStore("gameState");
+    store.put({ id: 1, coins: coins, knightCount: knightCount, archerCount: archerCount, wizardCount: wizardCount });
 }
 
 function loadGame() {
-    coins = parseInt(localStorage.getItem("coins") || 0);
-    knightCount = parseInt(localStorage.getItem("knightCount") || 0);
-    archerCount = parseInt(localStorage.getItem("archerCount") || 0);
-    wizardCount = parseInt(localStorage.getItem("wizardCount") || 0);
-    updateCounter();
-    document.getElementById("knight-count").textContent = knightCount;
-    document.getElementById("archer-count").textContent = archerCount;
-    document.getElementById("wizard-count").textContent = wizardCount;
-    startAutoSave();
+    var transaction = db.transaction(["gameState"], "readonly");
+    var store = transaction.objectStore("gameState");
+    var request = store.get(1);
+
+    request.onsuccess = function(event) {
+        if (request.result) {
+            coins = request.result.coins;
+            knightCount = request.result.knightCount;
+            archerCount = request.result.archerCount;
+            wizardCount = request.result.wizardCount;
+            updateCounter();
+            document.getElementById("knight-count").textContent = knightCount;
+            document.getElementById("archer-count").textContent = archerCount;
+            document.getElementById("wizard-count").textContent = wizardCount;
+        }
+    };
 }
 
 function startAutoSave() {
