@@ -114,3 +114,37 @@ document.getElementById("castle").addEventListener("touchstart", (event) => {
   clickCastle(event);
   event.preventDefault();
 }, false);
+
+function buyUpgrade(type) {
+  let cost = 0;
+  switch (type) {
+    case 'knight':
+      cost = 10 * (knightCount + 1);
+      if (coins >= cost) {
+        coins -= cost;
+        knightCount++;
+        document.getElementById("knight-count").textContent = knightCount;
+        startAutoIncome('knight', 1);
+      }
+      break;
+    case 'archer':
+      cost = 20 * (archerCount + 1);
+      if (coins >= cost) {
+        coins -= cost;
+        archerCount++;
+        document.getElementById("archer-count").textContent = archerCount;
+        startAutoIncome('archer', 2);
+      }
+      break;
+    case 'wizard':
+      cost = 50 * (wizardCount + 1);
+      if (coins >= cost) {
+        coins -= cost;
+        wizardCount++;
+        document.getElementById("wizard-count").textContent = wizardCount;
+        startAutoIncome('wizard', 5);
+      }
+      break;
+  }
+  updateCounter();
+}
