@@ -23,10 +23,6 @@ request.onupgradeneeded = function(event) {
 request.onsuccess = function(event) {
   db = event.target.result;
   loadGame();
-  startAutoSave();
-  startAutoIncome('knight', knightCount);
-  startAutoIncome('archer', archerCount * 2);
-  startAutoIncome('wizard', wizardCount * 5);
 };
 
 request.onerror = function(event) {
@@ -93,15 +89,19 @@ function loadGame() {
   store.get("knightCount").onsuccess = function(event) {
     knightCount = event.target.result?.value || 0;
     document.getElementById("knight-count").textContent = knightCount;
+    startAutoIncome('knight', knightCount);
   };
   store.get("archerCount").onsuccess = function(event) {
     archerCount = event.target.result?.value || 0;
     document.getElementById("archer-count").textContent = archerCount;
+    startAutoIncome('archer', archerCount * 2);
   };
   store.get("wizardCount").onsuccess = function(event) {
     wizardCount = event.target.result?.value || 0;
     document.getElementById("wizard-count").textContent = wizardCount;
+    startAutoIncome('wizard', wizardCount * 5);
   };
+  startAutoSave();
 }
 
 function startAutoSave() {
