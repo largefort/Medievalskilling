@@ -3,7 +3,13 @@ let knightCount = 0;
 let archerCount = 0;
 let wizardCount = 0;
 const counter = document.getElementById("counter");
-const touchNumber = document.getElementById("touch-number");
+const touchNumber = document.createElement("div");
+touchNumber.setAttribute("id", "touch-number");
+touchNumber.style.position = "absolute";
+touchNumber.style.fontSize = "18px";
+touchNumber.style.fontWeight = "bold";
+touchNumber.style.color = "#FFD700";
+document.body.appendChild(touchNumber);
 
 var db;
 var request = indexedDB.open("MedievalClickerDB", 1);
@@ -48,16 +54,16 @@ function formatNumber(num) {
 function showTouchNumber(event) {
   touchNumber.textContent = "+1";
   touchNumber.style.opacity = "1";
-  touchNumber.style.transform = "translateY(-50%)";
+  touchNumber.style.transform = "translateY(0%)";
 
   if (event && event.touches) {
-    touchNumber.style.left = `${event.touches[0].pageX}px`;
-    touchNumber.style.top = `${event.touches[0].pageY}px`;
+    touchNumber.style.left = `${event.touches[0].clientX - touchNumber.clientWidth / 2}px`;
+    touchNumber.style.top = `${event.touches[0].clientY - touchNumber.clientHeight}px`;
   }
 
   setTimeout(function() {
     touchNumber.style.opacity = "0";
-    touchNumber.style.transform = "translateY(-60%)";
+    touchNumber.style.transform = "translateY(-10%)";
   }, 500);
 }
 
