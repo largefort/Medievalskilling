@@ -1,17 +1,22 @@
-#castle {
-    max-width: 100%;
-    height: auto;
-    cursor: pointer;
+body {
+    font-family: "Times New Roman", Times, serif;
+    background-color: #2a1d0e;
+    color: #e2c293;
+}
+
+.container {
+    margin-top: 50px;
 }
 
 #counter {
-    font-size: 20px;
-    margin: 10px;
+    font-size: 24px;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 2px #532c08;
 }
 
-.upgrade {
-    display: inline-block;
-    margin: 10px;
+#castle {
+    border: 5px solid #532c08;
+    box-shadow: 10px 10px 10px #532c08;
     cursor: pointer;
 }
 
@@ -23,4 +28,26 @@
 #owned-upgrades {
     display: flex;
     justify-content: space-around;
+}
+
+.upgrade {
+    font-size: 20px;
+    font-weight: bold;
+    border: 2px solid #532c08;
+    padding: 10px;
+    background-color: #5a3d23;
+    cursor: pointer;
+    text-shadow: 1px 1px 1px #532c08;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.upgrade:hover {
+    background-color: #e2c293;
+    color: #2a1d0e;
+    transform: scale(1.1);
+}
+
+img {
+    max-width: 100%;
+    height: auto;
 }
