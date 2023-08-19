@@ -1,159 +1,29 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Medieval Idle Skilling Game</title>
+    <title>Medieval Clicker</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-        }
-        .game-container {
-            width: 100%;
-            max-width: 600px;
-            margin: 50px auto;
-            padding: 20px;
-            border: 1px solid #000;
-            background-color: #f4f4f4;
-        }
-        .btn {
-            width: 100%;
-            margin-top: 10px;
-        }
-        .resource {
-            font-weight: bold;
-            font-size: 1.2em;
-            width: 100px;
-            display: inline-block;
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="game-container">
-        <h1 class="text-center">Medieval Idle Skilling Game</h1>
+    <div class="container">
         <div class="row">
-            <div class="col-4">
-                <p class="resource">XP: <span id="xp">0</span></p>
-            </div>
-            <div class="col-4">
-                <p class="resource">Level: <span id="level">1</span></p>
-            </div>
-            <div class="col-4">
-                <p class="resource">Coins: <span id="goldCoins">0</span></p>
+            <div class="col-12 text-center">
+                <div id="counter">Gold coins: 0</div>
+                <img id="castle" src="https://via.placeholder.com/250x250" alt="Castle" onclick="clickCastle()"/>
+                <div id="upgrades-container" class="mt-3">
+                    <div class="upgrade" onclick="buyUpgrade('knight')">Knight (<span id="knight-cost">10</span> coins)</div>
+                    <div class="upgrade" onclick="buyUpgrade('archer')">Archer (<span id="archer-cost">25</span> coins)</div>
+                    <div class="upgrade" onclick="buyUpgrade('wizard')">Wizard (<span id="wizard-cost">50</span> coins)</div>
+                </div>
+                <div id="owned-upgrades" class="mt-3">
+                    <div>Knights: <span id="knight-count">0</span></div>
+                    <div>Archers: <span id="archer-count">0</span></div>
+                    <div>Wizards: <span id="wizard-count">0</span></div>
+                </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-4">
-                <p class="resource">Wood: <span id="wood">0</span></p>
-            </div>
-            <div class="col-4">
-                <p class="resource">Stone: <span id="stone">0</span></p>
-            </div>
-            <div class="col-4">
-                <p class="resource">Gold: <span id="gold">0</span></p>
-            </div>
-        </div>
-        <button class="btn btn-primary" id="gatherBtn">Gather</button>
-        <button class="btn btn-secondary" id="mineBtn">Mine</button>
-        <button class="btn btn-success" id="craftBtn">Craft</button>
-        <button class="btn btn-warning" id="autoTrainBtn">Auto-Train</button>
     </div>
-    <script>
-        let xp = 0;
-        let level = 1;
-        let resources = {wood: 0, stone: 0, gold: 0};
-        let skills = {gather: 1, mine: 1};
-        let goldCoins = 0;
-        let autoTraining = false;
-        let autoTrainInterval;
-
-        function compactNotation(number, decimals = 1) {
-            const suffixes = ['K', 'M', 'B', 'T', 'Qa', 'Qi', 'Sx', 'Sp', 'Oc', 'No', 'De'];
-            let i = 0;
-            while (number >= 1000) {
-                number /= 1000;
-                i++;
-            }
-            return i === 0 ? number.toString() : number.toFixed(decimals) + suffixes[i - 1];
-        }
-
-        function gatherResources() {
-            resources.wood += 5 * skills.gather;
-            xp += 5;
-            checkLevelUp();
-            updateUI();
-            saveGame();
-        }
-
-        function mineResources() {
-            resources.stone += 3 * skills.mine;
-            resources.gold += 2 * skills.mine;
-            xp += 10;
-            checkLevelUp();
-            updateUI();
-            saveGame();
-        }
-
-        function craftItems() {
-            if(resources.wood >= 10 && resources.stone >= 5){
-                resources.wood -= 10;
-                resources.stone -= 5;
-                goldCoins += 10;
-                xp += 20;
-                checkLevelUp();
-                updateUI();
-                saveGame();
-            }
-        }
-
-        function checkLevelUp() {
-            if (xp >= 100) {
-                xp -= 100;
-                level++;
-            }
-        }
-
-        function updateUI() {
-            document.getElementById('xp').innerText = compactNotation(xp);
-            document.getElementById('level').innerText = level;
-            document.getElementById('wood').innerText = compactNotation(resources.wood);
-            document.getElementById('stone').innerText = compactNotation(resources.stone);
-            document.getElementById('gold').innerText = compactNotation(resources.gold);
-            document.getElementById('goldCoins').innerText = compactNotation(goldCoins);
-        }
-
-        function saveGame() {
-            localStorage.setItem('xp', xp);
-            localStorage.setItem('level', level);
-            localStorage.setItem('goldCoins', goldCoins);
-            localStorage.setItem('resources', JSON.stringify(resources));
-            localStorage.setItem('skills', JSON.stringify(skills));
-        }
-
-        function loadGame() {
-            xp = parseInt(localStorage.getItem('xp')) || 0;
-            level = parseInt(localStorage.getItem('level')) || 1;
-            goldCoins = parseInt(localStorage.getItem('goldCoins')) || 0;
-            resources = JSON.parse(localStorage.getItem('resources')) || {wood: 0, stone: 0, gold: 0};
-            skills = JSON.parse(localStorage.getItem('skills')) || {gather: 1, mine: 1};
-            updateUI();
-        }
-
-        function startAutoTraining() {
-            if (!autoTraining) {
-                autoTrainInterval = setInterval(gatherResources, 1000);
-                autoTraining = true;
-            } else {
-                clearInterval(autoTrainInterval);
-                autoTraining = false;
-            }
-        }
-
-        document.getElementById('gatherBtn').addEventListener('click', gatherResources);
-        document.getElementById('mineBtn').addEventListener('click', mineResources);
-        document.getElementById('craftBtn').addEventListener('click', craftItems);
-        document.getElementById('autoTrainBtn').addEventListener('click', startAutoTraining);
-
-        window.onload = loadGame;
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
