@@ -16,12 +16,16 @@ body {
 }
 
 #touch-number {
-  font-size: 24px;
-  color: #e2c293;
   position: absolute;
-  transform: translateY(-50%);
-  transition: opacity 0.5s, transform 0.5s;
-  pointer-events: none;
+  font-size: 20px;
+  color: #fff;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 5px;
+  padding: 5px;
+  pointer-events: none; /* makes it unclickable */
+  transition: transform 0.5s ease, opacity 0.5s ease;
+  transform: translateY(-60%);
+  opacity: 0;
 }
 
 #castle {
