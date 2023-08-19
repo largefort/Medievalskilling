@@ -18,16 +18,19 @@ request.onsuccess = function(event) {
   db = event.target.result;
   loadGame();
   startAutoSave();
+  startAutoIncome('knight', knightCount);
+  startAutoIncome('archer', archerCount * 2);
+  startAutoIncome('wizard', wizardCount * 5);
 };
 
 request.onerror = function(event) {
   console.error("Error opening database:", event);
 };
 
-function clickCastle() {
+function clickCastle(event) {
   coins += 1;
   updateCounter();
-  showTouchNumber();
+  showTouchNumber(event);
 }
 
 function updateCounter() {
@@ -42,49 +45,20 @@ function formatNumber(num) {
   if (num >= 1e12) return +(num / 1e12).toFixed(1) + "T";
 }
 
-function showTouchNumber() {
+function showTouchNumber(event) {
   touchNumber.textContent = "+1";
   touchNumber.style.opacity = "1";
   touchNumber.style.transform = "translateY(-50%)";
+
+  if (event && event.touches) {
+    touchNumber.style.left = `${event.touches[0].pageX}px`;
+    touchNumber.style.top = `${event.touches[0].pageY}px`;
+  }
 
   setTimeout(function() {
     touchNumber.style.opacity = "0";
     touchNumber.style.transform = "translateY(-60%)";
   }, 500);
-}
-
-function buyUpgrade(type) {
-  let cost = 0;
-  switch (type) {
-    case 'knight':
-      cost = 10 * (knightCount + 1);
-      if (coins >= cost) {
-        coins -= cost;
-        knightCount++;
-        document.getElementById("knight-count").textContent = knightCount;
-        startAutoIncome('knight', 1);
-      }
-      break;
-    case 'archer':
-      cost = 20 * (archerCount + 1);
-      if (coins >= cost) {
-        coins -= cost;
-        archerCount++;
-        document.getElementById("archer-count").textContent = archerCount;
-        startAutoIncome('archer', 2);
-      }
-      break;
-    case 'wizard':
-      cost = 30 * (wizardCount + 1);
-      if (coins >= cost) {
-        coins -= cost;
-        wizardCount++;
-        document.getElementById("wizard-count").textContent = wizardCount;
-        startAutoIncome('wizard', 5);
-      }
-      break;
-  }
-  updateCounter();
 }
 
 function startAutoIncome(type, income) {
@@ -113,23 +87,14 @@ function loadGame() {
   store.get("knightCount").onsuccess = function(event) {
     knightCount = event.target.result?.value || 0;
     document.getElementById("knight-count").textContent = knightCount;
-    if (knightCount > 0) {
-      startAutoIncome('knight', knightCount);
-    }
   };
   store.get("archerCount").onsuccess = function(event) {
     archerCount = event.target.result?.value || 0;
     document.getElementById("archer-count").textContent = archerCount;
-    if (archerCount > 0) {
-      startAutoIncome('archer', archerCount * 2);
-    }
   };
   store.get("wizardCount").onsuccess = function(event) {
     wizardCount = event.target.result?.value || 0;
     document.getElementById("wizard-count").textContent = wizardCount;
-    if (wizardCount > 0) {
-      startAutoIncome('wizard', wizardCount * 5);
-    }
   };
 }
 
@@ -138,3 +103,8 @@ function startAutoSave() {
     saveGame();
   }, 2000);
 }
+
+document.getElementById("castle").addEventListener("touchstart", (event) => {
+  clickCastle(event);
+  event.preventDefault();
+}, false);
