@@ -119,7 +119,7 @@ function buyUpgrade(type) {
   let cost = 0;
   switch (type) {
     case 'knight':
-      cost = 10 * (knightCount + 1);
+      cost = Math.floor(10 * Math.pow(1.1, knightCount)); // Changed the cost formula to increase the cost exponentially
       if (coins >= cost) {
         coins -= cost;
         knightCount++;
@@ -128,7 +128,7 @@ function buyUpgrade(type) {
       }
       break;
     case 'archer':
-      cost = 20 * (archerCount + 1);
+      cost = Math.floor(20 * Math.pow(1.1, archerCount)); // Changed the cost formula to increase the cost exponentially
       if (coins >= cost) {
         coins -= cost;
         archerCount++;
@@ -137,7 +137,7 @@ function buyUpgrade(type) {
       }
       break;
     case 'wizard':
-      cost = 50 * (wizardCount + 1);
+      cost = Math.floor(50 * Math.pow(1.1, wizardCount)); // Changed the cost formula to increase the cost exponentially
       if (coins >= cost) {
         coins -= cost;
         wizardCount++;
