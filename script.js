@@ -30,9 +30,10 @@ request.onerror = function(event) {
 };
 
 function clickCastle(event) {
-  coins += 1;
+  let coinsToAdd = 1 + (knightCount * 1) + (archerCount * 2) + (wizardCount * 5);
+  coins += coinsToAdd;
   updateCounter();
-  showTouchNumber(event);
+  showTouchNumber(event, coinsToAdd);
 }
 
 function updateCounter() {
@@ -47,8 +48,8 @@ function formatNumber(num) {
   if (num >= 1e12) return +(num / 1e12).toFixed(1) + "T";
 }
 
-function showTouchNumber(event) {
-  touchNumber.textContent = "+1";
+function showTouchNumber(event, coinsToAdd) {
+  touchNumber.textContent = `+${coinsToAdd}`;
   touchNumber.style.opacity = "1";
   touchNumber.style.transform = "translateY(0%)";
 
@@ -119,7 +120,7 @@ function buyUpgrade(type) {
   let cost = 0;
   switch (type) {
     case 'knight':
-      cost = Math.floor(10 * Math.pow(1.1, knightCount)); // Changed the cost formula to increase the cost exponentially
+      cost = Math.floor(10 * Math.pow(1.1, knightCount));
       if (coins >= cost) {
         coins -= cost;
         knightCount++;
@@ -128,7 +129,7 @@ function buyUpgrade(type) {
       }
       break;
     case 'archer':
-      cost = Math.floor(20 * Math.pow(1.1, archerCount)); // Changed the cost formula to increase the cost exponentially
+      cost = Math.floor(20 * Math.pow(1.1, archerCount));
       if (coins >= cost) {
         coins -= cost;
         archerCount++;
@@ -137,7 +138,7 @@ function buyUpgrade(type) {
       }
       break;
     case 'wizard':
-      cost = Math.floor(50 * Math.pow(1.1, wizardCount)); // Changed the cost formula to increase the cost exponentially
+      cost = Math.floor(50 * Math.pow(1.1, wizardCount));
       if (coins >= cost) {
         coins -= cost;
         wizardCount++;
