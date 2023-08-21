@@ -3,13 +3,7 @@ let knightCount = 0;
 let archerCount = 0;
 let wizardCount = 0;
 const counter = document.getElementById("counter");
-const touchNumber = document.createElement("div");
-touchNumber.setAttribute("id", "touch-number");
-touchNumber.style.position = "absolute";
-touchNumber.style.fontSize = "18px";
-touchNumber.style.fontWeight = "bold";
-touchNumber.style.color = "#FFD700";
-document.body.appendChild(touchNumber);
+const touchNumber = document.getElementById("touch-number");
 
 var db;
 var request = indexedDB.open("MedievalClickerDB", 1);
@@ -30,10 +24,9 @@ request.onerror = function(event) {
 };
 
 function clickCastle(event) {
-  let touchValue = 1 + knightCount + archerCount * 2 + wizardCount * 5;
-  coins += touchValue;
+  coins += getTotalIncome();
   updateCounter();
-  showTouchNumber(event, touchValue);
+  showTouchNumber(event);
 }
 
 function updateCounter() {
@@ -48,24 +41,21 @@ function formatNumber(num) {
   if (num >= 1e12) return +(num / 1e12).toFixed(1) + "T";
 }
 
-function showTouchNumber(event, touchValue) {
-  touchNumber.textContent = `+${touchValue}`;
+function showTouchNumber(event) {
+  touchNumber.textContent = `+${getTotalIncome()}`;
+  touchNumber.style.opacity = "1";
+  touchNumber.style.transform = "translate(-50%, -60%) scale(1)";
 
-  if (event && event.touches) {
-    touchNumber.style.left = `${event.touches[0].clientX - touchNumber.clientWidth / 2}px`;
-    touchNumber.style.top = `${event.touches[0].clientY - touchNumber.clientHeight}px`;
+  if (event) {
+    touchNumber.style.left = `${event.clientX - touchNumber.clientWidth / 2}px`;
+    touchNumber.style.top = `${event.clientY - touchNumber.clientHeight}px`;
   }
 
-  gsap.fromTo(touchNumber, {
-    opacity: 1,
-    y: 1
-  }, {
-    opacity: 1,
-    y: -30,
+  gsap.to(touchNumber, {
     duration: 0.5,
-    onComplete: function() {
-      touchNumber.style.opacity = "100";
-    }
+    scale: 1.5,
+    opacity: 0,
+    ease: "power2.out"
   });
 }
 
@@ -88,38 +78,25 @@ function saveGame() {
 function loadGame() {
   const tx = db.transaction("gameState", "readonly");
   const store = tx.objectStore("gameState");
-
   store.get("coins").onsuccess = function(event) {
     coins = event.target.result?.value || 0;
     updateCounter();
   };
-
   store.get("knightCount").onsuccess = function(event) {
     knightCount = event.target.result?.value || 0;
     document.getElementById("knight-count").textContent = knightCount;
     startAutoIncome('knight', knightCount);
   };
-
   store.get("archerCount").onsuccess = function(event) {
     archerCount = event.target.result?.value || 0;
     document.getElementById("archer-count").textContent = archerCount;
     startAutoIncome('archer', archerCount * 2);
   };
-
   store.get("wizardCount").onsuccess = function(event) {
     wizardCount = event.target.result?.value || 0;
     document.getElementById("wizard-count").textContent = wizardCount;
     startAutoIncome('wizard', wizardCount * 5);
   };
-
-  store.get("lastSavedTime").onsuccess = function(event) {
-    const lastSavedTime = event.target.result?.value || Date.now();
-    const timeDifference = Date.now() - lastSavedTime;
-    const offlineEarnings = Math.floor(timeDifference / 1000) * (knightCount + archerCount * 2 + wizardCount * 5);
-    coins += offlineEarnings;
-    updateCounter();
-  };
-
   startAutoSave();
 }
 
@@ -129,21 +106,10 @@ function startAutoSave() {
   }, 2000);
 }
 
-document.getElementById("castle").addEventListener("touchstart", (event) => {
+document.getElementById("castle").addEventListener("click", (event) => {
   clickCastle(event);
-  animateCastle();
   event.preventDefault();
-}, false);
-
-function animateCastle() {
-  const castle = document.getElementById("castle");
-  gsap.to(castle, {
-    scale: 0.95,
-    duration: 0.1,
-    yoyo: true,
-    repeat: 1
-  });
-}
+});
 
 function buyUpgrade(type) {
   let cost = 0;
@@ -177,4 +143,8 @@ function buyUpgrade(type) {
       break;
   }
   updateCounter();
+}
+
+function getTotalIncome() {
+  return 1 + knightCount + archerCount * 2 + wizardCount * 5;
 }
