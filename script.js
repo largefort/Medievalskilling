@@ -64,7 +64,7 @@ function showTouchNumber(event, touchValue) {
     y: -30,
     duration: 0.5,
     onComplete: function() {
-      touchNumber.style.opacity = "100";
+      touchNumber.style.opacity = "1";
     }
   });
 }
