@@ -4,15 +4,41 @@
     <title>Medieval Clicker</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="styles.css">
+    <style>
+        .coinAnimation {
+            animation: coinAnimation 1s linear infinite;
+        }
+
+        @keyframes coinAnimation {
+            0% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+            100% { transform: translateY(0); }
+        }
+
+        .upgrade:hover {
+            background-color: #ffd700;
+            cursor: pointer;
+            transform: scale(1.05);
+        }
+
+        .touchAnimation {
+            animation: touchAnimation 1s ease-out;
+        }
+
+        @keyframes touchAnimation {
+            0% { opacity: 1; transform: translate(-50%, -60%) scale(1); }
+            100% { opacity: 0; transform: translate(-50%, -70%) scale(1.5); }
+        }
+    </style>
 </head>
 <body>
     <div class="container">
         <div class="row">
             <div class="col-12 text-center">
-                <div id="counter">Gold coins: 0</div>
+                <div id="counter" class="coinAnimation">Gold coins: 0</div>
                 <div style="position: relative;">
                     <img id="castle" src="https://raw.githubusercontent.com/largefort/Medievalskilling/main/castle.png" alt="Castle" onclick="clickCastle()"/>
-                    <span id="touch-number" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -60%); font-size: 20px; color: #ffcc00; opacity: 0; transition: transform 0.3s, opacity 0.3s;">+1</span>
+                    <span id="touch-number" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -60%); font-size: 20px; color: #ffcc00; opacity: 0; transition: transform 0.3s, opacity 0.3s;" class="touchAnimation">+1</span>
                 </div>
                 <div id="upgrades-container" class="mt-3">
                     <div class="upgrade" onclick="buyUpgrade('knight')">Knight (<span id="knight-cost">10</span> coins)</div>
