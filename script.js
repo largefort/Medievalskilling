@@ -71,6 +71,7 @@ function saveGame() {
   store.put({ id: "knightCount", value: knightCount });
   store.put({ id: "archerCount", value: archerCount });
   store.put({ id: "wizardCount", value: wizardCount });
+  store.put({ id: "lastSavedTime", value: Date.now() });
 }
 
 function loadGame() {
@@ -99,6 +100,16 @@ function loadGame() {
     document.getElementById("wizard-count").textContent = wizardCount;
     startAutoIncome('wizard', wizardCount * 5);
   };
+
+  store.get("lastSavedTime").onsuccess = function(event) {
+    const lastSavedTime = event.target.result?.value || Date.now();
+    const timeDifference = Date.now() - lastSavedTime;
+    const offlineEarnings = Math.floor(timeDifference / 1000) * (knightCount + archerCount * 2 + wizardCount * 5);
+    coins += offlineEarnings;
+    updateCounter();
+  };
+
+  startAutoSave();
 }
 
 function startAutoSave() {
