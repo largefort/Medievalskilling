@@ -57,14 +57,14 @@ function showTouchNumber(event, touchValue) {
   }
 
   gsap.fromTo(touchNumber, {
-    opacity: 1,
+    opacity: 0,
     y: 1
   }, {
     opacity: 0,
     y: -30,
     duration: 0.5,
     onComplete: function() {
-      touchNumber.style.opacity = "1";
+      touchNumber.style.opacity = "100";
     }
   });
 }
