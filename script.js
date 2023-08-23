@@ -121,4 +121,20 @@ function handleSkillingClick(skill) {
     saveGameData();
 }
 
+// Passive Income Rates
+const knightIncomeRate = 1;  // 1 coin per second
+const archerIncomeRate = 3;  // 3 coins per second
+const wizardIncomeRate = 5;  // 5 coins per second
+
+function passiveIncome() {
+    coins += (knightCount * knightIncomeRate) + 
+             (archerCount * archerIncomeRate) + 
+             (wizardCount * wizardIncomeRate);
+    updateUI();
+    saveGameData();
+}
+
+// This function will run every second to update the player's coins based on passive income
+setInterval(passiveIncome, 1000);
+
 window.addEventListener("beforeunload", saveGameData);
