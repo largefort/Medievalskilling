@@ -6,13 +6,6 @@ let woodcuttingLevel = 1;
 let miningLevel = 1;
 
 const counter = document.getElementById("counter");
-const touchNumber = document.createElement("div");
-touchNumber.setAttribute("id", "touch-number");
-touchNumber.style.position = "absolute";
-touchNumber.style.fontSize = "18px";
-touchNumber.style.fontWeight = "bold";
-touchNumber.style.color = "#FFD700";
-document.body.appendChild(touchNumber);
 
 let db;
 const request = indexedDB.open("gameDB", 1);
@@ -39,7 +32,7 @@ request.onupgradeneeded = function(event) {
 
 function saveGameData() {
     const gameData = {
-        id: 1, 
+        id: 1,
         coins: coins,
         knightCount: knightCount,
         archerCount: archerCount,
@@ -60,7 +53,7 @@ function loadGameData() {
     const objectStore = transaction.objectStore("gameData");
     const request = objectStore.get(1);
     request.onerror = function(event) {
-        console.error("Error fetching game data:", event);
+        console.error("Error loading game data:", event);
     };
     request.onsuccess = function(event) {
         if (request.result) {
@@ -70,76 +63,62 @@ function loadGameData() {
             wizardCount = request.result.wizardCount;
             woodcuttingLevel = request.result.woodcuttingLevel;
             miningLevel = request.result.miningLevel;
-            updateCounter();
+            updateUI();
         }
     };
 }
 
-function clickCastle(event) {
-    let touchValue = 1 + knightCount + archerCount * 2 + wizardCount * 5;
-    coins += touchValue;
-    updateCounter();
-    showTouchNumber(touchValue, event);
-    saveGameData();
-}
-
-function updateCounter() {
+function clickCastle() {
+    coins++;
     counter.textContent = `Gold coins: ${coins}`;
-}
-
-function showTouchNumber(touchValue, event) {
-    touchNumber.textContent = `+${touchValue}`;
-    touchNumber.style.opacity = "1";
-    touchNumber.style.left = `${event.pageX}px`;
-    touchNumber.style.top = `${event.pageY}px`;
-
-    setTimeout(() => {
-        touchNumber.style.opacity = "0";
-    }, 500);
-}
-
-function handleSkillingClick(skill) {
-    if (skill === 'woodcutting') {
-        coins += woodcuttingLevel;
-        woodcuttingLevel++;
-        document.getElementById("woodcutting-level").textContent = woodcuttingLevel;
-    } else if (skill === 'mining') {
-        coins += miningLevel * 2;
-        miningLevel++;
-        document.getElementById("mining-level").textContent = miningLevel;
-    }
-    updateCounter();
     saveGameData();
 }
 
 function buyUpgrade(type) {
-    let cost = 0;
     switch (type) {
-        case 'knight':
-            cost = 10 * (knightCount + 1);
-            if (coins >= cost) {
-                coins -= cost;
+        case "knight":
+            if (coins >= 10) {
+                coins -= 10;
                 knightCount++;
-                document.getElementById("knight-count").textContent = knightCount;
             }
             break;
-        case 'archer':
-            cost = 20 * (archerCount + 1);
-            if (coins >= cost) {
-                coins -= cost;
+        case "archer":
+            if (coins >= 25) {
+                coins -= 25;
                 archerCount++;
-                document.getElementById("archer-count").textContent = archerCount;
             }
             break;
-        case 'wizard':
-            cost = 50 * (wizardCount + 1);
-            if (coins >= cost) {
-                coins -= cost;
+        case "wizard":
+            if (coins >= 50) {
+                coins -= 50;
                 wizardCount++;
-                document.getElementById("wizard-count").textContent = wizardCount;
             }
             break;
     }
-    updateCounter();
+    updateUI();
     saveGameData();
 }
+
+function updateUI() {
+    counter.textContent = `Gold coins: ${coins}`;
+    document.getElementById("knight-count").textContent = knightCount;
+    document.getElementById("archer-count").textContent = archerCount;
+    document.getElementById("wizard-count").textContent = wizardCount;
+    document.getElementById("woodcutting-level").textContent = woodcuttingLevel;
+    document.getElementById("mining-level").textContent = miningLevel;
+}
+
+function handleSkillingClick(skill) {
+    switch (skill) {
+        case "woodcutting":
+            woodcuttingLevel++;
+            break;
+        case "mining":
+            miningLevel++;
+            break;
+    }
+    updateUI();
+    saveGameData();
+}
+
+window.addEventListener("beforeunload", saveGameData);
