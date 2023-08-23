@@ -137,7 +137,7 @@ function updatePassiveIncome() {
 }
 
 function startPassiveIncome() {
-    setInterval(updatePassiveIncome, 5000);
+    setInterval(updatePassiveIncome, 1000);
 }
 
 startPassiveIncome();
