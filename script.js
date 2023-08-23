@@ -70,7 +70,7 @@ function loadGameData() {
 
 function clickCastle() {
     coins++;
-    counter.textContent = `Gold coins: ${coins}`;
+    updateUI();
     saveGameData();
 }
 
@@ -99,8 +99,16 @@ function buyUpgrade(type) {
     saveGameData();
 }
 
+function compactNumberFormat(num) {
+    if (num < 1e3) return num;
+    if (num >= 1e3 && num < 1e6) return +(num / 1e3).toFixed(1) + "K";
+    if (num >= 1e6 && num < 1e9) return +(num / 1e6).toFixed(1) + "M";
+    if (num >= 1e9 && num < 1e12) return +(num / 1e9).toFixed(1) + "B";
+    return +(num / 1e12).toFixed(1) + "T";
+}
+
 function updateUI() {
-    counter.textContent = `Gold coins: ${coins}`;
+    counter.textContent = `Gold coins: ${compactNumberFormat(coins)}`;
     document.getElementById("knight-count").textContent = knightCount;
     document.getElementById("archer-count").textContent = archerCount;
     document.getElementById("wizard-count").textContent = wizardCount;
@@ -121,20 +129,16 @@ function handleSkillingClick(skill) {
     saveGameData();
 }
 
-// Passive Income Rates
-const knightIncomeRate = 1;  // 1 coin per second
-const archerIncomeRate = 3;  // 3 coins per second
-const wizardIncomeRate = 5;  // 5 coins per second
-
-function passiveIncome() {
-    coins += (knightCount * knightIncomeRate) + 
-             (archerCount * archerIncomeRate) + 
-             (wizardCount * wizardIncomeRate);
+function updatePassiveIncome() {
+    let totalPassiveIncome = knightCount * 1 + archerCount * 2 + wizardCount * 5;
+    coins += totalPassiveIncome;
     updateUI();
     saveGameData();
 }
 
-// This function will run every second to update the player's coins based on passive income
-setInterval(passiveIncome, 1000);
+function startPassiveIncome() {
+    setInterval(updatePassiveIncome, 5000);
+}
 
+startPassiveIncome();
 window.addEventListener("beforeunload", saveGameData);
