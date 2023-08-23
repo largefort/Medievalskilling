@@ -24,7 +24,7 @@ request.onerror = function(event) {
 
 request.onsuccess = function(event) {
     db = event.target.result;
-    loadGameData(); // Load game data when IndexedDB connection is successful
+    loadGameData();
 };
 
 request.onupgradeneeded = function(event) {
@@ -85,7 +85,7 @@ function clickCastle() {
     coins += touchValue;
     updateCounter();
     showTouchNumber(touchValue);
-    saveGameData();  // Save game state
+    saveGameData();
 }
 
 function updateCounter() {
@@ -111,7 +111,7 @@ function handleSkillingClick(skill) {
         document.getElementById("mining-level").textContent = miningLevel;
     }
     updateCounter();
-    saveGameData();  // Save game state
+    saveGameData();
 }
 
 function buyUpgrade(type) {
@@ -143,5 +143,14 @@ function buyUpgrade(type) {
             break;
     }
     updateCounter();
-    saveGameData();  // Save game state
+    saveGameData();
 }
+
+function earnPassiveIncome() {
+    let income = knightCount * 1 + archerCount * 2 + wizardCount * 5;
+    coins += income;
+    updateCounter();
+    saveGameData();
+}
+
+setInterval(earnPassiveIncome, 1000);
