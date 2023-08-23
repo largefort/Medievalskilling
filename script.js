@@ -6,7 +6,6 @@ let woodcuttingLevel = 1;
 let miningLevel = 1;
 
 const counter = document.getElementById("counter");
-
 const touchNumber = document.createElement("div");
 touchNumber.setAttribute("id", "touch-number");
 touchNumber.style.position = "absolute";
@@ -15,11 +14,78 @@ touchNumber.style.fontWeight = "bold";
 touchNumber.style.color = "#FFD700";
 document.body.appendChild(touchNumber);
 
+// Creating IndexedDB instance
+let db;
+const request = indexedDB.open("gameDB", 1);
+
+request.onerror = function(event) {
+    console.error("Error opening IndexedDB:", event);
+};
+
+request.onsuccess = function(event) {
+    db = event.target.result;
+    loadGameData(); // Load game data when IndexedDB connection is successful
+};
+
+request.onupgradeneeded = function(event) {
+    db = event.target.result;
+    const objectStore = db.createObjectStore("gameData", { keyPath: "id" });
+    objectStore.createIndex("coins", "coins", { unique: false });
+    objectStore.createIndex("knightCount", "knightCount", { unique: false });
+    objectStore.createIndex("archerCount", "archerCount", { unique: false });
+    objectStore.createIndex("wizardCount", "wizardCount", { unique: false });
+    objectStore.createIndex("woodcuttingLevel", "woodcuttingLevel", { unique: false });
+    objectStore.createIndex("miningLevel", "miningLevel", { unique: false });
+};
+
+function saveGameData() {
+    const gameData = {
+        id: 1, 
+        coins: coins,
+        knightCount: knightCount,
+        archerCount: archerCount,
+        wizardCount: wizardCount,
+        woodcuttingLevel: woodcuttingLevel,
+        miningLevel: miningLevel
+    };
+
+    const transaction = db.transaction(["gameData"], "readwrite");
+    const objectStore = transaction.objectStore("gameData");
+    const request = objectStore.put(gameData);
+
+    request.onerror = function(event) {
+        console.error("Error saving game data:", event);
+    };
+}
+
+function loadGameData() {
+    const transaction = db.transaction(["gameData"]);
+    const objectStore = transaction.objectStore("gameData");
+    const request = objectStore.get(1);
+
+    request.onerror = function(event) {
+        console.error("Error fetching game data:", event);
+    };
+
+    request.onsuccess = function(event) {
+        if (request.result) {
+            coins = request.result.coins;
+            knightCount = request.result.knightCount;
+            archerCount = request.result.archerCount;
+            wizardCount = request.result.wizardCount;
+            woodcuttingLevel = request.result.woodcuttingLevel;
+            miningLevel = request.result.miningLevel;
+            updateCounter();
+        }
+    };
+}
+
 function clickCastle() {
     let touchValue = 1 + knightCount + archerCount * 2 + wizardCount * 5;
     coins += touchValue;
     updateCounter();
     showTouchNumber(touchValue);
+    saveGameData();  // Save game state
 }
 
 function updateCounter() {
@@ -45,6 +111,7 @@ function handleSkillingClick(skill) {
         document.getElementById("mining-level").textContent = miningLevel;
     }
     updateCounter();
+    saveGameData();  // Save game state
 }
 
 function buyUpgrade(type) {
@@ -76,6 +143,5 @@ function buyUpgrade(type) {
             break;
     }
     updateCounter();
+    saveGameData();  // Save game state
 }
-
-// You can further extend this to save skilling levels, load them and implement additional game logic.
