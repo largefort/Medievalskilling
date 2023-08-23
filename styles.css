@@ -15,19 +15,6 @@ body {
     text-shadow: 2px 2px 2px #532c08;
 }
 
-#touch-number {
-  position: absolute;
-  font-size: 20px;
-  color: #fff;
-  background-color: rgba(0, 0, 0, 0.5);
-  border-radius: 5px;
-  padding: 5px;
-  pointer-events: none; /* makes it unclickable */
-  transition: transform 0.5s ease, opacity 0.5s ease;
-  transform: translateY(-60%);
-  opacity: 0;
-}
-
 #castle {
     border: 5px solid #532c08;
     box-shadow: 10px 10px 10px #532c08;
