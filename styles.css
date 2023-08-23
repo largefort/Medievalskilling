@@ -21,17 +21,15 @@ body {
     cursor: pointer;
 }
 
-#upgrades-container {
+#upgrades-container,
+#owned-upgrades,
+#skilling-tab {
     display: flex;
     justify-content: space-around;
+    margin-top: 20px;
 }
 
-#owned-upgrades {
-    display: flex;
-    justify-content: space-around;
-}
-
-.upgrade {
+.upgrade, .skilling-btn {
     font-size: 20px;
     font-weight: bold;
     border: 2px solid #532c08;
@@ -42,7 +40,7 @@ body {
     transition: background-color 0.3s, transform 0.3s;
 }
 
-.upgrade:hover {
+.upgrade:hover, .skilling-btn:hover {
     background-color: #e2c293;
     color: #2a1d0e;
     transform: scale(1.1);
