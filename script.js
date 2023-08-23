@@ -14,7 +14,6 @@ touchNumber.style.fontWeight = "bold";
 touchNumber.style.color = "#FFD700";
 document.body.appendChild(touchNumber);
 
-// Creating IndexedDB instance
 let db;
 const request = indexedDB.open("gameDB", 1);
 
@@ -48,11 +47,9 @@ function saveGameData() {
         woodcuttingLevel: woodcuttingLevel,
         miningLevel: miningLevel
     };
-
     const transaction = db.transaction(["gameData"], "readwrite");
     const objectStore = transaction.objectStore("gameData");
     const request = objectStore.put(gameData);
-
     request.onerror = function(event) {
         console.error("Error saving game data:", event);
     };
@@ -62,11 +59,9 @@ function loadGameData() {
     const transaction = db.transaction(["gameData"]);
     const objectStore = transaction.objectStore("gameData");
     const request = objectStore.get(1);
-
     request.onerror = function(event) {
         console.error("Error fetching game data:", event);
     };
-
     request.onsuccess = function(event) {
         if (request.result) {
             coins = request.result.coins;
@@ -80,11 +75,11 @@ function loadGameData() {
     };
 }
 
-function clickCastle() {
+function clickCastle(event) {
     let touchValue = 1 + knightCount + archerCount * 2 + wizardCount * 5;
     coins += touchValue;
     updateCounter();
-    showTouchNumber(touchValue);
+    showTouchNumber(touchValue, event);
     saveGameData();
 }
 
@@ -92,9 +87,12 @@ function updateCounter() {
     counter.textContent = `Gold coins: ${coins}`;
 }
 
-function showTouchNumber(touchValue) {
+function showTouchNumber(touchValue, event) {
     touchNumber.textContent = `+${touchValue}`;
     touchNumber.style.opacity = "1";
+    touchNumber.style.left = `${event.pageX}px`;
+    touchNumber.style.top = `${event.pageY}px`;
+
     setTimeout(() => {
         touchNumber.style.opacity = "0";
     }, 500);
@@ -145,12 +143,3 @@ function buyUpgrade(type) {
     updateCounter();
     saveGameData();
 }
-
-function earnPassiveIncome() {
-    let income = knightCount * 1 + archerCount * 2 + wizardCount * 5;
-    coins += income;
-    updateCounter();
-    saveGameData();
-}
-
-setInterval(earnPassiveIncome, 1000);
