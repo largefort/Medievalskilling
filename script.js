@@ -4,11 +4,15 @@ let archerCount = 0;
 let wizardCount = 0;
 let woodcuttingLevel = 1;
 let miningLevel = 1;
+let logs = 0;
+let ores = 0;
 
 const counter = document.getElementById("counter");
+const logsCounter = document.getElementById("logs");
+const oresCounter = document.getElementById("ores");
 
 let db;
-const request = indexedDB.open("gameDB", 1);
+const request = indexedDB.open("gameDB", 2);
 
 request.onerror = function(event) {
     console.error("Error opening IndexedDB:", event);
@@ -22,12 +26,15 @@ request.onsuccess = function(event) {
 request.onupgradeneeded = function(event) {
     db = event.target.result;
     const objectStore = db.createObjectStore("gameData", { keyPath: "id" });
+    
     objectStore.createIndex("coins", "coins", { unique: false });
     objectStore.createIndex("knightCount", "knightCount", { unique: false });
     objectStore.createIndex("archerCount", "archerCount", { unique: false });
     objectStore.createIndex("wizardCount", "wizardCount", { unique: false });
     objectStore.createIndex("woodcuttingLevel", "woodcuttingLevel", { unique: false });
     objectStore.createIndex("miningLevel", "miningLevel", { unique: false });
+    objectStore.createIndex("logs", "logs", { unique: false });
+    objectStore.createIndex("ores", "ores", { unique: false });
 };
 
 function saveGameData() {
@@ -38,11 +45,15 @@ function saveGameData() {
         archerCount: archerCount,
         wizardCount: wizardCount,
         woodcuttingLevel: woodcuttingLevel,
-        miningLevel: miningLevel
+        miningLevel: miningLevel,
+        logs: logs,
+        ores: ores
     };
+
     const transaction = db.transaction(["gameData"], "readwrite");
     const objectStore = transaction.objectStore("gameData");
     const request = objectStore.put(gameData);
+
     request.onerror = function(event) {
         console.error("Error saving game data:", event);
     };
@@ -52,9 +63,11 @@ function loadGameData() {
     const transaction = db.transaction(["gameData"]);
     const objectStore = transaction.objectStore("gameData");
     const request = objectStore.get(1);
+    
     request.onerror = function(event) {
         console.error("Error loading game data:", event);
     };
+
     request.onsuccess = function(event) {
         if (request.result) {
             coins = request.result.coins;
@@ -63,6 +76,8 @@ function loadGameData() {
             wizardCount = request.result.wizardCount;
             woodcuttingLevel = request.result.woodcuttingLevel;
             miningLevel = request.result.miningLevel;
+            logs = request.result.logs;
+            ores = request.result.ores;
             updateUI();
         }
     };
@@ -99,46 +114,39 @@ function buyUpgrade(type) {
     saveGameData();
 }
 
-function compactNumberFormat(num) {
-    if (num < 1e3) return num;
-    if (num >= 1e3 && num < 1e6) return +(num / 1e3).toFixed(1) + "K";
-    if (num >= 1e6 && num < 1e9) return +(num / 1e6).toFixed(1) + "M";
-    if (num >= 1e9 && num < 1e12) return +(num / 1e9).toFixed(1) + "B";
-    return +(num / 1e12).toFixed(1) + "T";
-}
-
-function updateUI() {
-    counter.textContent = `Gold coins: ${compactNumberFormat(coins)}`;
-    document.getElementById("knight-count").textContent = knightCount;
-    document.getElementById("archer-count").textContent = archerCount;
-    document.getElementById("wizard-count").textContent = wizardCount;
-    document.getElementById("woodcutting-level").textContent = woodcuttingLevel;
-    document.getElementById("mining-level").textContent = miningLevel;
-}
-
 function handleSkillingClick(skill) {
     switch (skill) {
         case "woodcutting":
-            woodcuttingLevel++;
+            logs++;
             break;
         case "mining":
-            miningLevel++;
+            ores++;
             break;
     }
     updateUI();
     saveGameData();
 }
 
-function updatePassiveIncome() {
-    let totalPassiveIncome = knightCount * 1 + archerCount * 2 + wizardCount * 5;
-    coins += totalPassiveIncome;
+function updateUI() {
+    counter.textContent = `Gold coins: ${formatNumber(coins)}`;
+    logsCounter.textContent = `Logs: ${logs}`;
+    oresCounter.textContent = `Ores: ${ores}`;
+}
+
+function formatNumber(num) {
+    if (num < 1e3) return num;
+    if (num >= 1e3 && num < 1e6) return +(num / 1e3).toFixed(1) + "K";
+    if (num >= 1e6 && num < 1e9) return +(num / 1e6).toFixed(1) + "M";
+    if (num >= 1e9 && num < 1e12) return +(num / 1e9).toFixed(1) + "B";
+    if (num >= 1e12) return +(num / 1e12).toFixed(1) + "T";
+}
+
+setInterval(() => {
+    coins += knightCount; 
+    coins += archerCount * 2; 
+    coins += wizardCount * 5; 
     updateUI();
     saveGameData();
-}
+}, 1000);
 
-function startPassiveIncome() {
-    setInterval(updatePassiveIncome, 1000);
-}
-
-startPassiveIncome();
 window.addEventListener("beforeunload", saveGameData);
