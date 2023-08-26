@@ -2,18 +2,6 @@ body {
     font-family: "Times New Roman", Times, serif;
     background-color: #2a1d0e;
     color: #e2c293;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-    margin: 0;  /* Reset default margin */
-}
-
-#gameContainer {
-    width: 640px;
-    height: 720px;
-    overflow: hidden;
-    background-color: #2a1d0e;
 }
 
 .container {
