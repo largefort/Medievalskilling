@@ -41,9 +41,7 @@
         .upgrade:hover {
             background-color: #3c1e0f;
         }
-
     </style>
-    <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
@@ -70,7 +68,6 @@
                     <h2>Skilling</h2>
                     <div class="upgrade" onclick="handleSkillingClick('woodcutting')">Woodcutting</div>
                     <div class="upgrade" onclick="handleSkillingClick('mining')">Mining</div>
-
                     <div class="mt-3">
                         <div>Woodcutting Level: <span id="woodcutting-level">1</span></div>
                         <div>Mining Level: <span id="mining-level">1</span></div>
@@ -88,18 +85,18 @@
                 </div>
             </div>
 
-            <!-- Stats Tab -->
-            <div class="tab-pane fade" id="stats-tab">
+            <!-- Residents Tab -->
+            <div class="tab-pane fade" id="residents-tab">
                 <div class="col-12 text-center">
-                    <h2>Player Stats</h2>
-                    <div>Game Started: <span id="game-start-time">--</span></div>
-                    <div>Time Played: <span id="hours-played">0</span> hours</div>
-                    <div>Castles Clicked: <span id="castle-clicks">0</span></div>
-                    <div>Upgrades Owned: <span id="upgrades-owned">0</span></div>
-                    <div>Gold Coins Earned: <span id="gold-earned">0</span></div>
-                    <div>Woodcutting Level: <span id="stats-woodcutting-level">1</span></div>
-                    <div>Mining Level: <span id="stats-mining-level">1</span></div>
-                    <div>Running On: <span id="platform-info">--</span></div>
+                    <h2>Residents Management</h2>
+                    <div class="upgrade" onclick="hireResident('farmer')">Hire Farmer (5 coins)</div>
+                    <div class="upgrade" onclick="hireResident('builder')">Hire Builder (10 coins)</div>
+                    <div class="upgrade" onclick="hireResident('merchant')">Hire Merchant (15 coins)</div>
+                    <div class="mt-3">
+                        <div>Farmers: <span id="farmer-count">0</span></div>
+                        <div>Builders: <span id="builder-count">0</span></div>
+                        <div>Merchants: <span id="merchant-count">0</span></div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -109,11 +106,12 @@
             <a class="nav-link active" data-toggle="pill" href="#castle-tab">Castle</a>
             <a class="nav-link" data-toggle="pill" href="#skilling-tab">Skilling</a>
             <a class="nav-link" data-toggle="pill" href="#shop-tab">Shop</a>
-            <a class="nav-link" data-toggle="pill" href="#stats-tab">Stats</a>
+            <a class="nav-link" data-toggle="pill" href="#residents-tab">Residents</a>
         </div>
     </div>
 
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <!-- Scripts -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="script.js"></script>
