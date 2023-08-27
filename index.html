@@ -70,7 +70,6 @@
                     <h2>Skilling</h2>
                     <div class="upgrade" onclick="handleSkillingClick('woodcutting')">Woodcutting</div>
                     <div class="upgrade" onclick="handleSkillingClick('mining')">Mining</div>
-
                     <div class="mt-3">
                         <div>Woodcutting Level: <span id="woodcutting-level">1</span></div>
                         <div>Mining Level: <span id="mining-level">1</span></div>
@@ -88,6 +87,18 @@
                 </div>
             </div>
 
+            <!-- Settings Tab -->
+            <div class="tab-pane fade" id="settings-tab">
+                <div class="col-12 text-center">
+                    <h2>Settings</h2>
+                    <div>
+                        Rendering Quality:
+                        <input type="range" id="rendering-slider" min="1" max="100" value="100" oninput="updateRenderingQuality()">
+                        <span id="rendering-quality">High</span>
+                    </div>
+                </div>
+            </div>
+
         </div>
 
         <!-- Bottom Tab Navigation -->
@@ -95,6 +106,7 @@
             <a class="nav-link active" data-toggle="pill" href="#castle-tab">Castle</a>
             <a class="nav-link" data-toggle="pill" href="#skilling-tab">Skilling</a>
             <a class="nav-link" data-toggle="pill" href="#shop-tab">Shop</a>
+            <a class="nav-link" data-toggle="pill" href="#settings-tab">Settings</a>
         </div>
     </div>
 
@@ -102,6 +114,21 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="script.js"></script>
+    <script>
+        function updateRenderingQuality() {
+            let value = document.getElementById("rendering-slider").value;
+            let label = document.getElementById("rendering-quality");
+            if (value >= 80) {
+                label.innerText = "High";
+            } else if (value >= 50) {
+                label.innerText = "Medium";
+            } else if (value >= 20) {
+                label.innerText = "Low";
+            } else {
+                label.innerText = "Very Low";
+            }
+        }
+    </script>
 </body>
 
 </html>
