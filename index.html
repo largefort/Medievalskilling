@@ -41,13 +41,12 @@
         .upgrade:hover {
             background-color: #3c1e0f;
         }
-
     </style>
     <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
-    <div class="container mt-5">
+    <div class="container mt-5" id="game-container">
         <!-- Tab Content -->
         <div class="tab-content">
 
@@ -70,6 +69,7 @@
                     <h2>Skilling</h2>
                     <div class="upgrade" onclick="handleSkillingClick('woodcutting')">Woodcutting</div>
                     <div class="upgrade" onclick="handleSkillingClick('mining')">Mining</div>
+
                     <div class="mt-3">
                         <div>Woodcutting Level: <span id="woodcutting-level">1</span></div>
                         <div>Mining Level: <span id="mining-level">1</span></div>
@@ -92,13 +92,11 @@
                 <div class="col-12 text-center">
                     <h2>Settings</h2>
                     <div>
-                        Rendering Quality:
-                        <input type="range" id="rendering-slider" min="1" max="100" value="100" oninput="updateRenderingQuality()">
-                        <span id="rendering-quality">High</span>
+                        Rendering Quality: <span id="rendering-quality">High</span>
                     </div>
+                    <input type="range" id="rendering-slider" min="0" max="100" value="100" onchange="updateRenderingQuality()">
                 </div>
             </div>
-
         </div>
 
         <!-- Bottom Tab Navigation -->
@@ -110,25 +108,32 @@
         </div>
     </div>
 
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script src="script.js"></script>
     <script>
         function updateRenderingQuality() {
             let value = document.getElementById("rendering-slider").value;
             let label = document.getElementById("rendering-quality");
+            let gameContainer = document.getElementById("game-container");
+
             if (value >= 80) {
                 label.innerText = "High";
+                gameContainer.style.filter = "none";
             } else if (value >= 50) {
                 label.innerText = "Medium";
+                gameContainer.style.filter = "blur(1px) saturate(80%)";
             } else if (value >= 20) {
                 label.innerText = "Low";
+                gameContainer.style.filter = "blur(3px) saturate(50%)";
             } else {
                 label.innerText = "Very Low";
+                gameContainer.style.filter = "blur(5px) saturate(30%) grayscale(30%)";
             }
         }
     </script>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="script.js"></script>
 </body>
 
 </html>
