@@ -7,11 +7,77 @@ let miningLevel = 1;
 let farmerCount = 0;
 let builderCount = 0;
 let merchantCount = 0;
+let db;
 
 const counter = document.getElementById("counter");
 
+// Initialize the database
+function initializeDB() {
+    const request = indexedDB.open("MedievalClickerDB", 1);
+
+    request.onupgradeneeded = function(event) {
+        db = event.target.result;
+        if (!db.objectStoreNames.contains('gameState')) {
+            db.createObjectStore('gameState');
+        }
+    };
+
+    request.onsuccess = function(event) {
+        db = event.target.result;
+        loadGameData();
+    };
+
+    request.onerror = function(event) {
+        console.log("Error opening DB", event);
+    };
+}
+
+function saveGameData() {
+    const gameState = {
+        coins,
+        knightCount,
+        archerCount,
+        wizardCount,
+        woodcuttingLevel,
+        miningLevel,
+        farmerCount,
+        builderCount,
+        merchantCount
+    };
+
+    const transaction = db.transaction(["gameState"], "readwrite");
+    const store = transaction.objectStore("gameState");
+    store.put(gameState, "currentGameState");
+}
+
+function loadGameData() {
+    const transaction = db.transaction(["gameState"], "readonly");
+    const store = transaction.objectStore("gameState");
+    const request = store.get("currentGameState");
+    request.onsuccess = function(event) {
+        if (request.result) {
+            const savedState = request.result;
+
+            coins = savedState.coins;
+            knightCount = savedState.knightCount;
+            archerCount = savedState.archerCount;
+            wizardCount = savedState.wizardCount;
+            woodcuttingLevel = savedState.woodcuttingLevel;
+            miningLevel = savedState.miningLevel;
+            farmerCount = savedState.farmerCount;
+            builderCount = savedState.builderCount;
+            merchantCount = savedState.merchantCount;
+
+            updateUI();
+        }
+    };
+}
+
+initializeDB();
+
 function clickCastle() {
     coins++;
+    saveGameData();
     updateUI();
 }
 
@@ -36,6 +102,7 @@ function buyUpgrade(type) {
             }
             break;
     }
+    saveGameData();
     updateUI();
 }
 
@@ -60,6 +127,7 @@ function hireResident(type) {
             }
             break;
     }
+    saveGameData();
     updateUI();
 }
 
@@ -94,6 +162,7 @@ function handleSkillingClick(skill) {
             miningLevel++;
             break;
     }
+    saveGameData();
     updateUI();
 }
 
@@ -104,6 +173,7 @@ function updatePassiveIncome() {
     totalPassiveIncome += merchantCount * 3;
 
     coins += totalPassiveIncome;
+    saveGameData();
     updateUI();
 }
 
