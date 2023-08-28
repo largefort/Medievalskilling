@@ -3,15 +3,32 @@
 
 <head>
     <title>Medieval Clicker</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
+        /* Global Styles */
+        body {
+            background-color: #8a5c2e;
+            font-family: 'Old Standard TT', serif;
+            font-size: 18px;
+        }
+
+        .container {
+            background-color: #5a3921;
+            border: 3px solid #8a5c2e;
+            padding: 20px;
+            border-radius: 10px;
+            max-width: 100%;
+            margin: 1em auto;
+        }
+
         /* Bottom Navigation Styles */
         .nav-pills .nav-link {
             background-color: #5a3921;
             color: #f4e4b5;
-            border-radius: 0;
             border-top: 3px solid #8a5c2e;
             border-bottom: 3px solid #3c1e0f;
+            padding: 10px 5px;
         }
 
         .nav-pills .nav-link.active {
@@ -32,8 +49,8 @@
             color: #f4e4b5;
             background-color: #5a3921;
             border: 2px solid #8a5c2e;
-            padding: 10px;
-            margin-bottom: 5px;
+            padding: 15px;
+            margin-bottom: 10px;
             cursor: pointer;
             transition: background-color 0.3s;
         }
@@ -42,16 +59,18 @@
             background-color: #3c1e0f;
         }
 
-        body {
-            background-color: #8a5c2e;
-            font-family: 'Old Standard TT', serif;
-        }
+        @media (max-width: 767px) {
+            img {
+                width: 80%;
+            }
 
-        .container {
-            background-color: #5a3921;
-            border: 3px solid #8a5c2e;
-            padding: 20px;
-            border-radius: 10px;
+            .container {
+                margin-top: 1em;
+            }
+
+            body {
+                font-size: 16px;
+            }
         }
     </style>
 </head>
@@ -93,34 +112,26 @@
                     <div class="upgrade" onclick="buyUpgrade('wizard')">Wizard (<span id="wizard-cost">50</span> coins)</div>
                 </div>
             </div>
-            <!-- Residents Tab -->
-            <div class="tab-pane fade" id="residents-tab">
-                <div class="col-12 text-center">
-                    <h2>Residents Management</h2>
-                    <div class="upgrade" onclick="hireResident('farmer')">Hire Farmer (5 coins)</div>
-                    <div class="upgrade" onclick="hireResident('builder')">Hire Builder (10 coins)</div>
-                    <div class="upgrade" onclick="hireResident('merchant')">Hire Merchant (15 coins)</div>
-                    <div class="mt-3">
-                        <div>Farmers: <span id="farmer-count">0</span></div>
-                        <div>Builders: <span id="builder-count">0</span></div>
-                        <div>Merchants: <span id="merchant-count">0</span></div>
-                    </div>
-                </div>
-            </div>
         </div>
-        <!-- Bottom Tab Navigation -->
-        <div class="nav nav-pills nav-fill fixed-bottom">
-            <a class="nav-link active" data-toggle="pill" href="#castle-tab">Castle</a>
-            <a class="nav-link" data-toggle="pill" href="#skilling-tab">Skilling</a>
-            <a class="nav-link" data-toggle="pill" href="#shop-tab">Shop</a>
-            <a class="nav-link" data-toggle="pill" href="#residents-tab">Residents</a>
-        </div>
+        <!-- Bottom Navigation -->
+        <ul class="nav nav-pills justify-content-center mt-4">
+            <li class="nav-item">
+                <a class="nav-link active" href="#castle-tab" data-toggle="tab">Castle</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#skilling-tab" data-toggle="tab">Skilling</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#shop-tab" data-toggle="tab">Shop</a>
+            </li>
+        </ul>
     </div>
+
     <!-- Scripts -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script src="script.js"></script>
+    <script src="https://raw.githubusercontent.com/largefort/Medievalskilling/main/game.js"></script>
 </body>
 
 </html>
