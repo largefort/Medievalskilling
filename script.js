@@ -4,9 +4,6 @@ let archerCount = 0;
 let wizardCount = 0;
 let woodcuttingLevel = 1;
 let miningLevel = 1;
-let farmerCount = 0;
-let builderCount = 0;
-let merchantCount = 0;
 let db;
 
 const counter = document.getElementById("counter");
@@ -39,10 +36,7 @@ function saveGameData() {
         archerCount,
         wizardCount,
         woodcuttingLevel,
-        miningLevel,
-        farmerCount,
-        builderCount,
-        merchantCount
+        miningLevel
     };
 
     const transaction = db.transaction(["gameState"], "readwrite");
@@ -64,9 +58,6 @@ function loadGameData() {
             wizardCount = savedState.wizardCount;
             woodcuttingLevel = savedState.woodcuttingLevel;
             miningLevel = savedState.miningLevel;
-            farmerCount = savedState.farmerCount;
-            builderCount = savedState.builderCount;
-            merchantCount = savedState.merchantCount;
 
             updateUI();
         }
@@ -106,31 +97,6 @@ function buyUpgrade(type) {
     updateUI();
 }
 
-function hireResident(type) {
-    switch (type) {
-        case "farmer":
-            if (coins >= 5) {
-                coins -= 5;
-                farmerCount++;
-            }
-            break;
-        case "builder":
-            if (coins >= 10) {
-                coins -= 10;
-                builderCount++;
-            }
-            break;
-        case "merchant":
-            if (coins >= 15) {
-                coins -= 15;
-                merchantCount++;
-            }
-            break;
-    }
-    saveGameData();
-    updateUI();
-}
-
 function compactNumberFormat(num) {
     if (num < 1e3) return num;
     if (num >= 1e3 && num < 1e6) return +(num / 1e3).toFixed(1) + "K";
@@ -146,11 +112,6 @@ function updateUI() {
     document.getElementById("wizard-count").textContent = wizardCount;
     document.getElementById("woodcutting-level").textContent = woodcuttingLevel;
     document.getElementById("mining-level").textContent = miningLevel;
-
-    // Update UI for residents
-    document.getElementById("farmer-count").textContent = farmerCount;
-    document.getElementById("builder-count").textContent = builderCount;
-    document.getElementById("merchant-count").textContent = merchantCount;
 }
 
 function handleSkillingClick(skill) {
@@ -168,10 +129,6 @@ function handleSkillingClick(skill) {
 
 function updatePassiveIncome() {
     let totalPassiveIncome = knightCount + archerCount * 2 + wizardCount * 5;
-    totalPassiveIncome += farmerCount;
-    totalPassiveIncome += builderCount * 2;
-    totalPassiveIncome += merchantCount * 3;
-
     coins += totalPassiveIncome;
     saveGameData();
     updateUI();
