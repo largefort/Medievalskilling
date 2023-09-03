@@ -12,19 +12,19 @@ const counter = document.getElementById("counter");
 function initializeDB() {
     const request = indexedDB.open("MedievalClickerDB", 1);
 
-    request.onupgradeneeded = function(event) {
+    request.onupgradeneeded = function (event) {
         db = event.target.result;
         if (!db.objectStoreNames.contains('gameState')) {
             db.createObjectStore('gameState');
         }
     };
 
-    request.onsuccess = function(event) {
+    request.onsuccess = function (event) {
         db = event.target.result;
         loadGameData();
     };
 
-    request.onerror = function(event) {
+    request.onerror = function (event) {
         console.log("Error opening DB", event);
     };
 }
@@ -36,7 +36,7 @@ function saveGameData() {
         archerCount,
         wizardCount,
         woodcuttingLevel,
-        miningLevel
+        miningLevel,
     };
 
     const transaction = db.transaction(["gameState"], "readwrite");
@@ -48,7 +48,7 @@ function loadGameData() {
     const transaction = db.transaction(["gameState"], "readonly");
     const store = transaction.objectStore("gameState");
     const request = store.get("currentGameState");
-    request.onsuccess = function(event) {
+    request.onsuccess = function (event) {
         if (request.result) {
             const savedState = request.result;
 
@@ -129,6 +129,7 @@ function handleSkillingClick(skill) {
 
 function updatePassiveIncome() {
     let totalPassiveIncome = knightCount + archerCount * 2 + wizardCount * 5;
+
     coins += totalPassiveIncome;
     saveGameData();
     updateUI();
