@@ -6,6 +6,27 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
     <style>
+        /* General Styles */
+        body {
+            background-color: #8a5c2e;
+            font-family: 'Old Standard TT', serif;
+        }
+
+        .container {
+            background-color: #5a3921;
+            border: 3px solid #8a5c2e;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .version {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            font-size: 14px;
+            color: #fff;
+        }
+
         /* Bottom Navigation Styles */
         .nav-pills .nav-link {
             background-color: #5a3921;
@@ -43,31 +64,28 @@
             background-color: #3c1e0f;
         }
 
-        body {
-            background-color: #8a5c2e;
-            font-family: 'Old Standard TT', serif;
-        }
-
-        .container {
-            background-color: #5a3921;
-            border: 3px solid #8a5c2e;
-            padding: 20px;
-            border-radius: 10px;
-        }
-
-        /* Castle Icon */
+        /* Castle Styles */
         .clickable-castle {
             cursor: pointer;
+            display: inline-block;
         }
 
-        .clickable-castle img {
+        #castle {
             width: 100px; /* Adjust the size as needed */
-            height: 100px;
+            height: auto;
+        }
+
+        /* Castle Font Awesome Icon */
+        .fa-castle {
+            font-size: 5em;
+            margin-top: 0.3em;
+            color: #3c1e0f;
         }
     </style>
 </head>
 
 <body>
+    <div class="version">Version 1.0.1</div>
     <div class="container mt-5">
         <!-- Tab Content -->
         <div class="tab-content">
@@ -75,9 +93,8 @@
             <div class="tab-pane fade show active" id="castle-tab">
                 <div class="col-12 text-center">
                     <div id="counter">Gold coins: 0</div>
-                    <!-- Container to make the castle and icon clickable -->
                     <div class="clickable-castle" onclick="clickCastle()">
-                        <img id="castle" src="castle.png" alt="Castle" />
+                        <img id="castle" src="https://raw.githubusercontent.com/largefort/Medievalskilling/main/castle.png" alt="Castle" />
                         <i class="fas fa-castle fa-5x mt-3" style="color: #3c1e0f;"></i>
                     </div>
                     <div id="owned-upgrades" class="mt-3">
@@ -112,8 +129,8 @@
         <!-- Bottom Tab Navigation -->
         <div class="nav nav-pills nav-fill fixed-bottom">
             <a class="nav-link active" data-toggle="pill" href="#castle-tab"><i class="fas fa-castle"></i> Castle</a>
-            <a class="nav-link" data-toggle="pill" href="#skilling-tab"><i class="fas fa-hammer"></i> Skilling</a>
-            <a class="nav-link" data-toggle="pill" href="#shop-tab"><i class="fas fa-store"></i> Shop</a>
+            <a class="nav-link" data-toggle="pill" href="#skilling-tab"><i class="fas fa-axe"></i> Skilling</a>
+            <a class="nav-link" data-toggle="pill" href="#shop-tab"><i class="fas fa-shopping-cart"></i> Shop</a>
         </div>
     </div>
     <!-- Scripts -->
