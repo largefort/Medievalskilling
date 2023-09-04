@@ -6,21 +6,6 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        /* Global Styles */
-        body {
-            background-color: #8a5c2e;
-            font-family: 'Old Standard TT', serif;
-            margin: 0;
-            padding: 0;
-        }
-
-        .container {
-            background-color: #5a3921;
-            border: 3px solid #8a5c2e;
-            padding: 20px;
-            border-radius: 10px;
-        }
-
         /* Bottom Navigation Styles */
         .nav-pills .nav-link {
             background-color: #5a3921;
@@ -43,10 +28,6 @@
             border-bottom: 5px groove #3c1e0f;
         }
 
-        .nav-pills .nav-link i {
-            margin-right: 5px;
-        }
-
         /* Upgrade Buttons Styles */
         .upgrade {
             color: #f4e4b5;
@@ -62,112 +43,97 @@
             background-color: #3c1e0f;
         }
 
+        body {
+            background-color: #8a5c2e;
+            font-family: 'Old Standard TT', serif;
+        }
+
+        .container {
+            background-color: #5a3921;
+            border: 3px solid #8a5c2e;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
         /* News Ticker Styles */
-        #news-ticker {
+        .news-ticker {
             background-color: #3c1e0f;
             color: #ffcc00;
-            padding: 5px 0;
+            padding: 5px 10px;
             overflow: hidden;
         }
 
         .news-item {
-            margin: 0;
-            padding: 5px 20px;
-            animation: ticker 60s linear infinite;
+            margin-bottom: 5px;
         }
 
-        @keyframes ticker {
-            0% {
-                transform: translateX(100%);
-            }
-
-            100% {
-                transform: translateX(-100%);
-            }
+        /* Version Number Styles */
+        .version-number {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            color: #ffcc00;
+            font-size: 16px;
         }
     </style>
 </head>
 
 <body>
-    <!-- Top Version Number -->
-    <div class="top-version-number">
-        <span>Version 1.0.1</span>
-    </div>
-
     <div class="container mt-5">
+        <!-- Version Number -->
+        <div class="version-number">Version 1.0.1</div>
+
         <!-- Tab Content -->
         <div class="tab-content">
             <!-- Castle Tab -->
             <div class="tab-pane fade show active" id="castle-tab">
                 <div class="col-12 text-center">
                     <div id="counter">Gold coins: 0</div>
-                    <img id="castle" src="https://raw.githubusercontent.com/largefort/Medievalskilling/main/castle.png" alt="Castle" onclick="clickCastle()" />
-                    <div id="owned-upgrades" class="mt-3">
-                        <div>Knights: <span id="knight-count">0</span></div>
-                        <div>Archers: <span id="archer-count">0</span></div>
-                        <div>Wizards: <span id="wizard-count">0</span></div>
-                    </div>
+                    <i class="fas fa-chess-rook"></i>
                 </div>
             </div>
+
             <!-- Skilling Tab -->
             <div class="tab-pane fade" id="skilling-tab">
                 <div class="col-12 text-center">
                     <h2>Skilling</h2>
-                    <div class="upgrade" onclick="handleSkillingClick('woodcutting')"><i class="fas fa-axe"></i>Woodcutting</div>
-                    <div class="upgrade" onclick="handleSkillingClick('mining')"><i class="fas fa-hammer"></i>Mining</div>
+                    <div class="upgrade" onclick="handleSkillingClick('woodcutting')">Woodcutting</div>
+                    <div class="upgrade" onclick="handleSkillingClick('mining')">Mining</div>
                     <div class="mt-3">
                         <div>Woodcutting Level: <span id="woodcutting-level">1</span></div>
                         <div>Mining Level: <span id="mining-level">1</span></div>
                     </div>
                 </div>
             </div>
+
             <!-- Shop Tab -->
             <div class="tab-pane fade" id="shop-tab">
                 <div class="col-12 text-center">
                     <h2>Shop</h2>
-                    <div class="upgrade" onclick="buyUpgrade('knight')"><i class="fas fa-shield"></i> Knight (<span id="knight-cost">10</span> coins)</div>
-                    <div class="upgrade" onclick="buyUpgrade('archer')"><i class="fas fa-bow-arrow"></i> Archer (<span id="archer-cost">25</span> coins)</div>
-                    <div class="upgrade" onclick="buyUpgrade('wizard')"><i class="fas fa-hat-wizard"></i> Wizard (<span id="wizard-cost">50</span> coins)</div>
+                    <div class="upgrade" onclick="buyUpgrade('knight')">Knight (<span id="knight-cost">10</span> coins)</div>
+                    <div class="upgrade" onclick="buyUpgrade('archer')">Archer (<span id="archer-cost">25</span> coins)</div>
+                    <div class="upgrade" onclick="buyUpgrade('wizard')">Wizard (<span id="wizard-cost">50</span> coins)</div>
                 </div>
             </div>
         </div>
+
         <!-- Bottom Tab Navigation -->
         <div class="nav nav-pills nav-fill fixed-bottom">
-            <a class="nav-link active" data-toggle="pill" href="#castle-tab"><i class="fas fa-home"></i> Castle</a>
-            <a class="nav-link" data-toggle="pill" href="#skilling-tab"><i class="fas fa-tools"></i> Skilling</a>
-            <a class="nav-link" data-toggle="pill" href="#shop-tab"><i class="fas fa-shopping-cart"></i> Shop</a>
+            <a class="nav-link active" data-toggle="pill" href="#castle-tab"><i class="fas fa-chess-rook"></i> Castle</a>
+            <a class="nav-link" data-toggle="pill" href="#skilling-tab"><i class="fas fa-axe"></i> Skilling</a>
+            <a class="nav-link" data-toggle="pill" href="#shop-tab"><i class="fas fa-store"></i> Shop</a>
         </div>
     </div>
 
     <!-- News Ticker -->
-    <div id="news-ticker">
-        <div class="news-item">[Medieval Times News] The kingdom celebrates a bountiful harvest!</div>
-        <div class="news-item">[Medieval Times News] Knights embark on a quest to vanquish the dragon.</div>
-        <div class="news-item">[Medieval Times News] Wizards report a mysterious magical disturbance in the forest.</div>
-        <div class="news-item">[Medieval Times News] The royal jousting tournament concludes with a stunning victory.</div>
-        <div class="news-item">[Medieval Times News] The village blacksmith forges legendary swords for the king's army.</div>
-        <div class="news-item">[Medieval Times News] The queen hosts a grand feast in honor of visiting nobility.</div>
-        <div class="news-item">[Medieval Times News] A new trade route is established, bringing exotic goods to the kingdom.</div>
-        <div class="news-item">[Medieval Times News] A group of adventurers sets out to explore the haunted forest.</div>
-        <div class="news-item">[Medieval Times News] Villagers rejoice as the plague that plagued the land is finally vanquished.</div>
-        <div class="news-item">[Medieval Times News] Minstrels and bards entertain the court with tales of heroism and love.</div>
-        <div class="news-item">[Medieval Times News] The kingdom's scholars uncover lost scrolls containing ancient knowledge.</div>
-        <div class="news-item">[Medieval Times News] A mysterious knight in black armor challenges the kingdom's champion.</div>
-        <div class="news-item">[Medieval Times News] The royal garden blooms with vibrant colors as spring arrives.</div>
-        <div class="news-item">[Medieval Times News] A grand procession marks the crowning of a new king.</div>
-        <div class="news-item">[Medieval Times News] The village fair showcases contests of strength and skill.</div>
-        <div class="news-item">[Medieval Times News] The castle's dungeons hold dark secrets of the past.</div>
-        <div class="news-item">[Medieval Times News] A comet streaks across the night sky, heralding an auspicious event.</div>
-        <div class="news-item">[Medieval Times News] The kingdom's craftsmen create intricate tapestries to adorn the halls.</div>
-        <div class="news-item">[Medieval Times News] A group of thieves is captured and sentenced to the stocks in the town square.</div>
-        <div class="news-item">[Medieval Times News] The royal falconer trains a new hunting bird for the king's sport.</div>
+    <div class="news-ticker" id="news-ticker">
+        <!-- News items will be dynamically added here -->
     </div>
 
     <!-- Scripts -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
     <script src="script.js"></script>
 </body>
 
