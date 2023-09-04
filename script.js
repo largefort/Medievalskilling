@@ -101,10 +101,10 @@ function updateNewsTicker() {
         newsItem.textContent = "[Medieval Times News] " + generateRandomNews();
         newsTicker.appendChild(newsItem);
 
-        if (newsTicker.childElementCount > 20) {
+        if (newsTicker.childElementCount > 1) {
             newsTicker.removeChild(newsTicker.children[0]);
         }
-    }, 60000);
+    }, 7000);
 }
 
 updateNewsTicker();
