@@ -6,7 +6,6 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        /* Bottom Navigation Styles */
         .nav-pills .nav-link {
             background-color: #5a3921;
             color: #f4e4b5;
@@ -28,7 +27,6 @@
             border-bottom: 5px groove #3c1e0f;
         }
 
-        /* Upgrade Buttons Styles */
         .upgrade {
             color: #f4e4b5;
             background-color: #5a3921;
@@ -55,7 +53,6 @@
             border-radius: 10px;
         }
 
-        /* News Ticker Styles */
         .news-ticker {
             background-color: #3c1e0f;
             color: #ffcc00;
@@ -67,7 +64,6 @@
             margin-bottom: 5px;
         }
 
-        /* Version Number Styles */
         .version-number {
             position: absolute;
             top: 10px;
@@ -76,7 +72,6 @@
             font-size: 16px;
         }
 
-        /* Castle Image Styles */
         #castle {
             cursor: pointer;
             width: 200px;
@@ -86,12 +81,8 @@
 
 <body>
     <div class="container mt-5">
-        <!-- Version Number -->
         <div class="version-number">Version 1.0.1</div>
-
-        <!-- Tab Content -->
         <div class="tab-content">
-            <!-- Castle Tab -->
             <div class="tab-pane fade show active" id="castle-tab">
                 <div class="col-12 text-center">
                     <div id="counter">Gold coins: 0</div>
@@ -99,7 +90,6 @@
                 </div>
             </div>
 
-            <!-- Skilling Tab -->
             <div class="tab-pane fade" id="skilling-tab">
                 <div class="col-12 text-center">
                     <h2>Skilling</h2>
@@ -112,7 +102,6 @@
                 </div>
             </div>
 
-            <!-- Shop Tab -->
             <div class="tab-pane fade" id="shop-tab">
                 <div class="col-12 text-center">
                     <h2>Shop</h2>
@@ -123,7 +112,6 @@
             </div>
         </div>
 
-        <!-- Bottom Tab Navigation -->
         <div class="nav nav-pills nav-fill fixed-bottom">
             <a class="nav-link active" data-toggle="pill" href="#castle-tab"><i class="fas fa-chess-rook"></i> Castle</a>
             <a class="nav-link" data-toggle="pill" href="#skilling-tab"><i class="fas fa-axe"></i> Skilling</a>
@@ -131,12 +119,9 @@
         </div>
     </div>
 
-    <!-- News Ticker -->
     <div class="news-ticker" id="news-ticker">
-        <!-- News items will be dynamically added here -->
     </div>
 
-    <!-- Scripts -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
