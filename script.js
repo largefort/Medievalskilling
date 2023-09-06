@@ -6,8 +6,6 @@ let woodcuttingLevel = 1;
 let miningLevel = 1;
 let db;
 
-const counter = document.getElementById("counter");
-
 // Initialize the database
 function initializeDB() {
     const request = indexedDB.open("MedievalClickerDB", 1);
@@ -140,3 +138,11 @@ function startPassiveIncome() {
 }
 
 startPassiveIncome();
+
+// AdMob Integration
+// Initialize AdMob
+window.adsbygoogle = window.adsbygoogle || [];
+window.adsbygoogle.push({
+  google_ad_client: 'ca-app-pub-5816082932921993~6716142775', // Replace with your App ID
+  enable_page_level_ads: true
+});
