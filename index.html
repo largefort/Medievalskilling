@@ -5,55 +5,92 @@
     <title>Medieval Clicker</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <!-- AdMob Script -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script>
+        (adsbygoogle = window.adsbygoogle || []).push({
+            google_ad_client: "ca-app-pub-5816082932921993~1245955520", // Replace with your App ID
+            enable_page_level_ads: true
+        });
+    </script>
+    
     <style>
-        /* Bottom Navigation Styles */
-        .nav-pills .nav-link {
-            background-color: #5a3921;
-            color: #d4af37; /* Dark Yellow color */
-            border-radius: 0;
-            border-top: 3px solid #8a5c2e;
-            border-bottom: 3px solid #3c1e0f;
-        }
-
-        .nav-pills .nav-link.active {
-            background-color: #3c1e0f;
-            color: #ffcc00;
-            border-top: 3px solid #3c1e0f;
-            border-bottom: 3px solid #8a5c2e;
-        }
-
-        .nav-pills {
-            background-color: #452c16;
-            border-top: 5px ridge #8a5c2e;
-            border-bottom: 5px groove #3c1e0f;
-        }
-
-        /* Upgrade Buttons Styles */
-        .upgrade {
-            color: #d4af37; /* Dark Yellow color */
-            background-color: #5a3921;
-            border: 2px solid #8a5c2e;
-            padding: 10px;
-            margin-bottom: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-
-        .upgrade:hover {
-            background-color: #3c1e0f;
-        }
-
+        /* Medieval Clicker Original Styles */
         body {
-            background-color: #8a5c2e;
-            font-family: 'Old Standard TT', serif;
-            color: #d4af37; /* Dark Yellow color */
+            background-color: #2a1d0e;
+            color: #e2c293;
+            font-family: "Times New Roman", Times, serif;
+            line-height: 1.5;
+            margin: 0;
+            padding: 0;
         }
 
         .container {
-            background-color: #5a3921;
-            border: 3px solid #8a5c2e;
-            padding: 20px;
-            border-radius: 10px;
+            margin: 50px auto 0 auto;
+            position: relative;
+            width: 80%;
+            max-width: 1200px;
+        }
+
+        #counter {
+            font-size: 24px;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 2px #532c08;
+        }
+
+        #castle {
+            border: 5px solid #532c08;
+            box-shadow: 10px 10px 10px #532c08;
+            cursor: pointer;
+            transition: box-shadow 0.3s;
+        }
+
+        #castle:hover {
+            box-shadow: 6px 6px 6px #532c08;
+        }
+
+        #upgrades-container, #owned-upgrades, #skilling-tab {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            margin-top: 20px;
+        }
+
+        .upgrade, .skilling-btn {
+            font-size: 20px;
+            font-weight: bold;
+            border: 2px solid #532c08;
+            padding: 10px 20px;
+            background-color: #5a3d23;
+            cursor: pointer;
+            text-shadow: 1px 1px 1px #532c08;
+            transition: background-color 0.3s, transform 0.3s, color 0.3s;
+            margin: 10px;
+        }
+
+        .upgrade:hover, .skilling-btn:hover {
+            background-color: #e2c293;
+            color: #2a1d0e;
+            transform: scale(1.1);
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* Responsive design for smaller screens */
+        @media (max-width: 768px) {
+            .container {
+                width: 95%;
+            }
+        }
+
+        /* AdMob Styles */
+        .adsbygoogle {
+            display: block;
+            text-align: center;
         }
     </style>
 </head>
@@ -107,6 +144,15 @@
             <a class="nav-link" data-toggle="pill" href="#shop-tab"><i class="fas fa-shopping-cart"></i> Shop</a>
         </div>
     </div>
+    <!-- AdMob Ad Banner -->
+    <ins class="adsbygoogle"
+        style="display:block"
+        data-ad-client="ca-app-pub-5816082932921993~1245955520"
+        data-ad-slot="ca-app-pub-5816082932921993/2610173937"
+        data-ad-format="auto"></ins>
+    <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
     <!-- Scripts -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
