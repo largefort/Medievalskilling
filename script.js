@@ -5,27 +5,26 @@ let wizardCount = 0;
 let woodcuttingLevel = 1;
 let miningLevel = 1;
 let db;
-let newsIndex = 0;
 
 const counter = document.getElementById("counter");
-const newsTicker = document.getElementById("news-ticker");
 
+// Initialize the database
 function initializeDB() {
     const request = indexedDB.open("MedievalClickerDB", 1);
 
-    request.onupgradeneeded = function(event) {
+    request.onupgradeneeded = function (event) {
         db = event.target.result;
         if (!db.objectStoreNames.contains('gameState')) {
             db.createObjectStore('gameState');
         }
     };
 
-    request.onsuccess = function(event) {
+    request.onsuccess = function (event) {
         db = event.target.result;
         loadGameData();
     };
 
-    request.onerror = function(event) {
+    request.onerror = function (event) {
         console.log("Error opening DB", event);
     };
 }
@@ -49,7 +48,7 @@ function loadGameData() {
     const transaction = db.transaction(["gameState"], "readonly");
     const store = transaction.objectStore("gameState");
     const request = store.get("currentGameState");
-    request.onsuccess = function(event) {
+    request.onsuccess = function (event) {
         if (request.result) {
             const savedState = request.result;
 
@@ -139,35 +138,5 @@ function updatePassiveIncome() {
 function startPassiveIncome() {
     setInterval(updatePassiveIncome, 1000);
 }
-
-function updateNewsTicker() {
-    const news = [
-        "The kingdom's treasury is running low on gold.",
-        "A dragon has been spotted in the nearby mountains.",
-        "Knights are training hard to defend the kingdom.",
-        "Archers are practicing their aim in the castle courtyard.",
-        "Wizards are studying ancient scrolls for new spells.",
-        "Woodcutters are chopping wood for the kingdom.",
-        "Miners are digging deep for valuable resources.",
-        "Farmers are harvesting crops to feed the kingdom.",
-        "Builders are constructing new structures in the castle.",
-        "Merchants are trading goods with neighboring kingdoms.",
-        "Rumors of a hidden treasure spread through the land.",
-        "A grand feast is being prepared in the castle.",
-        "The kingdom's population continues to grow.",
-        "The castle walls are being reinforced.",
-        "A mysterious illness plagues the kingdom.",
-        "The royal jester entertains the court with jests and tricks.",
-        "Bards sing tales of valor and heroism.",
-        "A new bridge is built to ease travel across the river.",
-        "The kingdom's banners wave proudly in the wind.",
-        "A comet streaks across the night sky."
-    ];
-
-    newsTicker.textContent = news[newsIndex];
-    newsIndex = (newsIndex + 1) % news.length;
-}
-
-setInterval(updateNewsTicker, 7000); // Update news every 7 seconds
 
 startPassiveIncome();
