@@ -20,6 +20,7 @@ function initializeDB() {
     request.onsuccess = function (event) {
         db = event.target.result;
         loadGameData();
+        toggleCSSFilter(); // Apply CSS filter if checkbox is initially checked
     };
 
     request.onerror = function (event) {
@@ -138,6 +139,23 @@ function startPassiveIncome() {
 }
 
 startPassiveIncome();
+
+// Enable CSS Filter
+function toggleCSSFilter() {
+    const cssFilterCheckbox = document.getElementById("css-filter");
+    const castleImage = document.getElementById("castle");
+
+    if (cssFilterCheckbox.checked) {
+        // Apply CSS filter when the checkbox is checked
+        castleImage.style.filter = "grayscale(100%)"; // You can adjust the filter style as needed
+    } else {
+        // Remove CSS filter when the checkbox is unchecked
+        castleImage.style.filter = "none";
+    }
+
+    // Save the CSS filter state in the game data
+    saveGameData();
+}
 
 // AdMob Integration
 // Initialize AdMob
