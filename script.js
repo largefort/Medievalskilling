@@ -4,7 +4,9 @@ let archerCount = 0;
 let wizardCount = 0;
 let woodcuttingLevel = 1;
 let miningLevel = 1;
-let db;
+let goldOreCount = 0;
+let diamondOreCount = 0;
+let obsidianOreCount = 0;
 
 // Initialize the database
 function initializeDB() {
@@ -20,7 +22,6 @@ function initializeDB() {
     request.onsuccess = function (event) {
         db = event.target.result;
         loadGameData();
-        toggleCSSFilter(); // Apply CSS filter if checkbox is initially checked
     };
 
     request.onerror = function (event) {
@@ -36,6 +37,9 @@ function saveGameData() {
         wizardCount,
         woodcuttingLevel,
         miningLevel,
+        goldOreCount,
+        diamondOreCount,
+        obsidianOreCount,
     };
 
     const transaction = db.transaction(["gameState"], "readwrite");
@@ -57,6 +61,9 @@ function loadGameData() {
             wizardCount = savedState.wizardCount;
             woodcuttingLevel = savedState.woodcuttingLevel;
             miningLevel = savedState.miningLevel;
+            goldOreCount = savedState.goldOreCount;
+            diamondOreCount = savedState.diamondOreCount;
+            obsidianOreCount = savedState.obsidianOreCount;
 
             updateUI();
         }
@@ -111,6 +118,9 @@ function updateUI() {
     document.getElementById("wizard-count").textContent = wizardCount;
     document.getElementById("woodcutting-level").textContent = woodcuttingLevel;
     document.getElementById("mining-level").textContent = miningLevel;
+    document.getElementById("gold-ore-counter").textContent = goldOreCount;
+    document.getElementById("diamond-ore-counter").textContent = diamondOreCount;
+    document.getElementById("obsidian-ore-counter").textContent = obsidianOreCount;
 }
 
 function handleSkillingClick(skill) {
@@ -120,6 +130,22 @@ function handleSkillingClick(skill) {
             break;
         case "mining":
             miningLevel++;
+            break;
+    }
+    saveGameData();
+    updateUI();
+}
+
+function collectResource(resourceType) {
+    switch (resourceType) {
+        case "gold-ore":
+            goldOreCount++;
+            break;
+        case "diamond-ore":
+            diamondOreCount++;
+            break;
+        case "obsidian-ore":
+            obsidianOreCount++;
             break;
     }
     saveGameData();
@@ -139,25 +165,6 @@ function startPassiveIncome() {
 }
 
 startPassiveIncome();
-
-// Enable CSS Filter
-function toggleCSSFilter() {
-    const cssFilterCheckbox = document.getElementById("css-filter");
-    const castleImage = document.getElementById("castle");
-
-    if (cssFilterCheckbox.checked) {
-        // Apply advanced CSS styles when the checkbox is checked
-        castleImage.style.filter = "sepia(30%) contrast(150%) brightness(80%)"; // Example advanced filter
-        castleImage.classList.add("medieval-advanced"); // Add a class for advanced medieval style
-    } else {
-        // Remove CSS styles when the checkbox is unchecked
-        castleImage.style.filter = "none";
-        castleImage.classList.remove("medieval-advanced"); // Remove the class
-    }
-
-    // Save the CSS filter state in the game data
-    saveGameData();
-}
 
 // AdMob Integration
 // Initialize AdMob
