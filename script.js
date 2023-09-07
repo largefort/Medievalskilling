@@ -146,11 +146,13 @@ function toggleCSSFilter() {
     const castleImage = document.getElementById("castle");
 
     if (cssFilterCheckbox.checked) {
-        // Apply CSS filter when the checkbox is checked
-        castleImage.style.filter = "grayscale(100%)"; // You can adjust the filter style as needed
+        // Apply advanced CSS styles when the checkbox is checked
+        castleImage.style.filter = "sepia(30%) contrast(150%) brightness(80%)"; // Example advanced filter
+        castleImage.classList.add("medieval-advanced"); // Add a class for advanced medieval style
     } else {
-        // Remove CSS filter when the checkbox is unchecked
+        // Remove CSS styles when the checkbox is unchecked
         castleImage.style.filter = "none";
+        castleImage.classList.remove("medieval-advanced"); // Remove the class
     }
 
     // Save the CSS filter state in the game data
