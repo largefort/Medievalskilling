@@ -4,9 +4,9 @@ let archerCount = 0;
 let wizardCount = 0;
 let woodcuttingLevel = 1;
 let miningLevel = 1;
-let goldOreCount = 0;
-let diamondOreCount = 0;
-let obsidianOreCount = 0;
+let db;
+
+const counter = document.getElementById("counter");
 
 // Initialize the database
 function initializeDB() {
@@ -37,9 +37,6 @@ function saveGameData() {
         wizardCount,
         woodcuttingLevel,
         miningLevel,
-        goldOreCount,
-        diamondOreCount,
-        obsidianOreCount,
     };
 
     const transaction = db.transaction(["gameState"], "readwrite");
@@ -61,9 +58,6 @@ function loadGameData() {
             wizardCount = savedState.wizardCount;
             woodcuttingLevel = savedState.woodcuttingLevel;
             miningLevel = savedState.miningLevel;
-            goldOreCount = savedState.goldOreCount;
-            diamondOreCount = savedState.diamondOreCount;
-            obsidianOreCount = savedState.obsidianOreCount;
 
             updateUI();
         }
@@ -118,9 +112,6 @@ function updateUI() {
     document.getElementById("wizard-count").textContent = wizardCount;
     document.getElementById("woodcutting-level").textContent = woodcuttingLevel;
     document.getElementById("mining-level").textContent = miningLevel;
-    document.getElementById("gold-ore-counter").textContent = goldOreCount;
-    document.getElementById("diamond-ore-counter").textContent = diamondOreCount;
-    document.getElementById("obsidian-ore-counter").textContent = obsidianOreCount;
 }
 
 function handleSkillingClick(skill) {
@@ -130,22 +121,6 @@ function handleSkillingClick(skill) {
             break;
         case "mining":
             miningLevel++;
-            break;
-    }
-    saveGameData();
-    updateUI();
-}
-
-function collectResource(resourceType) {
-    switch (resourceType) {
-        case "gold-ore":
-            goldOreCount++;
-            break;
-        case "diamond-ore":
-            diamondOreCount++;
-            break;
-        case "obsidian-ore":
-            obsidianOreCount++;
             break;
     }
     saveGameData();
@@ -165,11 +140,3 @@ function startPassiveIncome() {
 }
 
 startPassiveIncome();
-
-// AdMob Integration
-// Initialize AdMob
-window.adsbygoogle = window.adsbygoogle || [];
-window.adsbygoogle.push({
-  google_ad_client: 'ca-app-pub-5816082932921993~6716142775', // Replace with your App ID
-  enable_page_level_ads: true
-});
