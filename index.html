@@ -1,141 +1,82 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Medieval Clicker</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-
-    <!-- AdMob Script -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-    <script>
-        (adsbygoogle = window.adsbygoogle || []).push({
-            google_ad_client: "ca-app-pub-5816082932921993~6716142775", // Replace with your App ID
-            enable_page_level_ads: true
-        });
-    </script>
-
     <style>
-        /* Medieval Clicker Original Styles */
+        /* Global Styles */
         body {
-            font-family: "Times New Roman", Times, serif;
-            background-color: #2a1d0e;
-            color: #d4af37; /* Dark Yellow color */
-            line-height: 1.5;
-            margin: 0;
-            padding: 0;
+            background-color: #8a5c2e;
+            font-family: 'Old Standard TT', serif;
         }
 
         .container {
-            margin: 20px auto;
-            position: relative;
-            width: 95%; /* Adjusted width for smaller screens */
-            max-width: 600px; /* Max width for mobile view */
-        }
-
-        #counter {
-            font-size: 24px;
-            margin-bottom: 20px;
-            text-shadow: 2px 2px 2px #532c08;
-        }
-
-        #castle {
-            border: 5px solid #532c08;
-            box-shadow: 10px 10px 10px #532c08;
-            cursor: pointer;
-            transition: box-shadow 0.3s;
-        }
-
-        #castle:hover {
-            box-shadow: 6px 6px 6px #532c08;
-        }
-
-        #upgrades-container, #owned-upgrades, #skilling-tab, #resources-tab, #shop-tab {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-around;
-            margin-top: 20px;
-        }
-
-        .upgrade, .skilling-btn, .resource {
-            font-size: 20px;
-            font-weight: bold;
-            border: 2px solid #532c08;
-            padding: 10px 20px;
-            background-color: #5a3d23;
-            cursor: pointer;
-            text-shadow: 1px 1px 1px #532c08;
-            transition: background-color 0.3s, transform 0.3s, color 0.3s;
-            margin: 10px;
-        }
-
-        .upgrade:hover, .skilling-btn:hover, .resource:hover {
-            background-color: #e2c293;
-            color: #2a1d0e;
-            transform: scale(1.1);
-        }
-
-        img {
-            max-width: 100%;
-            height: auto;
-        }
-
-        /* AdMob Styles */
-        .adsbygoogle {
-            display: block;
-            text-align: center;
-        }
-
-        /* Resources tab styles */
-        #resource-counters {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-around;
-            margin-top: 20px;
-        }
-
-        .resource-counter {
-            font-size: 16px;
-            margin: 5px;
-            text-align: center;
-            width: 30%;
-        }
-
-        /* Bottom navigation tabs */
-        .bottom-tabs {
-            background-color: #5a3d23;
+            background-color: #5a3921;
+            border: 3px solid #8a5c2e;
+            padding: 20px;
             border-radius: 10px;
-            margin: 20px auto; /* Centered margin for mobile */
-            text-align: center;
-            position: fixed;
-            bottom: 0; /* Positioned at the bottom */
-            width: 100%; /* Full width */
         }
 
-        .bottom-tab-link {
-            color: #d4af37;
-            font-weight: bold;
-            padding: 10px 20px;
-            margin-right: 5px;
-            border: 2px solid #532c08;
-            border-radius: 5px;
-            text-align: center;
-            transition: background-color 0.3s, color 0.3s;
+        /* Tab Styles */
+        .tab-content {
+            background-color: #5a3921;
+            border: 3px solid #8a5c2e;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
         }
 
-        .bottom-tab-link.active {
-            background-color: #532c08;
-            color: #e2c293;
+        /* Nav Styles */
+        .nav-pills .nav-link {
+            background-color: #5a3921;
+            color: #f4e4b5;
+            border-radius: 0;
+            border-top: 3px solid #8a5c2e;
+            border-bottom: 3px solid #3c1e0f;
+        }
+
+        .nav-pills .nav-link.active {
+            background-color: #3c1e0f;
+            color: #ffcc00;
+            border-top: 3px solid #3c1e0f;
+            border-bottom: 3px solid #8a5c2e;
+        }
+
+        .nav-pills {
+            background-color: #452c16;
+            border-top: 5px ridge #8a5c2e;
+            border-bottom: 5px groove #3c1e0f;
+        }
+
+        /* Upgrade Buttons Styles */
+        .upgrade {
+            color: #f4e4b5;
+            background-color: #5a3921;
+            border: 2px solid #8a5c2e;
+            padding: 10px;
+            margin-bottom: 15px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .upgrade:hover {
+            background-color: #3c1e0f;
         }
     </style>
 </head>
 
 <body>
     <div class="container mt-5">
+        <!-- Tab Content -->
         <div class="tab-content">
             <!-- Castle Tab -->
             <div class="tab-pane fade show active" id="castle-tab">
                 <div class="col-12 text-center">
+                    <h2>Castle</h2>
                     <div id="counter">Gold coins: 0</div>
                     <img id="castle" src="https://raw.githubusercontent.com/largefort/Medievalskilling/main/castle.png"
                         alt="Castle" onclick="clickCastle()" />
@@ -158,69 +99,35 @@
                     </div>
                 </div>
             </div>
-            <!-- Resources Tab -->
-            <div class="tab-pane fade" id="resources-tab">
-                <div class="col-12 text-center">
-                    <h2>Resources</h2>
-                    <div class="resource" onclick="collectResource('gold-ore')">Gold Ore (<span
-                            id="gold-ore-counter">0</span>)</div>
-                    <div class="resource" onclick="collectResource('diamond-ore')">Diamond Ore (<span
-                            id="diamond-ore-counter">0</span>)</div>
-                    <div class="resource" onclick="collectResource('obsidian-ore')">Obsidian Ore (<span
-                            id="obsidian-ore-counter">0</span>)</div>
-                </div>
-                <!-- Resource Counters -->
-                <div id="resource-counters">
-                    <div class="resource-counter">
-                        Gold Ore: <span id="gold-ore-counter">0</span>
-                    </div>
-                    <div class="resource-counter">
-                        Diamond Ore: <span id="diamond-ore-counter">0</span>
-                    </div>
-                    <div class="resource-counter">
-                        Obsidian Ore: <span id="obsidian-ore-counter">0</span>
-                    </div>
-                </div>
-            </div>
             <!-- Shop Tab -->
             <div class="tab-pane fade" id="shop-tab">
                 <div class="col-12 text-center">
                     <h2>Shop</h2>
-                    <div class="upgrade" onclick="buyUpgrade('knight')">Buy Knight (10 Gold)</div>
-                    <div class="upgrade" onclick="buyUpgrade('archer')">Buy Archer (25 Gold)</div>
-                    <div class="upgrade" onclick="buyUpgrade('wizard')">Buy Wizard (50 Gold)</div>
+                    <div class="upgrade" onclick="buyUpgrade('knight')"><i class="fas fa-chess-knight"></i> Knight (<span
+                            id="knight-cost">10</span> coins)</div>
+                    <div class="upgrade" onclick="buyUpgrade('archer')"><i class="fas fa-bullseye"></i> Archer (<span
+                            id="archer-cost">25</span> coins)</div>
+                    <div class="upgrade" onclick="buyUpgrade('wizard')"><i class="fas fa-hat-wizard"></i> Wizard (<span
+                            id="wizard-cost">50</span> coins)</div>
                 </div>
             </div>
         </div>
+        <!-- Bottom Tab Navigation -->
+        <ul class="nav nav-pills fixed-bottom justify-content-center">
+            <li class="nav-item">
+                <a class="nav-link active" data-toggle="pill" href="#castle-tab"><i class="fas fa-castle"></i> Castle</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="pill" href="#skilling-tab"><i class="fas fa-hammer"></i> Skilling</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="pill" href="#shop-tab"><i class="fas fa-shopping-cart"></i> Shop</a>
+            </li>
+        </ul>
     </div>
-    <!-- Bottom Navigation Tabs -->
-    <ul class="nav nav-pills bottom-tabs">
-        <li class="nav-item">
-            <a class="nav-link active bottom-tab-link" data-toggle="tab" href="#castle-tab">Castle</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link bottom-tab-link" data-toggle="tab" href="#skilling-tab">Skilling</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link bottom-tab-link" data-toggle="tab" href="#resources-tab">Resources</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link bottom-tab-link" data-toggle="tab" href="#shop-tab">Shop</a>
-        </li>
-    </ul>
-    <!-- AdMob Ad Banner -->
-    <ins class="adsbygoogle"
-        style="display:block"
-        data-ad-client="ca-app-pub-5816082932921993~6716142775"
-        data-ad-slot="ca-app-pub-5816082932921993/4392661919"
-        data-ad-format="auto"></ins>
-    <script>
-        (adsbygoogle = window.adsbygoogle || []).push({});
-    </script>
     <!-- Scripts -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.min.js"></script>
     <script src="script.js"></script>
 </body>
 
