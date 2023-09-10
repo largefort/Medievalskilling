@@ -119,6 +119,15 @@
             color: #5a3d23;
         }
 
+        /* Guild Tab Styles */
+        #guild-tab {
+            text-align: center;
+        }
+
+        #guild-tab-content {
+            margin-top: 20px;
+        }
+
         /* AdMob Styles */
         .adsbygoogle {
             display: block;
@@ -176,6 +185,20 @@
                             id="wizard-cost">50</span> coins)</div>
                 </div>
             </div>
+
+            <!-- Guild Tab -->
+            <div class="tab-pane fade" id="guild" role="tabpanel" aria-labelledby="guild-tab">
+                <div id="guild-tab-content">
+                    <h2>Your Guild</h2>
+                    <div>
+                        <p><strong>Guild Name:</strong> <span id="guild-name">My Guild</span></p>
+                        <p><strong>Guild Level:</strong> <span id="guild-level">1</span></p>
+                        <p><strong>Guild Experience:</strong> <span id="guild-experience">0</span></p>
+                    </div>
+                    <button onclick="createGuild()">Create Guild</button>
+                    <button onclick="joinGuild()">Join Guild</button>
+                </div>
+            </div>
         </div>
 
         <!-- Bottom Tab Navigation -->
@@ -192,12 +215,18 @@
                 <a class="nav-link" id="shop-tab" data-bs-toggle="pill" href="#shop" role="tab" aria-controls="shop"
                     aria-selected="false">Shop</a>
             </li>
+            <!-- Guild Tab -->
+            <li class="nav-item" role="presentation">
+                <a class="nav-link" id="guild-tab" data-bs-toggle="pill" href="#guild" role="tab" aria-controls="guild"
+                    aria-selected="false">Guild</a>
+            </li>
         </ul>
     </div>
 
     <!-- AdMob Ad Banner -->
-    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-app-pub-5816082932921993~6716142775"
-        data-ad-slot="ca-app-pub-5816082932921993/4392661919" data-ad-format="auto"></ins>
+    <ins class="adsbygoogle" style="display:block"
+        data-ad-client="ca-app-pub-5816082932921993~6716142775" data-ad-slot="ca-app-pub-5816082932921993/4392661919"
+        data-ad-format="auto"></ins>
     <script>
         (adsbygoogle = window.adsbygoogle || []).push({});
     </script>
@@ -206,7 +235,46 @@
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.min.js"></script>
-    <script src="script.js"></script>
+    <script>
+        // Guild Object to store guild information
+        const guild = {
+            name: "My Guild",
+            level: 1,
+            experience: 0,
+        };
+
+        // Function to add guild experience points
+        function addGuildExperience(points) {
+            guild.experience += points;
+            updateGuildInfo();
+            
+            // Check if the guild should level up
+            checkGuildLevelUp();
+        }
+
+        // Function to update guild information on the page
+        function updateGuildInfo() {
+            document.getElementById("guild-name").textContent = guild.name;
+            document.getElementById("guild-level").textContent = guild.level;
+            document.getElementById("guild-experience").textContent = guild.experience;
+        }
+
+        // Function to check if the guild should level up
+        function checkGuildLevelUp() {
+            // Define the experience threshold for leveling up
+            const levelUpThreshold = 100; // Adjust this as needed
+
+            if (guild.experience >= levelUpThreshold) {
+                guild.level++;
+                guild.experience = 0; // Reset experience after leveling up
+                updateGuildInfo();
+                alert(`Congratulations! Your guild has reached level ${guild.level}!`);
+            }
+        }
+
+        // Example usage: Add 50 experience points to the guild
+        addGuildExperience(50);
+    </script>
 </body>
 
 </html>
