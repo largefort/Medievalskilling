@@ -6,15 +6,6 @@ let woodcuttingLevel = 1;
 let miningLevel = 1;
 let db;
 
-// Guild Object to store guild information
-const guild = {
-    name: "My Guild",
-    level: 1,
-    experience: 0,
-};
-
-const counter = document.getElementById("counter");
-
 // Initialize the database
 function initializeDB() {
     const request = indexedDB.open("MedievalClickerDB", 1);
@@ -71,57 +62,7 @@ function loadGameData() {
     };
 }
 
-function initializeGuildDB() {
-    const request = indexedDB.open("MedievalGuildDB", 1);
-
-    request.onupgradeneeded = function (event) {
-        db = event.target.result;
-        if (!db.objectStoreNames.contains('guildState')) {
-            db.createObjectStore('guildState');
-        }
-    };
-
-    request.onsuccess = function (event) {
-        db = event.target.result;
-        loadGuildData();
-    };
-
-    request.onerror = function (event) {
-        console.log("Error opening Guild DB", event);
-    };
-}
-
-function saveGuildData() {
-    const guildData = {
-        name: guild.name,
-        level: guild.level,
-        experience: guild.experience,
-    };
-
-    const transaction = db.transaction(["guildState"], "readwrite");
-    const store = transaction.objectStore("guildState");
-    store.put(guildData, "currentGuildData");
-}
-
-function loadGuildData() {
-    const transaction = db.transaction(["guildState"], "readonly");
-    const store = transaction.objectStore("guildState");
-    const request = store.get("currentGuildData");
-    request.onsuccess = function (event) {
-        if (request.result) {
-            const savedGuildData = request.result;
-
-            guild.name = savedGuildData.name;
-            guild.level = savedGuildData.level;
-            guild.experience = savedGuildData.experience;
-
-            updateGuildInfo();
-        }
-    };
-}
-
 initializeDB();
-initializeGuildDB();
 
 function clickCastle() {
     coins++;
@@ -169,11 +110,6 @@ function updateUI() {
     document.getElementById("wizard-count").textContent = wizardCount;
     document.getElementById("woodcutting-level").textContent = woodcuttingLevel;
     document.getElementById("mining-level").textContent = miningLevel;
-
-    // Update guild information
-    document.getElementById("guild-name").textContent = guild.name;
-    document.getElementById("guild-level").textContent = guild.level;
-    document.getElementById("guild-experience").textContent = guild.experience;
 }
 
 function handleSkillingClick(skill) {
@@ -202,3 +138,11 @@ function startPassiveIncome() {
 }
 
 startPassiveIncome();
+
+// AdMob Integration
+// Initialize AdMob
+window.adsbygoogle = window.adsbygoogle || [];
+window.adsbygoogle.push({
+  google_ad_client: 'ca-app-pub-5816082932921993~6716142775', // Replace with your App ID
+  enable_page_level_ads: true
+});
