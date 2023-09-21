@@ -5,6 +5,24 @@ let wizardCount = 0;
 const counter = document.getElementById("counter");
 const touchNumber = document.getElementById("touch-number");
 
+var db;
+var request = indexedDB.open("MedievalClickerDB", 1);
+
+request.onupgradeneeded = function(event) {
+  db = event.target.result;
+  const store = db.createObjectStore("gameState", { keyPath: "id" });
+  store.createIndex("value", "value", { unique: false });
+};
+
+request.onsuccess = function(event) {
+  db = event.target.result;
+  loadGame();
+};
+
+request.onerror = function(event) {
+  console.error("Error opening database:", event);
+};
+
 function clickCastle() {
   coins += 1 + knightCount + archerCount * 2 + wizardCount * 5;
   updateCounter();
@@ -75,4 +93,42 @@ function startAutoIncome(type, income) {
   }, 1000);
 }
 
-startPassiveIncome();
+function saveGame() {
+  const tx = db.transaction("gameState", "readwrite");
+  const store = tx.objectStore("gameState");
+  store.put({ id: "coins", value: coins });
+  store.put({ id: "knightCount", value: knightCount });
+  store.put({ id: "archerCount", value: archerCount });
+  store.put({ id: "wizardCount", value: wizardCount });
+}
+
+function loadGame() {
+  const tx = db.transaction("gameState", "readonly");
+  const store = tx.objectStore("gameState");
+  store.get("coins").onsuccess = function(event) {
+    coins = event.target.result?.value || 0;
+    updateCounter();
+  };
+  store.get("knightCount").onsuccess = function(event) {
+    knightCount = event.target.result?.value || 0;
+    document.getElementById("knight-count").textContent = knightCount;
+    startAutoIncome('knight', knightCount);
+  };
+  store.get("archerCount").onsuccess = function(event) {
+    archerCount = event.target.result?.value || 0;
+    document.getElementById("archer-count").textContent = archerCount;
+    startAutoIncome('archer', archerCount * 2);
+  };
+  store.get("wizardCount").onsuccess = function(event) {
+    wizardCount = event.target.result?.value || 0;
+    document.getElementById("wizard-count").textContent = wizardCount;
+    startAutoIncome('wizard', wizardCount * 5);
+  };
+  startAutoSave();
+}
+
+function startAutoSave() {
+  setInterval(function() {
+    saveGame();
+  }, 2000);
+}
