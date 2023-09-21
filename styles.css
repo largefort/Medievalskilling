@@ -1,17 +1,12 @@
 body {
     font-family: "Times New Roman", Times, serif;
     background-color: #2a1d0e;
-    color: #d4af37; /* Dark Yellow color */
-    line-height: 1.5;
-    margin: 0;
-    padding: 0;
+    color: #e2c293;
 }
 
 .container {
-    margin: 50px auto 0 auto;
+    margin-top: 50px;
     position: relative;
-    width: 80%;
-    max-width: 1200px;
 }
 
 #counter {
@@ -20,37 +15,43 @@ body {
     text-shadow: 2px 2px 2px #532c08;
 }
 
+#touch-number {
+  font-size: 24px;
+  color: #e2c293;
+  position: absolute;
+  transform: translateY(-50%);
+  transition: opacity 0.5s, transform 0.5s;
+  pointer-events: none;
+}
+
 #castle {
     border: 5px solid #532c08;
     box-shadow: 10px 10px 10px #532c08;
     cursor: pointer;
-    transition: box-shadow 0.3s;
 }
 
-#castle:hover {
-    box-shadow: 6px 6px 6px #532c08;
-}
-
-#upgrades-container, #owned-upgrades, #skilling-tab {
+#upgrades-container {
     display: flex;
-    flex-wrap: wrap;
     justify-content: space-around;
-    margin-top: 20px;
 }
 
-.upgrade, .skilling-btn {
+#owned-upgrades {
+    display: flex;
+    justify-content: space-around;
+}
+
+.upgrade {
     font-size: 20px;
     font-weight: bold;
     border: 2px solid #532c08;
-    padding: 10px 20px;
+    padding: 10px;
     background-color: #5a3d23;
     cursor: pointer;
     text-shadow: 1px 1px 1px #532c08;
-    transition: background-color 0.3s, transform 0.3s, color 0.3s;
-    margin: 10px;
+    transition: background-color 0.3s, transform 0.3s;
 }
 
-.upgrade:hover, .skilling-btn:hover {
+.upgrade:hover {
     background-color: #e2c293;
     color: #2a1d0e;
     transform: scale(1.1);
@@ -59,10 +60,4 @@ body {
 img {
     max-width: 100%;
     height: auto;
-}
-
-@media (max-width: 768px) {
-    .container {
-        width: 95%;
-    }
 }
