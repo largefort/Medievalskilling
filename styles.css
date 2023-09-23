@@ -2,6 +2,8 @@ body {
     font-family: "Times New Roman", Times, serif;
     background-color: #2a1d0e;
     color: #e2c293;
+    margin: 0; /* Remove default margin for WebView */
+    padding: 0; /* Remove default padding for WebView */
 }
 
 .container {
@@ -16,16 +18,16 @@ body {
 }
 
 #touch-number {
-  position: absolute;
-  font-size: 20px;
-  color: #fff;
-  background-color: rgba(0, 0, 0, 0.5);
-  border-radius: 5px;
-  padding: 5px;
-  pointer-events: none; /* makes it unclickable */
-  transition: transform 0.5s ease, opacity 0.5s ease;
-  transform: translateY(-60%);
-  opacity: 0;
+    position: absolute;
+    font-size: 20px;
+    color: #fff;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 5px;
+    padding: 5px;
+    pointer-events: none; /* makes it unclickable */
+    transition: transform 0.5s ease, opacity 0.5s ease;
+    transform: translateY(-60%);
+    opacity: 0;
 }
 
 #castle {
