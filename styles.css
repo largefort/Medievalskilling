@@ -1,59 +1,67 @@
-/* Medieval Clicker Game Styles */
-
 body {
-  background-image: url('medieval_background.jpg'); /* Replace with your medieval background image */
-  background-repeat: no-repeat;
-  background-size: cover;
-  font-family: 'MedievalFont', serif; /* Replace with a medieval-themed font */
-  margin: 0;
-  padding: 0;
-  color: #ffd700; /* Text color */
+    font-family: "Times New Roman", Times, serif;
+    background-color: #2a1d0e;
+    color: #e2c293;
 }
 
 .container {
-  text-align: center;
-  padding: 20px;
+    margin-top: 50px;
+    position: relative;
 }
 
 #counter {
-  font-size: 24px;
-  font-weight: bold;
-  margin-top: 20px;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Add text shadow for readability */
-}
-
-#castle {
-  cursor: pointer;
-  border: 2px solid #4caf50; /* Castle image border */
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* Castle image shadow */
-}
-
-.upgrade {
-  display: inline-block;
-  padding: 10px 20px;
-  background-color: #4caf50;
-  color: #fff;
-  border: none;
-  cursor: pointer;
-  margin: 5px;
-  font-size: 16px;
-  font-weight: bold;
-  text-transform: uppercase;
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5); /* Add text shadow for readability */
-}
-
-#owned-upgrades {
-  font-size: 18px;
-  font-weight: bold;
-  margin-top: 20px;
+    font-size: 24px;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 2px #532c08;
 }
 
 #touch-number {
   position: absolute;
-  font-size: 18px;
-  font-weight: bold;
-  color: #ffd700;
-  transition: all 0.5s;
-  transform: translateY(-10%);
+  font-size: 20px;
+  color: #fff;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 5px;
+  padding: 5px;
+  pointer-events: none; /* makes it unclickable */
+  transition: transform 0.5s ease, opacity 0.5s ease;
+  transform: translateY(-60%);
   opacity: 0;
+}
+
+#castle {
+    border: 5px solid #532c08;
+    box-shadow: 10px 10px 10px #532c08;
+    cursor: pointer;
+}
+
+#upgrades-container {
+    display: flex;
+    justify-content: space-around;
+}
+
+#owned-upgrades {
+    display: flex;
+    justify-content: space-around;
+}
+
+.upgrade {
+    font-size: 20px;
+    font-weight: bold;
+    border: 2px solid #532c08;
+    padding: 10px;
+    background-color: #5a3d23;
+    cursor: pointer;
+    text-shadow: 1px 1px 1px #532c08;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.upgrade:hover {
+    background-color: #e2c293;
+    color: #2a1d0e;
+    transform: scale(1.1);
+}
+
+img {
+    max-width: 100%;
+    height: auto;
 }
