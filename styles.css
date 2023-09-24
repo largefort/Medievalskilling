@@ -24,8 +24,8 @@ body {
     background-color: rgba(0, 0, 0, 0.5);
     border-radius: 5px;
     padding: 5px;
-    pointer-events: none; /* makes it unclickable */
-    transition: transform 0.5s ease, opacity 0.5s ease, visibility 0.5s ease; /* Added visibility transition */
+    pointer-events: none;
+    transition: opacity 0.5s ease, visibility 0.5s ease; /* Added visibility transition */
     transform: translateY(-60%);
     opacity: 0;
     visibility: hidden; /* Initially hidden */
@@ -69,9 +69,9 @@ img {
     height: auto;
 }
 
-/* Add a class to trigger the fade-in effect */
-.fade-in {
-    visibility: visible;
-    opacity: 1;
-    transform: translateY(0);
+/* Add a class to trigger the fade-out effect */
+.fade-out {
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.5s ease, visibility 0.5s ease;
 }
