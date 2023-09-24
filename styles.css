@@ -2,63 +2,55 @@ body {
     font-family: "Times New Roman", Times, serif;
     background-color: #2a1d0e;
     color: #e2c293;
-    margin: 0; /* Remove default margin for WebView */
-    padding: 0; /* Remove default padding for WebView */
+    line-height: 1.5;
+    margin: 0;
+    padding: 0;
 }
 
 .container {
-    margin-top: 50px;
+    margin: 2% auto;
     position: relative;
+    width: 95%; /* Adjusted for smaller screens */
+    max-width: 1200px;
 }
 
 #counter {
-    font-size: 24px;
+    font-size: 2rem; /* Using 'rem' for better scalability */
     margin-bottom: 20px;
     text-shadow: 2px 2px 2px #532c08;
-}
-
-#touch-number {
-    position: absolute;
-    font-size: 20px;
-    color: #fff;
-    background-color: rgba(0, 0, 0, 0.5);
-    border-radius: 5px;
-    padding: 5px;
-    pointer-events: none;
-    transition: opacity 0.5s ease, visibility 0.5s ease; /* Added visibility transition */
-    transform: translateY(-60%);
-    opacity: 0;
-    visibility: hidden; /* Initially hidden */
 }
 
 #castle {
     border: 5px solid #532c08;
     box-shadow: 10px 10px 10px #532c08;
     cursor: pointer;
+    transition: box-shadow 0.3s;
 }
 
-#upgrades-container {
+#castle:hover {
+    box-shadow: 6px 6px 6px #532c08;
+}
+
+#upgrades-container, #owned-upgrades, #skilling-tab {
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-around;
+    margin-top: 20px;
 }
 
-#owned-upgrades {
-    display: flex;
-    justify-content: space-around;
-}
-
-.upgrade {
-    font-size: 20px;
+.upgrade, .skilling-btn {
+    font-size: 1.6rem; /* Using 'rem' for better scalability */
     font-weight: bold;
     border: 2px solid #532c08;
-    padding: 10px;
+    padding: 10px 20px;
     background-color: #5a3d23;
     cursor: pointer;
     text-shadow: 1px 1px 1px #532c08;
-    transition: background-color 0.3s, transform 0.3s;
+    transition: background-color 0.3s, transform 0.3s, color 0.3s;
+    margin: 10px;
 }
 
-.upgrade:hover {
+.upgrade:hover, .skilling-btn:hover {
     background-color: #e2c293;
     color: #2a1d0e;
     transform: scale(1.1);
@@ -69,9 +61,16 @@ img {
     height: auto;
 }
 
-/* Add a class to trigger the fade-out effect */
-.fade-out {
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.5s ease, visibility 0.5s ease;
+/* Responsive design for smaller screens */
+@media (max-width: 768px) {
+    .container {
+        width: 95%;
+        margin: 5% auto; /* Adjusted margin for better centering */
+    }
+    #counter {
+        font-size: 1.8rem; /* Adjusted font size for smaller screens */
+    }
+    .upgrade, .skilling-btn {
+        font-size: 1.4rem; /* Adjusted font size for smaller screens */
+    }
 }
