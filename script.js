@@ -44,6 +44,11 @@ function showTouchNumber(event, touchValue) {
     touchNumber.style.top = `${event.touches[0].clientY - touchNumber.clientHeight}px`;
   }
 
+  // Add the fade-out class to trigger the fade-out effect after a delay
+  setTimeout(() => {
+    touchNumber.classList.add("fade-out");
+  }, 1000); // Adjust the delay (in milliseconds) as needed
+
   gsap.fromTo(
     touchNumber,
     {
@@ -171,4 +176,4 @@ function buyUpgrade(type) {
       break;
   }
   updateCounter();
-      }
+}
