@@ -162,4 +162,15 @@ function prestige() {
     // Save the game data after prestiging.
     saveGameData();
 
-    // Update the UI to reflect the
+    // Update the UI to reflect the changes.
+    updateUI();
+}
+
+function calculatePrestigeBonus() {
+    // Calculate the prestige bonus based on your game's criteria.
+    // For example, you can base it on the total number of knights, archers, and wizards.
+    // Adjust this formula to balance your game properly.
+    return Math.pow(prestigeMultiplier, prestigeLevel);
+}
+
+startPassiveIncome();
