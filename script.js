@@ -5,6 +5,8 @@ let wizardCount = 0;
 let woodcuttingLevel = 1;
 let miningLevel = 1;
 let db;
+let prestigeLevel = 0;
+let prestigeMultiplier = 2; // Adjust this multiplier based on your game balance.
 
 const counter = document.getElementById("counter");
 
@@ -37,6 +39,7 @@ function saveGameData() {
         wizardCount,
         woodcuttingLevel,
         miningLevel,
+        prestigeLevel,
     };
 
     const transaction = db.transaction(["gameState"], "readwrite");
@@ -58,6 +61,7 @@ function loadGameData() {
             wizardCount = savedState.wizardCount;
             woodcuttingLevel = savedState.woodcuttingLevel;
             miningLevel = savedState.miningLevel;
+            prestigeLevel = savedState.prestigeLevel;
 
             updateUI();
         }
@@ -112,6 +116,7 @@ function updateUI() {
     document.getElementById("wizard-count").textContent = wizardCount;
     document.getElementById("woodcutting-level").textContent = woodcuttingLevel;
     document.getElementById("mining-level").textContent = miningLevel;
+    document.getElementById("prestige-level").textContent = prestigeLevel;
 }
 
 function handleSkillingClick(skill) {
@@ -139,4 +144,22 @@ function startPassiveIncome() {
     setInterval(updatePassiveIncome, 1000);
 }
 
-startPassiveIncome();
+function prestige() {
+    // Calculate the prestige bonus based on your game's criteria.
+    const prestigeBonus = calculatePrestigeBonus();
+
+    // Apply the prestige bonus to the game variables.
+    coins = Math.floor(coins * prestigeBonus);
+    knightCount = 0;
+    archerCount = 0;
+    wizardCount = 0;
+    woodcuttingLevel = 1;
+    miningLevel = 1;
+
+    // Increment the prestige level.
+    prestigeLevel++;
+
+    // Save the game data after prestiging.
+    saveGameData();
+
+    // Update the UI to reflect the
