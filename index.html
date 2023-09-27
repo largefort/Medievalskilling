@@ -61,6 +61,9 @@
 
 <body>
     <div class="container mt-5">
+        <!-- Fullscreen Button -->
+        <button id="fullscreen-button">Go Fullscreen</button>
+
         <!-- Tab Content -->
         <div class="tab-content">
             <!-- Castle Tab -->
@@ -106,7 +109,6 @@
                     <h2>Miscellaneous</h2>
                     <div>Prestige Level: <span id="prestige-level">0</span></div>
                     <div>Prestige Bonus: <span id="prestige-bonus">1x</span></div>
-                    <button class="upgrade" onclick="prestige()">Prestige</button>
                 </div>
             </div>
         </div>
@@ -115,7 +117,7 @@
             <a class="nav-link active" data-toggle="pill" href="#castle-tab"><i class="fas fa-castle"></i> Castle</a>
             <a class="nav-link" data-toggle="pill" href="#skilling-tab"><i class="fas fa-hammer"></i> Skilling</a>
             <a class="nav-link" data-toggle="pill" href="#shop-tab"><i class="fas fa-shopping-cart"></i> Shop</a>
-            <a class="nav-link" data-toggle="pill" href="#misc-tab"><i class="fas fa-cogs"></i> Miscellaneous</a>
+            <a class="nav-link" data-toggle="pill" href="#misc-tab"><i class="fas fa-info"></i> Misc</a>
         </div>
     </div>
     <!-- Scripts -->
@@ -123,6 +125,23 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="script.js"></script>
+    <script>
+        const fullscreenButton = document.getElementById("fullscreen-button");
+
+        // Function to toggle fullscreen
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen().catch((err) => {
+                    console.error(`Error attempting to enable fullscreen: ${err.message}`);
+                });
+            } else {
+                document.exitFullscreen();
+            }
+        }
+
+        // Add click event listener to the fullscreen button
+        fullscreenButton.addEventListener("click", toggleFullscreen);
+    </script>
 </body>
 
 </html>
