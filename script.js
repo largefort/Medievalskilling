@@ -4,11 +4,13 @@ let archerCount = 0;
 let wizardCount = 0;
 let woodcuttingLevel = 1;
 let miningLevel = 1;
-let db;
 let prestigeLevel = 0;
-let prestigeMultiplier = 2; // Adjust this multiplier based on your game balance.
+let prestigeBonus = 1;
+let db;
 
 const counter = document.getElementById("counter");
+const prestigeLevelDisplay = document.getElementById("prestige-level");
+const prestigeBonusDisplay = document.getElementById("prestige-bonus");
 
 // Initialize the database
 function initializeDB() {
@@ -40,6 +42,7 @@ function saveGameData() {
         woodcuttingLevel,
         miningLevel,
         prestigeLevel,
+        prestigeBonus,
     };
 
     const transaction = db.transaction(["gameState"], "readwrite");
@@ -62,6 +65,7 @@ function loadGameData() {
             woodcuttingLevel = savedState.woodcuttingLevel;
             miningLevel = savedState.miningLevel;
             prestigeLevel = savedState.prestigeLevel;
+            prestigeBonus = savedState.prestigeBonus;
 
             updateUI();
         }
@@ -116,7 +120,8 @@ function updateUI() {
     document.getElementById("wizard-count").textContent = wizardCount;
     document.getElementById("woodcutting-level").textContent = woodcuttingLevel;
     document.getElementById("mining-level").textContent = miningLevel;
-    document.getElementById("prestige-level").textContent = prestigeLevel;
+    prestigeLevelDisplay.textContent = prestigeLevel;
+    prestigeBonusDisplay.textContent = `${prestigeBonus}x`;
 }
 
 function handleSkillingClick(skill) {
@@ -142,35 +147,6 @@ function updatePassiveIncome() {
 
 function startPassiveIncome() {
     setInterval(updatePassiveIncome, 1000);
-}
-
-function prestige() {
-    // Calculate the prestige bonus based on your game's criteria.
-    const prestigeBonus = calculatePrestigeBonus();
-
-    // Apply the prestige bonus to the game variables.
-    coins = Math.floor(coins * prestigeBonus);
-    knightCount = 0;
-    archerCount = 0;
-    wizardCount = 0;
-    woodcuttingLevel = 1;
-    miningLevel = 1;
-
-    // Increment the prestige level.
-    prestigeLevel++;
-
-    // Save the game data after prestiging.
-    saveGameData();
-
-    // Update the UI to reflect the changes.
-    updateUI();
-}
-
-function calculatePrestigeBonus() {
-    // Calculate the prestige bonus based on your game's criteria.
-    // For example, you can base it on the total number of knights, archers, and wizards.
-    // Adjust this formula to balance your game properly.
-    return Math.pow(prestigeMultiplier, prestigeLevel);
 }
 
 startPassiveIncome();
