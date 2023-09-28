@@ -4,6 +4,9 @@ let archerCount = 0;
 let wizardCount = 0;
 let woodcuttingLevel = 1;
 let miningLevel = 1;
+let resourceOne = 0; // Placeholder for resource one (e.g., Food)
+let resourceTwo = 0; // Placeholder for resource two (e.g., Iron)
+let resourceThree = 0; // Placeholder for resource three (e.g., Stone)
 let db;
 
 const counter = document.getElementById("counter");
@@ -40,6 +43,9 @@ function saveGameData() {
         wizardCount,
         woodcuttingLevel,
         miningLevel,
+        resourceOne, // Replace with actual resource name (e.g., Food)
+        resourceTwo, // Replace with actual resource name (e.g., Iron)
+        resourceThree, // Replace with actual resource name (e.g., Stone)
     };
 
     const transaction = db.transaction(["gameState"], "readwrite");
@@ -61,6 +67,9 @@ function loadGameData() {
             wizardCount = savedState.wizardCount;
             woodcuttingLevel = savedState.woodcuttingLevel;
             miningLevel = savedState.miningLevel;
+            resourceOne = savedState.resourceOne; // Replace with actual resource name (e.g., Food)
+            resourceTwo = savedState.resourceTwo; // Replace with actual resource name (e.g., Iron)
+            resourceThree = savedState.resourceThree; // Replace with actual resource name (e.g., Stone)
 
             updateUI();
         }
@@ -110,9 +119,9 @@ function compactNumberFormat(num) {
 
 function updateUI() {
     counter.textContent = `Gold coins: ${compactNumberFormat(coins)}`;
-    resourceOneCount.textContent = resourceOne;
-    resourceTwoCount.textContent = resourceTwo;
-    resourceThreeCount.textContent = resourceThree;
+    resourceOneCount.textContent = "Food: " + resourceOne; // Replace with actual resource name (e.g., Food)
+    resourceTwoCount.textContent = "Iron: " + resourceTwo; // Replace with actual resource name (e.g., Iron)
+    resourceThreeCount.textContent = "Stone: " + resourceThree; // Replace with actual resource name (e.g., Stone)
     document.getElementById("knight-count").textContent = knightCount;
     document.getElementById("archer-count").textContent = archerCount;
     document.getElementById("wizard-count").textContent = wizardCount;
