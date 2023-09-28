@@ -4,15 +4,11 @@ let archerCount = 0;
 let wizardCount = 0;
 let woodcuttingLevel = 1;
 let miningLevel = 1;
-let resourceOne = 0; // Placeholder for resource one (e.g., Food)
-let resourceTwo = 0; // Placeholder for resource two (e.g., Iron)
-let resourceThree = 0; // Placeholder for resource three (e.g., Stone)
-let db;
+let grainCount = 0;
+let ironCount = 0;
+let stoneCount = 0;
 
 const counter = document.getElementById("counter");
-const resourceOneCount = document.getElementById("resource-one-count");
-const resourceTwoCount = document.getElementById("resource-two-count");
-const resourceThreeCount = document.getElementById("resource-three-count");
 
 // Initialize the database
 function initializeDB() {
@@ -43,9 +39,9 @@ function saveGameData() {
         wizardCount,
         woodcuttingLevel,
         miningLevel,
-        resourceOne, // Replace with actual resource name (e.g., Food)
-        resourceTwo, // Replace with actual resource name (e.g., Iron)
-        resourceThree, // Replace with actual resource name (e.g., Stone)
+        grainCount,
+        ironCount,
+        stoneCount,
     };
 
     const transaction = db.transaction(["gameState"], "readwrite");
@@ -67,9 +63,9 @@ function loadGameData() {
             wizardCount = savedState.wizardCount;
             woodcuttingLevel = savedState.woodcuttingLevel;
             miningLevel = savedState.miningLevel;
-            resourceOne = savedState.resourceOne; // Replace with actual resource name (e.g., Food)
-            resourceTwo = savedState.resourceTwo; // Replace with actual resource name (e.g., Iron)
-            resourceThree = savedState.resourceThree; // Replace with actual resource name (e.g., Stone)
+            grainCount = savedState.grainCount;
+            ironCount = savedState.ironCount;
+            stoneCount = savedState.stoneCount;
 
             updateUI();
         }
@@ -104,6 +100,24 @@ function buyUpgrade(type) {
                 wizardCount++;
             }
             break;
+        case "farm":
+            if (coins >= 100) {
+                coins -= 100;
+                grainCount++;
+            }
+            break;
+        case "mine":
+            if (coins >= 200) {
+                coins -= 200;
+                ironCount++;
+            }
+            break;
+        case "quarry":
+            if (coins >= 300) {
+                coins -= 300;
+                stoneCount++;
+            }
+            break;
     }
     saveGameData();
     updateUI();
@@ -119,14 +133,14 @@ function compactNumberFormat(num) {
 
 function updateUI() {
     counter.textContent = `Gold coins: ${compactNumberFormat(coins)}`;
-    resourceOneCount.textContent = "Food: " + resourceOne; // Replace with actual resource name (e.g., Food)
-    resourceTwoCount.textContent = "Iron: " + resourceTwo; // Replace with actual resource name (e.g., Iron)
-    resourceThreeCount.textContent = "Stone: " + resourceThree; // Replace with actual resource name (e.g., Stone)
     document.getElementById("knight-count").textContent = knightCount;
     document.getElementById("archer-count").textContent = archerCount;
     document.getElementById("wizard-count").textContent = wizardCount;
     document.getElementById("woodcutting-level").textContent = woodcuttingLevel;
     document.getElementById("mining-level").textContent = miningLevel;
+    document.getElementById("grain-count").textContent = grainCount;
+    document.getElementById("iron-count").textContent = ironCount;
+    document.getElementById("stone-count").textContent = stoneCount;
 }
 
 function handleSkillingClick(skill) {
@@ -154,4 +168,6 @@ function startPassiveIncome() {
     setInterval(updatePassiveIncome, 1000);
 }
 
-startPassiveIncome();
+// Initialize the database and update UI
+initializeDB();
+updateUI();
