@@ -4,13 +4,12 @@ let archerCount = 0;
 let wizardCount = 0;
 let woodcuttingLevel = 1;
 let miningLevel = 1;
-let prestigeLevel = 0;
-let prestigeBonus = 1;
 let db;
 
 const counter = document.getElementById("counter");
-const prestigeLevelDisplay = document.getElementById("prestige-level");
-const prestigeBonusDisplay = document.getElementById("prestige-bonus");
+const resourceOneCount = document.getElementById("resource-one-count");
+const resourceTwoCount = document.getElementById("resource-two-count");
+const resourceThreeCount = document.getElementById("resource-three-count");
 
 // Initialize the database
 function initializeDB() {
@@ -41,8 +40,6 @@ function saveGameData() {
         wizardCount,
         woodcuttingLevel,
         miningLevel,
-        prestigeLevel,
-        prestigeBonus,
     };
 
     const transaction = db.transaction(["gameState"], "readwrite");
@@ -64,8 +61,6 @@ function loadGameData() {
             wizardCount = savedState.wizardCount;
             woodcuttingLevel = savedState.woodcuttingLevel;
             miningLevel = savedState.miningLevel;
-            prestigeLevel = savedState.prestigeLevel;
-            prestigeBonus = savedState.prestigeBonus;
 
             updateUI();
         }
@@ -115,13 +110,14 @@ function compactNumberFormat(num) {
 
 function updateUI() {
     counter.textContent = `Gold coins: ${compactNumberFormat(coins)}`;
+    resourceOneCount.textContent = resourceOne;
+    resourceTwoCount.textContent = resourceTwo;
+    resourceThreeCount.textContent = resourceThree;
     document.getElementById("knight-count").textContent = knightCount;
     document.getElementById("archer-count").textContent = archerCount;
     document.getElementById("wizard-count").textContent = wizardCount;
     document.getElementById("woodcutting-level").textContent = woodcuttingLevel;
     document.getElementById("mining-level").textContent = miningLevel;
-    prestigeLevelDisplay.textContent = prestigeLevel;
-    prestigeBonusDisplay.textContent = `${prestigeBonus}x`;
 }
 
 function handleSkillingClick(skill) {
