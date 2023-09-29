@@ -10,25 +10,34 @@ body {
 .container {
     margin: 2% auto;
     position: relative;
-    width: 95%; /* Adjusted for smaller screens */
+    width: 95%;
     max-width: 1200px;
 }
 
 #counter {
-    font-size: 2rem; /* Using 'rem' for better scalability */
+    font-size: 2rem;
     margin-bottom: 20px;
     text-shadow: 2px 2px 2px #532c08;
 }
 
 #castle {
     border: 5px solid #532c08;
-    box-shadow: 10px 10px 10px #532c08;
     cursor: pointer;
-    transition: box-shadow 0.3s;
+    transition: transform 0.3s;
+    animation: wobble 0.5s infinite alternate; /* Added animation for wobble effect */
+}
+
+@keyframes wobble {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(5deg); /* Adjust the angle for your desired wobble effect */
+    }
 }
 
 #castle:hover {
-    box-shadow: 6px 6px 6px #532c08;
+    transform: scale(1.1) rotate(0deg); /* Adjust the scale and rotation as needed */
 }
 
 #upgrades-container, #owned-upgrades, #skilling-tab {
@@ -39,7 +48,7 @@ body {
 }
 
 .upgrade, .skilling-btn {
-    font-size: 1.6rem; /* Using 'rem' for better scalability */
+    font-size: 1.6rem;
     font-weight: bold;
     border: 2px solid #532c08;
     padding: 10px 20px;
@@ -54,6 +63,7 @@ body {
     background-color: #e2c293;
     color: #2a1d0e;
     transform: scale(1.1);
+    box-shadow: 0px 0px 6px #532c08; /* Added box-shadow on hover for 3D effect */
 }
 
 img {
@@ -61,16 +71,15 @@ img {
     height: auto;
 }
 
-/* Responsive design for smaller screens */
 @media (max-width: 768px) {
     .container {
         width: 95%;
-        margin: 5% auto; /* Adjusted margin for better centering */
+        margin: 5% auto;
     }
     #counter {
-        font-size: 1.8rem; /* Adjusted font size for smaller screens */
+        font-size: 1.8rem;
     }
     .upgrade, .skilling-btn {
-        font-size: 1.4rem; /* Adjusted font size for smaller screens */
+        font-size: 1.4rem;
     }
-}
+            }
