@@ -56,16 +56,6 @@
             padding: 20px;
             border-radius: 10px;
         }
-        
-        /* Resource Styles */
-        .resources {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 24px;
-            margin-top: 20px;
-        }
-
     </style>
 </head>
 
@@ -110,33 +100,12 @@
                             id="wizard-cost">50</span> coins)</div>
                 </div>
             </div>
-            <!-- Resources Tab -->
-            <div class="tab-pane fade" id="resources-tab">
-                <div class="col-12 text-center">
-                    <h2>Resources</h2>
-                    <div class="upgrade" onclick="buyResource('farm', 100)"><i class="fas fa-tractor"></i> Farm (<span
-                            id="farm-cost">100</span> coins)</div>
-                    <div class="upgrade" onclick="buyResource('mine', 200)"><i class="fas fa-dungeon"></i> Mine (<span
-                            id="mine-cost">200</span> coins)</div>
-                    <div class="upgrade" onclick="buyResource('quarry', 300)"><i class="fas fa-hammer"></i> Quarry (<span
-                            id="quarry-cost">300</span> coins)</div>
-                </div>
-            </div>
         </div>
         <!-- Bottom Tab Navigation -->
         <div class="nav nav-pills nav-fill fixed-bottom">
             <a class="nav-link active" data-toggle="pill" href="#castle-tab"><i class="fas fa-castle"></i> Castle</a>
             <a class="nav-link" data-toggle="pill" href="#skilling-tab"><i class="fas fa-hammer"></i> Skilling</a>
             <a class="nav-link" data-toggle="pill" href="#shop-tab"><i class="fas fa-shopping-cart"></i> Shop</a>
-            <a class="nav-link" data-toggle="pill" href="#resources-tab"><i class="fas fa-cube"></i> Resources</a>
-        </div>
-    </div>
-    <!-- Resources Display -->
-    <div class="resources">
-        <div>
-            <div>Grain: <span id="grain-count">0</span></div>
-            <div>Iron: <span id="iron-count">0</span></div>
-            <div>Stone: <span id="stone-count">0</span></div>
         </div>
     </div>
     <!-- Scripts -->
@@ -146,4 +115,4 @@
     <script src="script.js"></script>
 </body>
 
-</html>
+                </html>
