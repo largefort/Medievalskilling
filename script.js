@@ -4,9 +4,7 @@ let archerCount = 0;
 let wizardCount = 0;
 let woodcuttingLevel = 1;
 let miningLevel = 1;
-let grainCount = 0;
-let ironCount = 0;
-let stoneCount = 0;
+let db;
 
 const counter = document.getElementById("counter");
 
@@ -39,9 +37,6 @@ function saveGameData() {
         wizardCount,
         woodcuttingLevel,
         miningLevel,
-        grainCount,
-        ironCount,
-        stoneCount,
     };
 
     const transaction = db.transaction(["gameState"], "readwrite");
@@ -63,9 +58,6 @@ function loadGameData() {
             wizardCount = savedState.wizardCount;
             woodcuttingLevel = savedState.woodcuttingLevel;
             miningLevel = savedState.miningLevel;
-            grainCount = savedState.grainCount;
-            ironCount = savedState.ironCount;
-            stoneCount = savedState.stoneCount;
 
             updateUI();
         }
@@ -100,24 +92,6 @@ function buyUpgrade(type) {
                 wizardCount++;
             }
             break;
-        case "farm":
-            if (coins >= 100) {
-                coins -= 100;
-                grainCount++;
-            }
-            break;
-        case "mine":
-            if (coins >= 200) {
-                coins -= 200;
-                ironCount++;
-            }
-            break;
-        case "quarry":
-            if (coins >= 300) {
-                coins -= 300;
-                stoneCount++;
-            }
-            break;
     }
     saveGameData();
     updateUI();
@@ -138,9 +112,6 @@ function updateUI() {
     document.getElementById("wizard-count").textContent = wizardCount;
     document.getElementById("woodcutting-level").textContent = woodcuttingLevel;
     document.getElementById("mining-level").textContent = miningLevel;
-    document.getElementById("grain-count").textContent = grainCount;
-    document.getElementById("iron-count").textContent = ironCount;
-    document.getElementById("stone-count").textContent = stoneCount;
 }
 
 function handleSkillingClick(skill) {
@@ -168,6 +139,4 @@ function startPassiveIncome() {
     setInterval(updatePassiveIncome, 1000);
 }
 
-// Initialize the database and update UI
-initializeDB();
-updateUI();
+startPassiveIncome();
