@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
+        /* Original CSS Styles */
         /* Bottom Navigation Styles */
         .nav-pills .nav-link {
             background-color: #5a3921;
@@ -56,12 +57,38 @@
             padding: 20px;
             border-radius: 10px;
         }
+
+        /* Enhanced Medieval CSS Styles */
+        body.medieval {
+            background-color: darkolivegreen;
+        }
+
+        .version {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            font-size: 14px;
+            color: #333;
+        }
+
+        .copyright {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 14px;
+            color: #333;
+        }
     </style>
 </head>
 
 <body>
+    <!-- Version Number -->
+    <div class="version">Version 1.0</div>
+
+    <!-- Copyright Text -->
+    <div class="copyright">Copyright © jafetegill</div>
+
     <div class="container mt-5">
-        <!-- Tab Content -->
         <div class="tab-content">
             <!-- Castle Tab -->
             <div class="tab-pane fade show active" id="castle-tab">
@@ -105,8 +132,8 @@
                 <div class="col-12 text-center">
                     <h2>Settings</h2>
                     <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="enhanced-css-checkbox">
-                        <label class="form-check-label" for="enhanced-css-checkbox">Enhanced CSS Mode</label>
+                        <input type="checkbox" class="form-check-input" id="enhanced-medieval-checkbox">
+                        <label class="form-check-label" for="enhanced-medieval-checkbox">Enhanced Medieval Mode</label>
                     </div>
                 </div>
             </div>
@@ -119,11 +146,10 @@
             <a class="nav-link" data-toggle="pill" href="#settings-tab"><i class="fas fa-cog"></i> Settings</a>
         </div>
     </div>
-    <!-- Scripts -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="script.js"></script>
 </body>
 
-    </html>
+</html>
