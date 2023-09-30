@@ -8,6 +8,15 @@ let db;
 
 let enhancedMedievalMode = false;
 
+// Function to disable finger zooming
+function disableFingerZooming() {
+    document.addEventListener('touchmove', function (event) {
+        if (event.scale !== 1) { event.preventDefault(); }
+    }, { passive: false });
+}
+
+disableFingerZooming();
+
 function initializeDB() {
     const request = indexedDB.open("MedievalClickerDB", 1);
 
