@@ -6,7 +6,8 @@ let woodcuttingLevel = 1;
 let miningLevel = 1;
 let db;
 
-const counter = document.getElementById("counter");
+// Initialize enhanced CSS mode
+let enhancedCSSMode = false;
 
 // Initialize the database
 function initializeDB() {
@@ -65,6 +66,52 @@ function loadGameData() {
 }
 
 initializeDB();
+
+// Function to toggle enhanced CSS mode
+function toggleEnhancedCSSMode() {
+    enhancedCSSMode = !enhancedCSSMode;
+
+    // Apply enhanced CSS styles if the checkbox is checked
+    if (enhancedCSSMode) {
+        applyEnhancedCSS();
+    } else {
+        removeEnhancedCSS();
+    }
+
+    // Save the state of the checkbox
+    saveEnhancedCSSMode();
+}
+
+// Function to apply enhanced CSS styles
+function applyEnhancedCSS() {
+    // Add or modify your enhanced CSS styles here
+    // For example, you can change background colors or fonts
+    document.body.style.backgroundColor = "darkslategray";
+}
+
+// Function to remove enhanced CSS styles
+function removeEnhancedCSS() {
+    // Remove any enhanced CSS styles you added in applyEnhancedCSS()
+    document.body.style.backgroundColor = "#8a5c2e"; // Restore the original background color
+}
+
+// Function to save the state of the enhanced CSS checkbox
+function saveEnhancedCSSMode() {
+    localStorage.setItem("enhancedCSSMode", enhancedCSSMode);
+}
+
+// Function to load the state of the enhanced CSS checkbox
+function loadEnhancedCSSMode() {
+    const savedEnhancedCSSMode = localStorage.getItem("enhancedCSSMode");
+    if (savedEnhancedCSSMode === "true") {
+        enhancedCSSMode = true;
+        document.getElementById("enhanced-css-checkbox").checked = true;
+        applyEnhancedCSS();
+    }
+}
+
+// Add an event listener to the checkbox to toggle enhanced CSS mode
+document.getElementById("enhanced-css-checkbox").addEventListener("change", toggleEnhancedCSSMode);
 
 function clickCastle() {
     coins++;
