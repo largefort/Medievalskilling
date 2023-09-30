@@ -108,9 +108,14 @@ function updateUI() {
     } else {
         document.body.style.backgroundColor = "#8a5c2e";
     }
-}
 
-updateUI();
+    document.getElementById("counter").textContent = `Gold coins: ${compactNumberFormat(coins)}`;
+    document.getElementById("knight-count").textContent = knightCount;
+    document.getElementById("archer-count").textContent = archerCount;
+    document.getElementById("wizard-count").textContent = wizardCount;
+    document.getElementById("woodcutting-level").textContent = woodcuttingLevel;
+    document.getElementById("mining-level").textContent = miningLevel;
+}
 
 function clickCastle() {
     coins++;
@@ -149,6 +154,19 @@ function compactNumberFormat(num) {
     if (num >= 1e6 && num < 1e9) return +(num / 1e6).toFixed(1) + "M";
     if (num >= 1e9 && num < 1e12) return +(num / 1e9).toFixed(1) + "B";
     return +(num / 1e12).toFixed(1) + "T";
+}
+
+function handleSkillingClick(skill) {
+    switch (skill) {
+        case "woodcutting":
+            woodcuttingLevel++;
+            break;
+        case "mining":
+            miningLevel++;
+            break;
+    }
+    saveGameData();
+    updateUI();
 }
 
 function updatePassiveIncome() {
