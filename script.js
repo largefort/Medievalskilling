@@ -6,10 +6,8 @@ let woodcuttingLevel = 1;
 let miningLevel = 1;
 let db;
 
-// Initialize enhanced CSS mode
-let enhancedCSSMode = false;
+let enhancedMedievalMode = false;
 
-// Initialize the database
 function initializeDB() {
     const request = indexedDB.open("MedievalClickerDB", 1);
 
@@ -67,51 +65,52 @@ function loadGameData() {
 
 initializeDB();
 
-// Function to toggle enhanced CSS mode
-function toggleEnhancedCSSMode() {
-    enhancedCSSMode = !enhancedCSSMode;
+function toggleEnhancedMedievalMode() {
+    enhancedMedievalMode = !enhancedMedievalMode;
 
-    // Apply enhanced CSS styles if the checkbox is checked
-    if (enhancedCSSMode) {
-        applyEnhancedCSS();
+    if (enhancedMedievalMode) {
+        applyEnhancedMedievalCSS();
     } else {
-        removeEnhancedCSS();
+        removeEnhancedMedievalCSS();
     }
 
-    // Save the state of the checkbox
-    saveEnhancedCSSMode();
+    saveEnhancedMedievalMode();
 }
 
-// Function to apply enhanced CSS styles
-function applyEnhancedCSS() {
-    // Add or modify your enhanced CSS styles here
-    // For example, you can change background colors or fonts
-    document.body.style.backgroundColor = "darkslategray";
+function applyEnhancedMedievalCSS() {
+    document.body.style.backgroundColor = "darkolivegreen";
 }
 
-// Function to remove enhanced CSS styles
-function removeEnhancedCSS() {
-    // Remove any enhanced CSS styles you added in applyEnhancedCSS()
-    document.body.style.backgroundColor = "#8a5c2e"; // Restore the original background color
+function removeEnhancedMedievalCSS() {
+    document.body.style.backgroundColor = "#8a5c2e";
 }
 
-// Function to save the state of the enhanced CSS checkbox
-function saveEnhancedCSSMode() {
-    localStorage.setItem("enhancedCSSMode", enhancedCSSMode);
+function saveEnhancedMedievalMode() {
+    localStorage.setItem("enhancedMedievalMode", enhancedMedievalMode);
 }
 
-// Function to load the state of the enhanced CSS checkbox
-function loadEnhancedCSSMode() {
-    const savedEnhancedCSSMode = localStorage.getItem("enhancedCSSMode");
-    if (savedEnhancedCSSMode === "true") {
-        enhancedCSSMode = true;
-        document.getElementById("enhanced-css-checkbox").checked = true;
-        applyEnhancedCSS();
+function loadEnhancedMedievalMode() {
+    const savedEnhancedMedievalMode = localStorage.getItem("enhancedMedievalMode");
+    if (savedEnhancedMedievalMode === "true") {
+        enhancedMedievalMode = true;
+        document.getElementById("enhanced-medieval-checkbox").checked = true;
+        applyEnhancedMedievalCSS();
     }
 }
 
-// Add an event listener to the checkbox to toggle enhanced CSS mode
-document.getElementById("enhanced-css-checkbox").addEventListener("change", toggleEnhancedCSSMode);
+loadEnhancedMedievalMode();
+
+document.getElementById("enhanced-medieval-checkbox").addEventListener("change", toggleEnhancedMedievalMode);
+
+function updateUI() {
+    if (enhancedMedievalMode) {
+        document.body.style.backgroundColor = "darkolivegreen";
+    } else {
+        document.body.style.backgroundColor = "#8a5c2e";
+    }
+}
+
+updateUI();
 
 function clickCastle() {
     coins++;
@@ -150,28 +149,6 @@ function compactNumberFormat(num) {
     if (num >= 1e6 && num < 1e9) return +(num / 1e6).toFixed(1) + "M";
     if (num >= 1e9 && num < 1e12) return +(num / 1e9).toFixed(1) + "B";
     return +(num / 1e12).toFixed(1) + "T";
-}
-
-function updateUI() {
-    counter.textContent = `Gold coins: ${compactNumberFormat(coins)}`;
-    document.getElementById("knight-count").textContent = knightCount;
-    document.getElementById("archer-count").textContent = archerCount;
-    document.getElementById("wizard-count").textContent = wizardCount;
-    document.getElementById("woodcutting-level").textContent = woodcuttingLevel;
-    document.getElementById("mining-level").textContent = miningLevel;
-}
-
-function handleSkillingClick(skill) {
-    switch (skill) {
-        case "woodcutting":
-            woodcuttingLevel++;
-            break;
-        case "mining":
-            miningLevel++;
-            break;
-    }
-    saveGameData();
-    updateUI();
 }
 
 function updatePassiveIncome() {
