@@ -6,8 +6,6 @@ let woodcuttingLevel = 1;
 let miningLevel = 1;
 let db;
 
-let enhancedMedievalMode = false;
-
 // Function to disable finger zooming
 function disableFingerZooming() {
     document.addEventListener('touchmove', function (event) {
@@ -74,50 +72,7 @@ function loadGameData() {
 
 initializeDB();
 
-function toggleEnhancedMedievalMode() {
-    enhancedMedievalMode = !enhancedMedievalMode;
-
-    if (enhancedMedievalMode) {
-        applyEnhancedMedievalCSS();
-    } else {
-        removeEnhancedMedievalCSS();
-    }
-
-    saveEnhancedMedievalMode();
-}
-
-function applyEnhancedMedievalCSS() {
-    document.body.style.backgroundColor = "darkolivegreen";
-}
-
-function removeEnhancedMedievalCSS() {
-    document.body.style.backgroundColor = "#8a5c2e";
-}
-
-function saveEnhancedMedievalMode() {
-    localStorage.setItem("enhancedMedievalMode", enhancedMedievalMode);
-}
-
-function loadEnhancedMedievalMode() {
-    const savedEnhancedMedievalMode = localStorage.getItem("enhancedMedievalMode");
-    if (savedEnhancedMedievalMode === "true") {
-        enhancedMedievalMode = true;
-        document.getElementById("enhanced-medieval-checkbox").checked = true;
-        applyEnhancedMedievalCSS();
-    }
-}
-
-loadEnhancedMedievalMode();
-
-document.getElementById("enhanced-medieval-checkbox").addEventListener("change", toggleEnhancedMedievalMode);
-
 function updateUI() {
-    if (enhancedMedievalMode) {
-        document.body.style.backgroundColor = "darkolivegreen";
-    } else {
-        document.body.style.backgroundColor = "#8a5c2e";
-    }
-
     document.getElementById("counter").textContent = `Gold coins: ${compactNumberFormat(coins)}`;
     document.getElementById("knight-count").textContent = knightCount;
     document.getElementById("archer-count").textContent = archerCount;
