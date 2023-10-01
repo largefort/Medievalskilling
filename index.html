@@ -8,34 +8,58 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        /* Original CSS Styles */
-        /* Bottom Navigation Styles */
+        /* Medieval-themed modern UI styles */
+        body {
+            font-family: 'MedievalFont', serif; /* Use your desired medieval font */
+            background-color: #5a3921; /* Background color */
+            color: #f4e4b5; /* Text color */
+        }
+
+        /* Container styles */
+        .container {
+            background-color: rgba(0, 0, 0, 0.8); /* Semi-transparent background */
+            border: 5px solid #8a5c2e; /* Border color */
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.8); /* Box shadow */
+        }
+
+        /* Castle image styles */
+        #castle {
+            width: 200px;
+            height: 200px;
+            border: 2px solid #8a5c2e; /* Castle border color */
+            background-color: #5a3921; /* Castle background color */
+            padding: 10px;
+            margin: 20px auto;
+            display: block;
+            border-radius: 10px;
+            box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5); /* Castle box shadow */
+        }
+
+        /* Tab navigation styles */
         .nav-pills .nav-link {
-            background-color: #5a3921;
-            color: #f4e4b5;
+            font-size: 18px;
+            padding: 10px 20px;
+            background-color: rgba(90, 57, 33, 0.8); /* Tab background color */
             border-radius: 0;
-            border-top: 3px solid #8a5c2e;
-            border-bottom: 3px solid #3c1e0f;
+            border-top: 3px solid #8a5c2e; /* Tab top border color */
+            border-bottom: 3px solid #3c1e0f; /* Tab bottom border color */
         }
 
         .nav-pills .nav-link.active {
-            background-color: #3c1e0f;
-            color: #ffcc00;
+            background-color: rgba(60, 30, 15, 0.8); /* Active tab background color */
+            color: #ffcc00; /* Active tab text color */
             border-top: 3px solid #3c1e0f;
             border-bottom: 3px solid #8a5c2e;
         }
 
-        .nav-pills {
-            background-color: #452c16;
-            border-top: 5px ridge #8a5c2e;
-            border-bottom: 5px groove #3c1e0f;
-        }
-
-        /* Upgrade Buttons Styles */
+        /* Upgrade button styles */
         .upgrade {
-            color: #f4e4b5;
-            background-color: #5a3921;
-            border: 2px solid #8a5c2e;
+            font-size: 18px;
+            color: #f4e4b5; /* Button text color */
+            background-color: rgba(90, 57, 33, 0.8); /* Button background color */
+            border: 2px solid #8a5c2e; /* Button border color */
             padding: 10px;
             margin-bottom: 5px;
             cursor: pointer;
@@ -43,59 +67,21 @@
         }
 
         .upgrade:hover {
-            background-color: #3c1e0f;
-        }
-
-        body {
-            background-color: #8a5c2e;
-            font-family: 'Old Standard TT', serif;
-        }
-
-        .container {
-            background-color: #5a3921;
-            border: 3px solid #8a5c2e;
-            padding: 20px;
-            border-radius: 10px;
-        }
-
-        /* Enhanced Medieval CSS Styles */
-        body.medieval {
-            background-color: darkolivegreen;
-        }
-
-        .version {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            font-size: 14px;
-            color: #333;
-        }
-
-        .copyright {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            font-size: 14px;
-            color: #333;
+            background-color: rgba(60, 30, 15, 0.8); /* Button hover background color */
         }
     </style>
 </head>
 
 <body>
-    <!-- Version Number -->
-    <div class="version">Version 1.0</div>
-
-    <!-- Copyright Text -->
-    <div class="copyright">Copyright © jafetegill</div>
-
     <div class="container mt-5">
+        <!-- Tab Content -->
         <div class="tab-content">
             <!-- Castle Tab -->
             <div class="tab-pane fade show active" id="castle-tab">
                 <div class="col-12 text-center">
-                    <div id="counter">Gold coins: 0</div>
                     <img id="castle" src="https://raw.githubusercontent.com/largefort/Medievalskilling/main/castle.png"
                         alt="Castle" onclick="clickCastle()" />
+                    <div id="counter">Gold coins: 0</div>
                     <div id="owned-upgrades" class="mt-3">
                         <div>Knights: <span id="knight-count">0</span></div>
                         <div>Archers: <span id="archer-count">0</span></div>
@@ -127,25 +113,15 @@
                             id="wizard-cost">50</span> coins)</div>
                 </div>
             </div>
-            <!-- Settings Tab -->
-            <div class="tab-pane fade" id="settings-tab">
-                <div class="col-12 text-center">
-                    <h2>Settings</h2>
-                    <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="enhanced-medieval-checkbox">
-                        <label class="form-check-label" for="enhanced-medieval-checkbox">Enhanced Medieval Mode</label>
-                    </div>
-                </div>
-            </div>
         </div>
         <!-- Bottom Tab Navigation -->
         <div class="nav nav-pills nav-fill fixed-bottom">
             <a class="nav-link active" data-toggle="pill" href="#castle-tab"><i class="fas fa-castle"></i> Castle</a>
             <a class="nav-link" data-toggle="pill" href="#skilling-tab"><i class="fas fa-hammer"></i> Skilling</a>
             <a class="nav-link" data-toggle="pill" href="#shop-tab"><i class="fas fa-shopping-cart"></i> Shop</a>
-            <a class="nav-link" data-toggle="pill" href="#settings-tab"><i class="fas fa-cog"></i> Settings</a>
         </div>
     </div>
+    <!-- Scripts -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
