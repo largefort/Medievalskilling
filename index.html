@@ -7,6 +7,7 @@
     <title>Medieval Clicker</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
     <style>
         /* Medieval-themed modern UI styles */
         body {
@@ -69,17 +70,6 @@
         .upgrade:hover {
             background-color: rgba(60, 30, 15, 0.8); /* Button hover background color */
         }
-
-        /* Achievement styles */
-        .achievement {
-            font-size: 16px;
-            background-color: rgba(60, 30, 15, 0.8); /* Achievement background color */
-            color: #ffcc00; /* Achievement text color */
-            border: 2px solid #8a5c2e; /* Achievement border color */
-            padding: 5px 10px;
-            margin: 5px;
-            border-radius: 5px;
-        }
     </style>
 </head>
 
@@ -91,7 +81,7 @@
             <div class="tab-pane fade show active" id="castle-tab">
                 <div class="col-12 text-center">
                     <img id="castle" src="https://raw.githubusercontent.com/largefort/Medievalskilling/main/castle.png"
-                        alt="Castle" onclick="clickCastle()" />
+                        alt="Castle" onclick="clickCastle()" class="animate__animated animate__bounce" />
                     <div id="counter">Gold coins: 0</div>
                     <div id="owned-upgrades" class="mt-3">
                         <div>Knights: <span id="knight-count">0</span></div>
@@ -124,78 +114,12 @@
                             id="wizard-cost">50</span> coins)</div>
                 </div>
             </div>
-            <!-- Achievements Tab -->
-            <div class="tab-pane fade" id="achievements-tab">
-                <div class="col-12 text-center">
-                    <h2>Achievements</h2>
-                    <!-- Achievement List -->
-                    <div class="achievement">Becoming a Squire</div>
-                    <div class="achievement">Mastering the Bow</div>
-                    <div class="achievement">Wielding the Sword</div>
-                    <!-- Add more achievements here -->
-                    <div class="achievement">Champion of the Realm</div>
-                    <div class="achievement">Dragon Slayer</div>
-                    <div class="achievement">King's Favorite</div>
-                    <div class="achievement">Legendary Hero</div>
-                    <div class="achievement">Loyal Knight</div>
-                    <div class="achievement">Royal Archer</div>
-                    <div class="achievement">Wizard's Apprentice</div>
-                    <div class="achievement">Fabled Warrior</div>
-                    <div class="achievement">Sword of the King</div>
-                    <div class="achievement">Guardian of the Castle</div>
-                    <div class="achievement">Master of Spells</div>
-                    <div class="achievement">Conqueror of Mountains</div>
-                    <div class="achievement">Treasure Hunter</div>
-                    <div class="achievement">Champion of the People</div>
-                    <div class="achievement">Defender of the Realm</div>
-                    <div class="achievement">King's Right Hand</div>
-                    <div class="achievement">Heroic Knight</div>
-                    <div class="achievement">Elite Archer</div>
-                    <div class="achievement">Sorcerer Supreme</div>
-                    <div class="achievement">Legendary Champion</div>
-                    <div class="achievement">Excalibur Bearer</div>
-                    <div class="achievement">Keeper of the Gate</div>
-                    <div class="achievement">Wizardry Master</div>
-                    <div class="achievement">Mountain King</div>
-                    <div class="achievement">Golden Hoarder</div>
-                    <div class="achievement">Medieval Legend</div>
-                    <div class="achievement">Royal Blood</div>
-                    <div class="achievement">Guardian of the Forest</div>
-                    <div class="achievement">Mystic Enchanter</div>
-                    <div class="achievement">Dragonslayer's Mark</div>
-                    <div class="achievement">King's Decree</div>
-                    <div class="achievement">Knight Commander</div>
-                    <div class="achievement">Arrow's Precision</div>
-                    <div class="achievement">Arcane Scholar</div>
-                    <div class="achievement">Legendary Valor</div>
-                    <div class="achievement">Crowned Monarch</div>
-                    <div class="achievement">Gatekeeper's Honor</div>
-                    <div class="achievement">Wizardry Sage</div>
-                    <div class="achievement">Mountain Conqueror</div>
-                    <div class="achievement">Treasure Seeker</div>
-                    <div class="achievement">People's Protector</div>
-                    <div class="achievement">Realm Defender</div>
-                    <div class="achievement">King's Trust</div>
-                    <div class="achievement">Knight's Legacy</div>
-                    <div class="achievement">Royal Guardian</div>
-                    <div class="achievement">Wizard's Legacy</div>
-                    <div class="achievement">Legendary Legacy</div>
-                    <div class="achievement">Excalibur Keeper</div>
-                    <div class="achievement">Gatekeeper's Legacy</div>
-                    <div class="achievement">Wizardry Legacy</div>
-                    <div class="achievement">Mountain Legacy</div>
-                    <div class="achievement">Golden Legacy</div>
-                    <div class="achievement">Medieval Legacy</div>
-                    <div class="achievement">Royal Legacy</div>
-                </div>
-            </div>
         </div>
         <!-- Bottom Tab Navigation -->
         <div class="nav nav-pills nav-fill fixed-bottom">
             <a class="nav-link active" data-toggle="pill" href="#castle-tab"><i class="fas fa-castle"></i> Castle</a>
             <a class="nav-link" data-toggle="pill" href="#skilling-tab"><i class="fas fa-hammer"></i> Skilling</a>
             <a class="nav-link" data-toggle="pill" href="#shop-tab"><i class="fas fa-shopping-cart"></i> Shop</a>
-            <a class="nav-link" data-toggle="pill" href="#achievements-tab"><i class="fas fa-trophy"></i> Achievements</a>
         </div>
     </div>
     <!-- Scripts -->
