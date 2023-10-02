@@ -6,9 +6,6 @@ let woodcuttingLevel = 1;
 let miningLevel = 1;
 let db;
 
-// Array to store unlocked achievements
-let achievements = [];
-
 // Function to disable finger zooming
 function disableFingerZooming() {
     document.addEventListener('touchmove', function (event) {
@@ -51,6 +48,7 @@ function initializeDB() {
     request.onsuccess = function (event) {
         db = event.target.result;
         loadGameData();
+        startPassiveIncome(); // Start passive income after loading game data
     };
 
     request.onerror = function (event) {
@@ -66,7 +64,6 @@ function saveGameData() {
         wizardCount,
         woodcuttingLevel,
         miningLevel,
-        achievements, // Save unlocked achievements
     };
 
     const transaction = db.transaction(["gameState"], "readwrite");
@@ -88,10 +85,8 @@ function loadGameData() {
             wizardCount = savedState.wizardCount;
             woodcuttingLevel = savedState.woodcuttingLevel;
             miningLevel = savedState.miningLevel;
-            achievements = savedState.achievements; // Load unlocked achievements
 
             updateUI();
-            updateAchievementsUI(); // Update achievements UI
         }
     };
 }
@@ -107,84 +102,6 @@ function updateUI() {
     document.getElementById("mining-level").textContent = miningLevel;
 }
 
-function unlockAchievement(achievementName) {
-    if (!achievements.includes(achievementName)) {
-        achievements.push(achievementName);
-        saveGameData();
-        updateAchievementsUI();
-    }
-}
-
-function updateAchievementsUI() {
-    const achievementsContainer = document.getElementById("achievements-container");
-    achievementsContainer.innerHTML = ""; // Clear previous achievements
-
-    for (let i = 0; i < medievalAchievements.length; i++) {
-        const achievement = medievalAchievements[i];
-        const achievementDiv = document.createElement("div");
-        achievementDiv.textContent = achievement;
-        achievementDiv.classList.add("achievement");
-
-        if (achievements.includes(achievement)) {
-            achievementDiv.classList.add("unlocked");
-        }
-
-        achievementsContainer.appendChild(achievementDiv);
-    }
-}
-
-const medievalAchievements = [
-    "Peasant's First Coin",
-    "Apprentice Knight",
-    "Bowman Initiate",
-    "Novice Wizard",
-    "Lumberjack",
-    "Rookie Miner",
-    // Add more achievements here
-    "Mastering the Bow",
-    "Wielding the Sword",
-    "Champion of the Realm",
-    "Dragon Slayer",
-    "King's Favorite",
-    "Legendary Hero",
-    "Loyal Knight",
-    "Royal Archer",
-    "Wizard's Apprentice",
-    "Fabled Warrior",
-    "Sword of the King",
-    "Guardian of the Castle",
-    "Master of Spells",
-    "Conqueror of Mountains",
-    "Treasure Hunter",
-    "Champion of the People",
-    "Defender of the Realm",
-    "King's Right Hand",
-    "Heroic Knight",
-    "Elite Archer",
-    "Sorcerer Supreme",
-    "Legendary Champion",
-    "Excalibur Bearer",
-    "Keeper of the Gate",
-    "Wizardry Master",
-    "Mountain King",
-    "Golden Hoarder",
-    "Medieval Legend",
-    "Royal Favor",
-    "Knight Commander",
-    "Sharpshooter",
-    "Master Wizard",
-    "Fearless Adventurer",
-    "Castle Protector",
-    "Magic Scholar",
-    "Lumber King",
-    "Mine Tycoon",
-    "Unstoppable Force",
-    "Majestic Sovereign",
-    "Ultimate Wizard",
-    "Medieval Conqueror",
-];
-
-// Function to handle clicking on the Castle
 function clickCastle() {
     coins++;
     unlockAchievement("Peasant's First Coin");
@@ -192,7 +109,6 @@ function clickCastle() {
     updateUI();
 }
 
-// Function to buy upgrades
 function buyUpgrade(type, cost) {
     switch (type) {
         case "knight":
@@ -221,7 +137,14 @@ function buyUpgrade(type, cost) {
     updateUI();
 }
 
-// Function to handle skilling clicks
+function compactNumberFormat(num) {
+    if (num < 1e3) return num;
+    if (num >= 1e3 && num < 1e6) return +(num / 1e3).toFixed(1) + "K";
+    if (num >= 1e6 && num < 1e9) return +(num / 1e6).toFixed(1) + "M";
+    if (num >= 1e9 && num < 1e12) return +(num / 1e9).toFixed(1) + "B";
+    return +(num / 1e12).toFixed(1) + "T";
+}
+
 function handleSkillingClick(skill) {
     switch (skill) {
         case "woodcutting":
@@ -241,7 +164,7 @@ function handleSkillingClick(skill) {
     updateUI();
 }
 
-// Function to update passive income
+// Passive income function
 function updatePassiveIncome() {
     let totalPassiveIncome = knightCount + archerCount * 2 + wizardCount * 5;
 
@@ -250,9 +173,15 @@ function updatePassiveIncome() {
     updateUI();
 }
 
-// Function to start passive income
+// Start passive income timer
 function startPassiveIncome() {
     setInterval(updatePassiveIncome, 1000);
 }
 
-startPassiveIncome();
+// Event listeners for the game buttons
+document.getElementById("castle").addEventListener("click", clickCastle);
+document.getElementById("knight-upgrade").addEventListener("click", () => buyUpgrade("knight", 10));
+document.getElementById("archer-upgrade").addEventListener("click", () => buyUpgrade("archer", 25));
+document.getElementById("wizard-upgrade").addEventListener("click", () => buyUpgrade("wizard", 50));
+document.getElementById("woodcutting-button").addEventListener("click", () => handleSkillingClick("woodcutting"));
+document.getElementById("mining-button").addEventListener("click", () => handleSkillingClick("mining"));
