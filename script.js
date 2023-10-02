@@ -6,6 +6,9 @@ let woodcuttingLevel = 1;
 let miningLevel = 1;
 let db;
 
+// Array to store unlocked achievements
+let achievements = [];
+
 // Function to disable finger zooming
 function disableFingerZooming() {
     document.addEventListener('touchmove', function (event) {
@@ -63,6 +66,7 @@ function saveGameData() {
         wizardCount,
         woodcuttingLevel,
         miningLevel,
+        achievements, // Save unlocked achievements
     };
 
     const transaction = db.transaction(["gameState"], "readwrite");
@@ -84,8 +88,10 @@ function loadGameData() {
             wizardCount = savedState.wizardCount;
             woodcuttingLevel = savedState.woodcuttingLevel;
             miningLevel = savedState.miningLevel;
+            achievements = savedState.achievements; // Load unlocked achievements
 
             updateUI();
+            updateAchievementsUI(); // Update achievements UI
         }
     };
 }
@@ -101,30 +107,113 @@ function updateUI() {
     document.getElementById("mining-level").textContent = miningLevel;
 }
 
+function unlockAchievement(achievementName) {
+    if (!achievements.includes(achievementName)) {
+        achievements.push(achievementName);
+        saveGameData();
+        updateAchievementsUI();
+    }
+}
+
+function updateAchievementsUI() {
+    const achievementsContainer = document.getElementById("achievements-container");
+    achievementsContainer.innerHTML = ""; // Clear previous achievements
+
+    for (let i = 0; i < medievalAchievements.length; i++) {
+        const achievement = medievalAchievements[i];
+        const achievementDiv = document.createElement("div");
+        achievementDiv.textContent = achievement;
+        achievementDiv.classList.add("achievement");
+
+        if (achievements.includes(achievement)) {
+            achievementDiv.classList.add("unlocked");
+        }
+
+        achievementsContainer.appendChild(achievementDiv);
+    }
+}
+
+const medievalAchievements = [
+    "Peasant's First Coin",
+    "Apprentice Knight",
+    "Bowman Initiate",
+    "Novice Wizard",
+    "Lumberjack",
+    "Rookie Miner",
+    // Add more achievements here
+    "Mastering the Bow",
+    "Wielding the Sword",
+    "Champion of the Realm",
+    "Dragon Slayer",
+    "King's Favorite",
+    "Legendary Hero",
+    "Loyal Knight",
+    "Royal Archer",
+    "Wizard's Apprentice",
+    "Fabled Warrior",
+    "Sword of the King",
+    "Guardian of the Castle",
+    "Master of Spells",
+    "Conqueror of Mountains",
+    "Treasure Hunter",
+    "Champion of the People",
+    "Defender of the Realm",
+    "King's Right Hand",
+    "Heroic Knight",
+    "Elite Archer",
+    "Sorcerer Supreme",
+    "Legendary Champion",
+    "Excalibur Bearer",
+    "Keeper of the Gate",
+    "Wizardry Master",
+    "Mountain King",
+    "Golden Hoarder",
+    "Medieval Legend",
+    "Royal Favor",
+    "Knight Commander",
+    "Sharpshooter",
+    "Master Wizard",
+    "Fearless Adventurer",
+    "Castle Protector",
+    "Magic Scholar",
+    "Lumber King",
+    "Mine Tycoon",
+    "Unstoppable Force",
+    "Majestic Sovereign",
+    "Ultimate Wizard",
+    "Medieval Conqueror",
+];
+
+// Function to handle clicking on the Castle
 function clickCastle() {
     coins++;
+    unlockAchievement("Peasant's First Coin");
     saveGameData();
     updateUI();
 }
 
-function buyUpgrade(type) {
+// Function to buy upgrades
+function buyUpgrade(type, cost) {
     switch (type) {
         case "knight":
-            if (coins >= 10) {
-                coins -= 10;
+            if (coins >= cost) {
+                coins -= cost;
                 knightCount++;
+                unlockAchievement("Apprentice Knight");
             }
             break;
         case "archer":
-            if (coins >= 25) {
-                coins -= 25;
+            if (coins >= cost) {
+                coins -= cost;
                 archerCount++;
+                unlockAchievement("Bowman Initiate");
             }
             break;
         case "wizard":
-            if (coins >= 50) {
-                coins -= 50;
+            if (coins >= cost) {
+                coins -= cost;
                 wizardCount++;
+                unlockAchievement("Novice Wizard");
             }
             break;
     }
@@ -132,27 +221,27 @@ function buyUpgrade(type) {
     updateUI();
 }
 
-function compactNumberFormat(num) {
-    if (num < 1e3) return num;
-    if (num >= 1e3 && num < 1e6) return +(num / 1e3).toFixed(1) + "K";
-    if (num >= 1e6 && num < 1e9) return +(num / 1e6).toFixed(1) + "M";
-    if (num >= 1e9 && num < 1e12) return +(num / 1e9).toFixed(1) + "B";
-    return +(num / 1e12).toFixed(1) + "T";
-}
-
+// Function to handle skilling clicks
 function handleSkillingClick(skill) {
     switch (skill) {
         case "woodcutting":
             woodcuttingLevel++;
+            if (woodcuttingLevel >= 10) {
+                unlockAchievement("Lumberjack");
+            }
             break;
         case "mining":
             miningLevel++;
+            if (miningLevel >= 10) {
+                unlockAchievement("Rookie Miner");
+            }
             break;
     }
     saveGameData();
     updateUI();
 }
 
+// Function to update passive income
 function updatePassiveIncome() {
     let totalPassiveIncome = knightCount + archerCount * 2 + wizardCount * 5;
 
@@ -161,6 +250,7 @@ function updatePassiveIncome() {
     updateUI();
 }
 
+// Function to start passive income
 function startPassiveIncome() {
     setInterval(updatePassiveIncome, 1000);
 }
