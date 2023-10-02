@@ -13,7 +13,27 @@ function disableFingerZooming() {
     }, { passive: false });
 }
 
+// Function to disable swipe-to-refresh on mobile
+function disableSwipeToRefresh() {
+    let touchStartY = 0;
+
+    document.body.addEventListener('touchstart', function (e) {
+        touchStartY = e.touches[0].clientY;
+    }, { passive: true });
+
+    document.body.addEventListener('touchmove', function (e) {
+        const touchY = e.touches[0].clientY;
+        const touchMoveDistance = touchY - touchStartY;
+
+        // Check if the user is trying to refresh with a swipe
+        if (touchMoveDistance > 0) {
+            e.preventDefault();
+        }
+    }, { passive: false });
+}
+
 disableFingerZooming();
+disableSwipeToRefresh();
 
 function initializeDB() {
     const request = indexedDB.open("MedievalClickerDB", 1);
