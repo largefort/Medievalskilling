@@ -6,6 +6,7 @@ let woodcuttingLevel = 1;
 let miningLevel = 1;
 let db;
 
+// Function to disable finger zooming
 function disableFingerZooming() {
     document.addEventListener('touchmove', function (event) {
         if (event.scale !== 1) { event.preventDefault(); }
@@ -27,7 +28,6 @@ function initializeDB() {
     request.onsuccess = function (event) {
         db = event.target.result;
         loadGameData();
-        loadVisualSettings();
     };
 
     request.onerror = function (event) {
@@ -70,34 +70,7 @@ function loadGameData() {
     };
 }
 
-function saveVisualSettings() {
-    const visualSettings = {
-        graphicsQuality: document.getElementById("graphics-quality").value,
-        fullscreenMode: document.getElementById("fullscreen-mode").checked,
-        screenResolution: document.getElementById("screen-resolution").value,
-        visualEffects: document.getElementById("visual-effects").checked,
-    };
-
-    const transaction = db.transaction(["gameState"], "readwrite");
-    const store = transaction.objectStore("gameState");
-    store.put(visualSettings, "visualSettings");
-}
-
-function loadVisualSettings() {
-    const transaction = db.transaction(["gameState"], "readonly");
-    const store = transaction.objectStore("gameState");
-    const request = store.get("visualSettings");
-    request.onsuccess = function (event) {
-        if (request.result) {
-            const visualSettings = request.result;
-
-            document.getElementById("graphics-quality").value = visualSettings.graphicsQuality;
-            document.getElementById("fullscreen-mode").checked = visualSettings.fullscreenMode;
-            document.getElementById("screen-resolution").value = visualSettings.screenResolution;
-            document.getElementById("visual-effects").checked = visualSettings.visualEffects;
-        }
-    };
-}
+initializeDB();
 
 function updateUI() {
     document.getElementById("counter").textContent = `Gold coins: ${compactNumberFormat(coins)}`;
