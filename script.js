@@ -5,6 +5,7 @@ let wizardCount = 0;
 let woodcuttingLevel = 1;
 let miningLevel = 1;
 let db;
+let gcps = 0; // Initialize GCPS counter
 
 // Function to disable finger zooming
 function disableFingerZooming() {
@@ -79,6 +80,9 @@ function updateUI() {
     document.getElementById("wizard-count").textContent = wizardCount;
     document.getElementById("woodcutting-level").textContent = woodcuttingLevel;
     document.getElementById("mining-level").textContent = miningLevel;
+
+    // Update the GCPS counter in the UI
+    document.getElementById("gcps-counter").textContent = `Gold coins per second: ${gcps}`;
 }
 
 function clickCastle() {
@@ -134,9 +138,11 @@ function handleSkillingClick(skill) {
 }
 
 function updatePassiveIncome() {
+    // Calculate the total passive income, considering your logic
     let totalPassiveIncome = knightCount + archerCount * 2 + wizardCount * 5;
 
     coins += totalPassiveIncome;
+    gcps = totalPassiveIncome; // Update the GCPS counter
     saveGameData();
     updateUI();
 }
