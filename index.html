@@ -83,17 +83,13 @@
                     <img id="castle" src="https://raw.githubusercontent.com/largefort/Medievalskilling/main/castle.png"
                         alt="Castle" onclick="clickCastle()" class="animate__animated animate__bounce" />
                     <div id="counter">Gold coins: 0</div>
-                    <div id="owned-upgrades" class="mt-3">
-                        <div>Knights: <span id="knight-count">0</span></div>
-                        <div>Archers: <span id="archer-count">0</span></div>
-                        <div>Wizards: <span id="wizard-count">0</span></div>
-                    </div>
                 </div>
             </div>
             <!-- Skilling Tab -->
             <div class="tab-pane fade" id="skilling-tab">
                 <div class="col-12 text-center">
                     <h2>Skilling</h2>
+                    <div id="gcps-counter">Gold coins per second: 0</div> <!-- GCPS counter in Skilling Tab -->
                     <div class="upgrade" onclick="handleSkillingClick('woodcutting')">Woodcutting</div>
                     <div class="upgrade" onclick="handleSkillingClick('mining')">Mining</div>
                     <div class="mt-3">
@@ -106,17 +102,17 @@
             <div class="tab-pane fade" id="shop-tab">
                 <div class="col-12 text-center">
                     <h2>Shop</h2>
-                    <div class="upgrade" onclick="buyUpgrade('knight')">
-                        <i class="fas fa-chess-knight"></i> Knight (<span id="knight-cost">10</span> coins)
-                        <p>Train brave knights to defend your castle!</p>
-                    </div>
-                    <div class="upgrade" onclick="buyUpgrade('archer')">
-                        <i class="fas fa-bullseye"></i> Archer (<span id="archer-cost">25</span> coins)
-                        <p>Hire skilled archers for precise ranged attacks!</p>
-                    </div>
-                    <div class="upgrade" onclick="buyUpgrade('wizard')">
-                        <i class="fas fa-hat-wizard"></i> Wizard (<span id="wizard-cost">50</span> coins)
-                        <p>Enlist powerful wizards to cast spells and protect your kingdom!</p>
+                    <div class="upgrade" onclick="buyUpgrade('knight')"><i class="fas fa-chess-knight"></i> Knight (<span
+                            id="knight-cost">10</span> coins)</div>
+                    <div class="upgrade" onclick="buyUpgrade('archer')"><i class="fas fa-bullseye"></i> Archer (<span
+                            id="archer-cost">25</span> coins)</div>
+                    <div class="upgrade" onclick="buyUpgrade('wizard')"><i class="fas fa-hat-wizard"></i> Wizard (<span
+                            id="wizard-cost">50</span> coins)</div>
+                    <div> <!-- GCPS counter and explanation in Shop Tab -->
+                        <div>GCPS Increase:</div>
+                        <div>By Knight: +1</div>
+                        <div>By Archer: +2</div>
+                        <div>By Wizard: +5</div>
                     </div>
                 </div>
             </div>
@@ -129,10 +125,10 @@
         </div>
     </div>
     <!-- Scripts -->
+    <!-- Your JavaScript code here -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script src="script.js"></script>
 </body>
 
 </html>
