@@ -1,4 +1,3 @@
-/* Medieval-themed modern UI styles */
 body {
     font-family: "Times New Roman", Times, serif;
     background-color: #2a1d0e;
@@ -25,7 +24,7 @@ body {
     border: 5px solid #532c08;
     cursor: pointer;
     transition: transform 0.3s;
-    animation: wobble 0.5s infinite alternate;
+    animation: wobble 0.5s infinite alternate; /* Added animation for wobble effect */
 }
 
 @keyframes wobble {
@@ -33,12 +32,12 @@ body {
         transform: rotate(0deg);
     }
     100% {
-        transform: rotate(5deg);
+        transform: rotate(5deg); /* Adjust the angle for your desired wobble effect */
     }
 }
 
 #castle:hover {
-    transform: scale(1.1) rotate(0deg);
+    transform: scale(1.1) rotate(0deg); /* Adjust the scale and rotation as needed */
 }
 
 #upgrades-container, #owned-upgrades, #skilling-tab {
@@ -64,7 +63,7 @@ body {
     background-color: #e2c293;
     color: #2a1d0e;
     transform: scale(1.1);
-    box-shadow: 0px 0px 6px #532c08;
+    box-shadow: 0px 0px 6px #532c08; /* Added box-shadow on hover for 3D effect */
 }
 
 img {
@@ -83,69 +82,4 @@ img {
     .upgrade, .skilling-btn {
         font-size: 1.4rem;
     }
-}
-
-/* Visual Settings Tab */
-#visual-settings-tab {
-    display: none;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    padding-top: 20px;
-}
-
-.settings-title {
-    font-size: 2rem;
-    margin-bottom: 20px;
-    color: #e2c293;
-}
-
-.settings-option {
-    font-size: 1.6rem;
-    margin: 10px;
-}
-
-.settings-option label {
-    display: inline-block;
-    font-weight: bold;
-    margin-right: 10px;
-    color: #e2c293;
-}
-
-.settings-option select, .settings-option input[type="checkbox"] {
-    font-size: 1.6rem;
-    padding: 5px;
-}
-
-.settings-option input[type="checkbox"] {
-    vertical-align: middle;
-    -webkit-appearance: none;
-    appearance: none;
-    width: 40px;
-    height: 20px;
-    background-color: #5a3d23;
-    border-radius: 25px;
-    position: relative;
-    transition: background-color 0.3s;
-}
-
-.settings-option input[type="checkbox"]::before {
-    content: '';
-    position: absolute;
-    width: 20px;
-    height: 20px;
-    background-color: #e2c293;
-    border-radius: 50%;
-    left: 2px;
-    top: 50%;
-    transform: translateY(-50%);
-    transition: transform 0.3s;
-}
-
-.settings-option input[type="checkbox"]:checked {
-    background-color: #e2c293;
-}
-
-.settings-option input[type="checkbox"]:checked::before {
-    left: calc(100% - 22px);
 }
