@@ -70,6 +70,9 @@
             background-color: rgba(60, 30, 15, 0.8); /* Button hover background color */
         }
     </style>
+    
+    <!-- Include your Google Play Games JavaScript file -->
+    <script src="google-play-games.js"></script>
 </head>
 
 <body>
@@ -113,47 +116,14 @@
                             id="wizard-cost">50</span> coins)</div>
                 </div>
             </div>
-            <!-- Visual Settings Tab -->
-            <div class="tab-pane fade" id="visual-settings-tab">
-                <div class="col-12 text-center">
-                    <h2>Visual Settings</h2>
-                    <div class="setting">
-                        Graphics Quality: <select id="graphics-quality">
-                            <option value="low">Low</option>
-                            <option value="medium">Medium</option>
-                            <option value="high">High</option>
-                        </select>
-                    </div>
-                    <div class="setting">
-                        Fullscreen Mode: <input type="checkbox" id="fullscreen-mode">
-                    </div>
-                    <div class="setting">
-                        Screen Resolution: <select id="screen-resolution">
-                            <option value="720p">720p</option>
-                            <option value="1080p">1080p</option>
-                            <option value="1440p">1440p</option>
-                        </select>
-                    </div>
-                    <div class="setting">
-                        Visual Effects: <input type="checkbox" id="visual-effects">
-                    </div>
-                </div>
-            </div>
         </div>
         <!-- Bottom Tab Navigation -->
         <div class="nav nav-pills nav-fill fixed-bottom">
             <a class="nav-link active" data-toggle="pill" href="#castle-tab"><i class="fas fa-castle"></i> Castle</a>
             <a class="nav-link" data-toggle="pill" href="#skilling-tab"><i class="fas fa-hammer"></i> Skilling</a>
             <a class="nav-link" data-toggle="pill" href="#shop-tab"><i class="fas fa-shopping-cart"></i> Shop</a>
-            <a class="nav-link" data-toggle="pill" href="#visual-settings-tab"><i class="fas fa-sliders-h"></i> Visual
-                Settings</a>
         </div>
     </div>
-    <!-- Scripts -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script src="script.js"></script>
 </body>
 
 </html>
