@@ -13,7 +13,27 @@ function disableFingerZooming() {
     }, { passive: false });
 }
 
+// Function to disable swipe-to-refresh on mobile
+function disableSwipeToRefresh() {
+    let touchStartY = 0;
+
+    document.body.addEventListener('touchstart', function (e) {
+        touchStartY = e.touches[0].clientY;
+    }, { passive: true });
+
+    document.body.addEventListener('touchmove', function (e) {
+        const touchY = e.touches[0].clientY;
+        const touchMoveDistance = touchY - touchStartY;
+
+        // Check if the user is trying to refresh with a swipe
+        if (touchMoveDistance > 0) {
+            e.preventDefault();
+        }
+    }, { passive: false });
+}
+
 disableFingerZooming();
+disableSwipeToRefresh();
 
 function initializeDB() {
     const request = indexedDB.open("MedievalClickerDB", 1);
@@ -28,6 +48,7 @@ function initializeDB() {
     request.onsuccess = function (event) {
         db = event.target.result;
         loadGameData();
+        startPassiveIncome(); // Start passive income after loading game data
     };
 
     request.onerror = function (event) {
@@ -83,28 +104,32 @@ function updateUI() {
 
 function clickCastle() {
     coins++;
+    unlockAchievement("Peasant's First Coin");
     saveGameData();
     updateUI();
 }
 
-function buyUpgrade(type) {
+function buyUpgrade(type, cost) {
     switch (type) {
         case "knight":
-            if (coins >= 10) {
-                coins -= 10;
+            if (coins >= cost) {
+                coins -= cost;
                 knightCount++;
+                unlockAchievement("Apprentice Knight");
             }
             break;
         case "archer":
-            if (coins >= 25) {
-                coins -= 25;
+            if (coins >= cost) {
+                coins -= cost;
                 archerCount++;
+                unlockAchievement("Bowman Initiate");
             }
             break;
         case "wizard":
-            if (coins >= 50) {
-                coins -= 50;
+            if (coins >= cost) {
+                coins -= cost;
                 wizardCount++;
+                unlockAchievement("Novice Wizard");
             }
             break;
     }
@@ -124,15 +149,22 @@ function handleSkillingClick(skill) {
     switch (skill) {
         case "woodcutting":
             woodcuttingLevel++;
+            if (woodcuttingLevel >= 10) {
+                unlockAchievement("Lumberjack");
+            }
             break;
         case "mining":
             miningLevel++;
+            if (miningLevel >= 10) {
+                unlockAchievement("Rookie Miner");
+            }
             break;
     }
     saveGameData();
     updateUI();
 }
 
+// Passive income function
 function updatePassiveIncome() {
     let totalPassiveIncome = knightCount + archerCount * 2 + wizardCount * 5;
 
@@ -141,8 +173,15 @@ function updatePassiveIncome() {
     updateUI();
 }
 
+// Start passive income timer
 function startPassiveIncome() {
     setInterval(updatePassiveIncome, 1000);
 }
 
-startPassiveIncome();
+// Event listeners for the game buttons
+document.getElementById("castle").addEventListener("click", clickCastle);
+document.getElementById("knight-upgrade").addEventListener("click", () => buyUpgrade("knight", 10));
+document.getElementById("archer-upgrade").addEventListener("click", () => buyUpgrade("archer", 25));
+document.getElementById("wizard-upgrade").addEventListener("click", () => buyUpgrade("wizard", 50));
+document.getElementById("woodcutting-button").addEventListener("click", () => handleSkillingClick("woodcutting"));
+document.getElementById("mining-button").addEventListener("click", () => handleSkillingClick("mining"));
