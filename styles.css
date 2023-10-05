@@ -1,9 +1,9 @@
 /* CSS for Medieval Clicker Game with Falling Leaves Animation */
 
 body {
-    font-family: "Times New Roman", Times, serif;
-    background-color: #2a1d0e;
-    color: #e2c293;
+    font-family: 'Times New Roman', Times, serif;
+    background-color: #251c12; /* Updated background color */
+    color: #f7dfc4; /* Updated text color */
     line-height: 1.5;
     margin: 0;
     padding: 0;
@@ -24,7 +24,7 @@ body {
 }
 
 #castle {
-    border: 5px solid #532c08;
+    border: 5px solid #8a5c2e; /* Updated castle border color */
     cursor: pointer;
     transition: transform 0.3s;
     animation: wobble 0.5s infinite alternate; /* Added animation for wobble effect */
@@ -53,18 +53,19 @@ body {
 .upgrade, .skilling-btn {
     font-size: 1.6rem;
     font-weight: bold;
-    border: 2px solid #532c08;
-    padding: 10px 20px;
-    background-color: #5a3d23;
+    border: 2px solid #8a5c2e; /* Updated button border color */
+    padding: 15px; /* Increased padding for larger buttons */
+    background-color: #5a3921; /* Updated button background color */
     cursor: pointer;
     text-shadow: 1px 1px 1px #532c08;
     transition: background-color 0.3s, transform 0.3s, color 0.3s;
     margin: 10px;
+    border-radius: 10px; /* Added border radius for button */
 }
 
 .upgrade:hover, .skilling-btn:hover {
-    background-color: #e2c293;
-    color: #2a1d0e;
+    background-color: #8a5c2e; /* Button hover background color */
+    color: #ffcc00; /* Button hover text color */
     transform: scale(1.1);
     box-shadow: 0px 0px 6px #532c08; /* Added box-shadow on hover for 3D effect */
 }
