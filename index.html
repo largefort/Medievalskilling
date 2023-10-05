@@ -8,70 +8,90 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="stylesheet" href="styles.css"> <!-- Your custom CSS file -->
     <style>
-        /* Medieval-themed modern UI styles */
+        /* Common Styles */
         body {
-            font-family: 'MedievalFont', serif; /* Use your desired medieval font */
-            background-color: #5a3921; /* Background color */
-            color: #f4e4b5; /* Text color */
+            font-family: 'MedievalFont', serif;
+            background-color: #251c12; /* Updated background color */
+            color: #f7dfc4; /* Updated text color */
+            margin: 0;
+            padding: 0;
         }
 
-        /* Container styles */
+        .text-center {
+            text-align: center;
+        }
+
+        .mt-3 {
+            margin-top: 15px;
+        }
+
+        /* Container Styles */
         .container {
-            background-color: rgba(0, 0, 0, 0.8); /* Semi-transparent background */
-            border: 5px solid #8a5c2e; /* Border color */
+            background-color: rgba(0, 0, 0, 0.8);
+            border: 5px solid #8a5c2e;
             padding: 20px;
             border-radius: 15px;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.8); /* Box shadow */
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
         }
 
-        /* Castle image styles */
+        /* Castle Styles */
         #castle {
             width: 200px;
             height: 200px;
-            border: 2px solid #8a5c2e; /* Castle border color */
-            background-color: #5a3921; /* Castle background color */
-            padding: 10px;
+            border: 5px solid #8a5c2e;
+            background-color: #251c12; /* Updated castle background color */
+            padding: 20px;
             margin: 20px auto;
             display: block;
-            border-radius: 10px;
-            box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5); /* Castle box shadow */
+            border-radius: 20px; /* Updated border radius */
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
+            transition: transform 0.2s;
+            cursor: pointer;
         }
 
-        /* Tab navigation styles */
+        #castle:hover {
+            transform: scale(1.05); /* Scale up on hover */
+        }
+
+        /* Tab Navigation Styles */
         .nav-pills .nav-link {
             font-size: 18px;
             padding: 10px 20px;
-            background-color: rgba(90, 57, 33, 0.8); /* Tab background color */
+            background-color: rgba(90, 57, 33, 0.8);
             border-radius: 0;
-            border-top: 3px solid #8a5c2e; /* Tab top border color */
-            border-bottom: 3px solid #3c1e0f; /* Tab bottom border color */
+            border-top: 3px solid #8a5c2e;
+            border-bottom: 3px solid #3c1e0f;
+            color: #f7dfc4; /* Updated text color */
         }
 
         .nav-pills .nav-link.active {
-            background-color: rgba(60, 30, 15, 0.8); /* Active tab background color */
-            color: #ffcc00; /* Active tab text color */
+            background-color: rgba(60, 30, 15, 0.8);
+            color: #ffcc00;
             border-top: 3px solid #3c1e0f;
             border-bottom: 3px solid #8a5c2e;
         }
 
-        /* Upgrade button styles */
+        /* Upgrade Button Styles */
         .upgrade {
             font-size: 18px;
-            color: #f4e4b5; /* Button text color */
-            background-color: rgba(90, 57, 33, 0.8); /* Button background color */
-            border: 2px solid #8a5c2e; /* Button border color */
-            padding: 10px;
-            margin-bottom: 5px;
+            color: #f7dfc4;
+            background-color: #8a5c2e; /* Updated button background color */
+            border: 2px solid #5a3921; /* Updated button border color */
+            padding: 15px; /* Increased padding for larger buttons */
+            margin-bottom: 10px; /* Increased margin for spacing */
             cursor: pointer;
-            transition: background-color 0.3s;
+            transition: background-color 0.3s, color 0.3s;
+            border-radius: 10px;
         }
 
         .upgrade:hover {
-            background-color: rgba(60, 30, 15, 0.8); /* Button hover background color */
+            background-color: #5a3921; /* Button hover background color */
+            color: #ffcc00; /* Button hover text color */
         }
 
-        /* Modal styles */
+        /* Modal Styles */
         .modal {
             display: none;
             position: fixed;
@@ -86,8 +106,8 @@
         }
 
         .modal-content {
-            background-color: #5a3921; /* Medieval background color */
-            color: #f4e4b5; /* Text color */
+            background-color: #251c12; /* Updated modal background color */
+            color: #f7dfc4;
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
@@ -99,7 +119,7 @@
             top: 10px;
             right: 10px;
             font-size: 24px;
-            color: #f4e4b5; /* Close button color */
+            color: #f7dfc4;
             cursor: pointer;
         }
     </style>
@@ -113,7 +133,7 @@
             <div class="tab-pane fade show active" id="castle-tab">
                 <div class="col-12 text-center">
                     <img id="castle" src="https://raw.githubusercontent.com/largefort/Medievalskilling/main/castle.png"
-                        alt="Castle" onclick="clickCastle()" class="animate__animated animate__bounce" />
+                        alt="Castle" onclick="clickCastle()" class="castle-image animate__animated animate__bounce" />
                     <div id="counter">Gold coins: 0</div>
                     <div id="owned-upgrades" class="mt-3">
                         <div>Knights: <span id="knight-count">0</span></div>
