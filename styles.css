@@ -11,20 +11,23 @@ body {
     margin: 2% auto;
     position: relative;
     width: 95%;
-    max-width: 1200px;
+    max-width: 1440px; /* Adjusted for Galaxy S9 width */
+    height: 2560px; /* Adjusted for Galaxy S9 height */
 }
 
 #counter {
-    font-size: 2rem;
-    margin-bottom: 20px;
-    text-shadow: 2px 2px 2px #532c08;
+    font-size: 3rem; /* Increased for readability on Galaxy S9 */
+    margin-bottom: 40px; /* Increased for spacing on Galaxy S9 */
+    text-shadow: 3px 3px 3px #532c08;
 }
 
 #castle {
     border: 5px solid #532c08;
     cursor: pointer;
     transition: transform 0.3s;
-    animation: wobble 0.5s infinite alternate; /* Added animation for wobble effect */
+    animation: wobble 0.5s infinite alternate;
+    max-width: 100%; /* Ensure the castle image fits within the screen */
+    height: auto; /* Maintain aspect ratio */
 }
 
 @keyframes wobble {
@@ -32,54 +35,50 @@ body {
         transform: rotate(0deg);
     }
     100% {
-        transform: rotate(5deg); /* Adjust the angle for your desired wobble effect */
+        transform: rotate(5deg);
     }
 }
 
 #castle:hover {
-    transform: scale(1.1) rotate(0deg); /* Adjust the scale and rotation as needed */
+    transform: scale(1.1) rotate(0deg);
 }
 
 #upgrades-container, #owned-upgrades, #skilling-tab {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
-    margin-top: 20px;
+    margin-top: 40px; /* Increased spacing on Galaxy S9 */
 }
 
 .upgrade, .skilling-btn {
-    font-size: 1.6rem;
+    font-size: 2rem; /* Increased for readability on Galaxy S9 */
     font-weight: bold;
-    border: 2px solid #532c08;
-    padding: 10px 20px;
+    border: 4px solid #532c08; /* Increased border thickness for visibility */
+    padding: 20px 40px; /* Increased padding for touch input on Galaxy S9 */
     background-color: #5a3d23;
     cursor: pointer;
-    text-shadow: 1px 1px 1px #532c08;
+    text-shadow: 2px 2px 2px #532c08;
     transition: background-color 0.3s, transform 0.3s, color 0.3s;
-    margin: 10px;
+    margin: 20px;
 }
 
 .upgrade:hover, .skilling-btn:hover {
     background-color: #e2c293;
     color: #2a1d0e;
     transform: scale(1.1);
-    box-shadow: 0px 0px 6px #532c08; /* Added box-shadow on hover for 3D effect */
+    box-shadow: 0px 0px 10px #532c08; /* Increased box-shadow for 3D effect */
 }
 
-img {
-    max-width: 100%;
-    height: auto;
-}
-
-@media (max-width: 768px) {
+@media (max-width: 1440px) {
     .container {
         width: 95%;
         margin: 5% auto;
+        height: auto; /* Remove fixed height for smaller screens */
     }
     #counter {
-        font-size: 1.8rem;
+        font-size: 2.4rem; /* Adjusted font size for smaller screens */
     }
     .upgrade, .skilling-btn {
-        font-size: 1.4rem;
+        font-size: 1.6rem; /* Adjusted font size for smaller screens */
     }
 }
