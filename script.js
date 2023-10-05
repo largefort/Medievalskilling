@@ -175,7 +175,7 @@ function calculateOfflineProgress() {
 
 // Function to handle online/offline events
 window.addEventListener('online', () => {
-    // The device is now online, call the calculateOfflineProgress function
+    // The device is now online, call the updateOfflineProgress function
     calculateOfflineProgress();
 });
 
@@ -184,8 +184,3 @@ window.addEventListener('offline', () => {
     const currentTime = new Date().getTime();
     localStorage.setItem('lastSavedTimestamp', currentTime);
 });
-
-// Example usage: Call calculateOfflineProgress when the page loads
-window.onload = function () {
-    calculateOfflineProgress();
-};
