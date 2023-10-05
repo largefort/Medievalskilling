@@ -16,6 +16,10 @@ body {
     width: 95%;
     max-width: 1200px;
     padding: 20px; /* Adjust the padding as needed */
+    border-radius: 15px; /* Added border radius for the container */
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.8); /* Added box shadow */
+    background-color: rgba(0, 0, 0, 0.8); /* Semi-transparent background */
+    border: 5px solid #8a5c2e; /* Border color */
 }
 
 #counter {
@@ -28,16 +32,13 @@ body {
     border: 5px solid #8a5c2e; /* Updated castle border color */
     cursor: pointer;
     transition: transform 0.3s;
-    animation: wobble 0.5s infinite alternate; /* Added animation for wobble effect */
-}
-
-@keyframes wobble {
-    0% {
-        transform: rotate(0deg);
-    }
-    100% {
-        transform: rotate(5deg); /* Adjust the angle for your desired wobble effect */
-    }
+    /* Removed wobble animation */
+    border-radius: 10px; /* Added border radius to castle */
+    background-color: #5a3921; /* Updated castle background color */
+    padding: 10px; /* Adjusted padding for castle */
+    margin: 20px auto;
+    display: block;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5); /* Castle box shadow */
 }
 
 #castle:hover {
