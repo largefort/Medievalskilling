@@ -133,16 +133,46 @@ function handleSkillingClick(skill) {
     updateUI();
 }
 
-function updatePassiveIncome() {
-    let totalPassiveIncome = knightCount + archerCount * 2 + wizardCount * 5;
+// Function to calculate and update offline progress
+function updateOfflineProgress() {
+    const lastSavedTimestamp = localStorage.getItem('lastSavedTimestamp');
 
-    coins += totalPassiveIncome;
-    saveGameData();
-    updateUI();
+    if (lastSavedTimestamp) {
+        const currentTime = new Date().getTime();
+        const elapsedMilliseconds = currentTime - parseInt(lastSavedTimestamp);
+
+        // Calculate progress based on elapsed time (adjust this calculation as needed)
+        const offlineCoinsEarned = Math.floor(elapsedMilliseconds / 1000); // 1 coin per second
+        const offlineWoodcuttingGains = Math.floor(elapsedMilliseconds / 20000); // 1 level every 20 seconds
+        const offlineMiningGains = Math.floor(elapsedMilliseconds / 30000); // 1 level every 30 seconds
+
+        // Apply the calculated progress
+        coins += offlineCoinsEarned;
+        woodcuttingLevel += offlineWoodcuttingGains;
+        miningLevel += offlineMiningGains;
+
+        // Update the last saved timestamp to the current time
+        localStorage.setItem('lastSavedTimestamp', currentTime);
+
+        // Save the updated game data and update the UI
+        saveGameData();
+        updateUI();
+    }
 }
 
-function startPassiveIncome() {
-    setInterval(updatePassiveIncome, 1000);
-}
+// Call the function to calculate offline progress when the page loads
+window.onload = function () {
+    updateOfflineProgress();
+};
 
-startPassiveIncome();
+// Function to handle online/offline events
+window.addEventListener('online', () => {
+    // The device is now online, call the updateOfflineProgress function
+    updateOfflineProgress();
+});
+
+window.addEventListener('offline', () => {
+    // The device is now offline, save the current timestamp
+    const currentTime = new Date().getTime();
+    localStorage.setItem('lastSavedTimestamp', currentTime);
+});
