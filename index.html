@@ -160,11 +160,10 @@
         <div class="modal-content">
             <span class="close" onclick="closeOfflineModal()">&times;</span>
             <h2>Offline Progress</h2>
-            <p>You were offline, and your progress has been saved.</p>
+            <p>You were offline, and your progress has been calculated:</p>
             <p>Gold earned: <span id="offlineGoldEarned">0</span></p>
-            <p>Woodcutting level gained: <span id="offlineWoodcuttingLevel">0</span></p>
-            <p>Mining level gained: <span id="offlineMiningLevel">0</span></p>
-            <!-- Add more progress details with medieval styles here as needed -->
+            <p>Woodcutting levels gained: <span id="offlineWoodcuttingLevel">0</span></p>
+            <p>Mining levels gained: <span id="offlineMiningLevel">0</span></p>
         </div>
     </div>
 
@@ -175,11 +174,7 @@
     <script src="script.js"></script>
     <script>
         // Function to open the offline progress modal
-        function openOfflineModal(offlineData) {
-            document.getElementById("offlineGoldEarned").textContent = offlineData.goldEarned;
-            document.getElementById("offlineWoodcuttingLevel").textContent = offlineData.woodcuttingLevel;
-            document.getElementById("offlineMiningLevel").textContent = offlineData.miningLevel;
-            // Update other progress details here as needed
+        function openOfflineModal() {
             document.getElementById("offlineModal").style.display = "block";
         }
 
@@ -188,18 +183,9 @@
             document.getElementById("offlineModal").style.display = "none";
         }
 
-        // Example usage: Call openOfflineModal with your offline progress data
-        // Replace this with your actual offline progress data
-        const offlineData = {
-            goldEarned: 100,
-            woodcuttingLevel: 2,
-            miningLevel: 1,
-            // Add other progress details here as needed
-        };
-
-        // Call openOfflineModal with your offline data when the page loads
+        // Example usage: Call openOfflineModal when the page loads
         window.onload = function () {
-            openOfflineModal(offlineData);
+            openOfflineModal();
         };
     </script>
 </body>
