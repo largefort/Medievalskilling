@@ -1,3 +1,5 @@
+/* CSS for Medieval Clicker Game with Falling Leaves Animation */
+
 body {
     font-family: "Times New Roman", Times, serif;
     background-color: #2a1d0e;
@@ -5,29 +7,27 @@ body {
     line-height: 1.5;
     margin: 0;
     padding: 0;
+    overflow: hidden; /* Hide overflow to prevent horizontal scrollbar */
 }
 
 .container {
     margin: 2% auto;
     position: relative;
     width: 95%;
-    max-width: 1440px; /* Adjusted for Galaxy S9 width */
-    height: 2560px; /* Adjusted for Galaxy S9 height */
+    max-width: 1200px;
 }
 
 #counter {
-    font-size: 3rem; /* Increased for readability on Galaxy S9 */
-    margin-bottom: 40px; /* Increased for spacing on Galaxy S9 */
-    text-shadow: 3px 3px 3px #532c08;
+    font-size: 2rem;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 2px #532c08;
 }
 
 #castle {
     border: 5px solid #532c08;
     cursor: pointer;
     transition: transform 0.3s;
-    animation: wobble 0.5s infinite alternate;
-    max-width: 100%; /* Ensure the castle image fits within the screen */
-    height: auto; /* Maintain aspect ratio */
+    animation: wobble 0.5s infinite alternate; /* Added animation for wobble effect */
 }
 
 @keyframes wobble {
@@ -35,50 +35,77 @@ body {
         transform: rotate(0deg);
     }
     100% {
-        transform: rotate(5deg);
+        transform: rotate(5deg); /* Adjust the angle for your desired wobble effect */
     }
 }
 
 #castle:hover {
-    transform: scale(1.1) rotate(0deg);
+    transform: scale(1.1) rotate(0deg); /* Adjust the scale and rotation as needed */
 }
 
 #upgrades-container, #owned-upgrades, #skilling-tab {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
-    margin-top: 40px; /* Increased spacing on Galaxy S9 */
+    margin-top: 20px;
 }
 
 .upgrade, .skilling-btn {
-    font-size: 2rem; /* Increased for readability on Galaxy S9 */
+    font-size: 1.6rem;
     font-weight: bold;
-    border: 4px solid #532c08; /* Increased border thickness for visibility */
-    padding: 20px 40px; /* Increased padding for touch input on Galaxy S9 */
+    border: 2px solid #532c08;
+    padding: 10px 20px;
     background-color: #5a3d23;
     cursor: pointer;
-    text-shadow: 2px 2px 2px #532c08;
+    text-shadow: 1px 1px 1px #532c08;
     transition: background-color 0.3s, transform 0.3s, color 0.3s;
-    margin: 20px;
+    margin: 10px;
 }
 
 .upgrade:hover, .skilling-btn:hover {
     background-color: #e2c293;
     color: #2a1d0e;
     transform: scale(1.1);
-    box-shadow: 0px 0px 10px #532c08; /* Increased box-shadow for 3D effect */
+    box-shadow: 0px 0px 6px #532c08; /* Added box-shadow on hover for 3D effect */
 }
 
-@media (max-width: 1440px) {
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Falling leaves animation */
+body::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    pointer-events: none;
+    z-index: -1; /* Place the leaves behind the content */
+    animation: fallingLeaves 10s linear infinite; /* Adjust duration as needed */
+}
+
+@keyframes fallingLeaves {
+    from {
+        transform: translateY(-10%);
+    }
+    to {
+        transform: translateY(100%);
+    }
+}
+
+@media (max-width: 768px) {
     .container {
         width: 95%;
         margin: 5% auto;
-        height: auto; /* Remove fixed height for smaller screens */
     }
     #counter {
-        font-size: 2.4rem; /* Adjusted font size for smaller screens */
+        font-size: 1.8rem;
     }
     .upgrade, .skilling-btn {
-        font-size: 1.6rem; /* Adjusted font size for smaller screens */
+        font-size: 1.4rem;
     }
 }
