@@ -70,6 +70,38 @@
         .upgrade:hover {
             background-color: rgba(60, 30, 15, 0.8); /* Button hover background color */
         }
+
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 1;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background-color: #5a3921; /* Medieval background color */
+            color: #f4e4b5; /* Text color */
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            text-align: center;
+        }
+
+        .close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 24px;
+            color: #f4e4b5; /* Close button color */
+            cursor: pointer;
+        }
     </style>
 </head>
 
@@ -122,11 +154,54 @@
             <a class="nav-link" data-toggle="pill" href="#shop-tab"><i class="fas fa-shopping-cart"></i> Shop</a>
         </div>
     </div>
+
+    <!-- Offline Progress Modal -->
+    <div id="offlineModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeOfflineModal()">&times;</span>
+            <h2>Offline Progress</h2>
+            <p>You were offline, and your progress has been saved.</p>
+            <p>Gold earned: <span id="offlineGoldEarned">0</span></p>
+            <p>Woodcutting level gained: <span id="offlineWoodcuttingLevel">0</span></p>
+            <p>Mining level gained: <span id="offlineMiningLevel">0</span></p>
+            <!-- Add more progress details with medieval styles here as needed -->
+        </div>
+    </div>
+
     <!-- Scripts -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="script.js"></script>
+    <script>
+        // Function to open the offline progress modal
+        function openOfflineModal(offlineData) {
+            document.getElementById("offlineGoldEarned").textContent = offlineData.goldEarned;
+            document.getElementById("offlineWoodcuttingLevel").textContent = offlineData.woodcuttingLevel;
+            document.getElementById("offlineMiningLevel").textContent = offlineData.miningLevel;
+            // Update other progress details here as needed
+            document.getElementById("offlineModal").style.display = "block";
+        }
+
+        // Function to close the offline progress modal
+        function closeOfflineModal() {
+            document.getElementById("offlineModal").style.display = "none";
+        }
+
+        // Example usage: Call openOfflineModal with your offline progress data
+        // Replace this with your actual offline progress data
+        const offlineData = {
+            goldEarned: 100,
+            woodcuttingLevel: 2,
+            miningLevel: 1,
+            // Add other progress details here as needed
+        };
+
+        // Call openOfflineModal with your offline data when the page loads
+        window.onload = function () {
+            openOfflineModal(offlineData);
+        };
+    </script>
 </body>
 
-    </html>
+</html>
