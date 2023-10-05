@@ -133,8 +133,25 @@ function handleSkillingClick(skill) {
     updateUI();
 }
 
-// Function to calculate and update offline progress
-function updateOfflineProgress() {
+// Function to calculate and update passive income
+function updatePassiveIncome() {
+    let totalPassiveIncome = knightCount + archerCount * 2 + wizardCount * 5;
+
+    coins += totalPassiveIncome;
+    saveGameData();
+    updateUI();
+}
+
+// Function to start passive income updates at intervals (e.g., every second)
+function startPassiveIncome() {
+    setInterval(updatePassiveIncome, 1000);
+}
+
+startPassiveIncome();
+
+// Function to calculate and display offline progress details
+function calculateOfflineProgress() {
+    // Retrieve the last saved timestamp from localStorage
     const lastSavedTimestamp = localStorage.getItem('lastSavedTimestamp');
 
     if (lastSavedTimestamp) {
@@ -146,29 +163,20 @@ function updateOfflineProgress() {
         const offlineWoodcuttingGains = Math.floor(elapsedMilliseconds / 20000); // 1 level every 20 seconds
         const offlineMiningGains = Math.floor(elapsedMilliseconds / 30000); // 1 level every 30 seconds
 
-        // Apply the calculated progress
-        coins += offlineCoinsEarned;
-        woodcuttingLevel += offlineWoodcuttingGains;
-        miningLevel += offlineMiningGains;
+        // Display the offline progress details in the modal
+        document.getElementById("offlineGoldEarned").textContent = offlineCoinsEarned;
+        document.getElementById("offlineWoodcuttingLevel").textContent = offlineWoodcuttingGains;
+        document.getElementById("offlineMiningLevel").textContent = offlineMiningGains;
 
-        // Update the last saved timestamp to the current time
-        localStorage.setItem('lastSavedTimestamp', currentTime);
-
-        // Save the updated game data and update the UI
-        saveGameData();
-        updateUI();
+        // Show the offline progress modal
+        document.getElementById("offlineModal").style.display = "block";
     }
 }
-
-// Call the function to calculate offline progress when the page loads
-window.onload = function () {
-    updateOfflineProgress();
-};
 
 // Function to handle online/offline events
 window.addEventListener('online', () => {
     // The device is now online, call the updateOfflineProgress function
-    updateOfflineProgress();
+    calculateOfflineProgress();
 });
 
 window.addEventListener('offline', () => {
