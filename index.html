@@ -112,6 +112,11 @@
             border: 5px solid #532c08; /* Castle border color */
             border-radius: 10px; /* Added border radius to castle */
         }
+
+        /* Language Selector Styles */
+        #language-selector {
+            margin-bottom: 10px;
+        }
     </style>
     <!-- Google AdSense Meta Tag -->
     <meta name="google-adsense-account" content="ca-pub-5816082932921993">
@@ -122,6 +127,14 @@
 
 <body>
     <div class="container mt-5">
+        <!-- Language Selector -->
+        <select id="language-selector">
+            <option value="en">English</option>
+            <option value="es">Español</option>
+            <option value="ic">Íslenska</option> <!-- Icelandic -->
+            <!-- Add more language options as needed -->
+        </select>
+
         <!-- Tab Content -->
         <div class="tab-content">
             <!-- Castle Tab -->
@@ -186,7 +199,6 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script src="script.js"></script>
     <script>
         // Function to open the offline progress modal
         function openOfflineModal() {
@@ -201,7 +213,50 @@
         // Example usage: Call openOfflineModal when the page loads
         window.onload = function () {
             openOfflineModal();
+        }
+
+        // Language Localization
+        const languages = {
+            en: {
+                "castle-tab": "Castle",
+                "woodcutting-tab": "Woodcutting",
+                "mining-tab": "Mining",
+                "shop-tab": "Shop",
+                // Add more localization for English as needed
+            },
+            es: {
+                "castle-tab": "Castillo",
+                "woodcutting-tab": "Tala de madera",
+                "mining-tab": "Minería",
+                "shop-tab": "Tienda",
+                // Add more localization for Spanish as needed
+            },
+            ic: {
+                "castle-tab": "Kastali",
+                "woodcutting-tab": "Tréskera",
+                "mining-tab": "Grufta",
+                "shop-tab": "Búð",
+                // Add more localization for Icelandic as needed
+            },
+            // Add more languages as needed
         };
+
+        // Function to update text content based on the selected language
+        function updateLanguage() {
+            const selectedLanguage = document.getElementById("language-selector").value;
+            const languageFile = languages[selectedLanguage];
+            for (const key in languageFile) {
+                if (languageFile.hasOwnProperty(key)) {
+                    document.getElementById(key).textContent = languageFile[key];
+                }
+            }
+        }
+
+        // Add an event listener to the language selector to update the language
+        document.getElementById("language-selector").addEventListener("change", updateLanguage);
+
+        // Initialize the page with the default language (e.g., English)
+        updateLanguage();
     </script>
 </body>
 
