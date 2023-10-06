@@ -6,6 +6,7 @@ let woodcuttingLevel = 1;
 let miningLevel = 1;
 let db;
 
+// Function to disable finger zooming
 function disableFingerZooming() {
     document.addEventListener('touchmove', function (event) {
         if (event.scale !== 1) { event.preventDefault(); }
@@ -132,6 +133,7 @@ function handleSkillingClick(skill) {
     updateUI();
 }
 
+// Function to calculate and update passive income
 function updatePassiveIncome() {
     let totalPassiveIncome = knightCount + archerCount * 2 + wizardCount * 5;
 
@@ -140,60 +142,45 @@ function updatePassiveIncome() {
     updateUI();
 }
 
+// Function to start passive income updates at intervals (e.g., every second)
 function startPassiveIncome() {
     setInterval(updatePassiveIncome, 1000);
 }
 
 startPassiveIncome();
 
+// Function to calculate and display offline progress details
 function calculateOfflineProgress() {
+    // Retrieve the last saved timestamp from localStorage
     const lastSavedTimestamp = localStorage.getItem('lastSavedTimestamp');
 
     if (lastSavedTimestamp) {
         const currentTime = new Date().getTime();
         const elapsedMilliseconds = currentTime - parseInt(lastSavedTimestamp);
 
-        const offlineCoinsEarned = Math.floor(elapsedMilliseconds / 1000);
-        const offlineWoodcuttingGains = Math.floor(elapsedMilliseconds / 20000);
-        const offlineMiningGains = Math.floor(elapsedMilliseconds / 30000);
+        // Calculate progress based on elapsed time (adjust this calculation as needed)
+        const offlineCoinsEarned = Math.floor(elapsedMilliseconds / 1000); // 1 coin per second
+        const offlineWoodcuttingGains = Math.floor(elapsedMilliseconds / 20000); // 1 level every 20 seconds
+        const offlineMiningGains = Math.floor(elapsedMilliseconds / 30000); // 1 level every 30 seconds
 
+        // Display the offline progress details in the modal
         document.getElementById("offlineGoldEarned").textContent = offlineCoinsEarned;
         document.getElementById("offlineWoodcuttingLevel").textContent = offlineWoodcuttingGains;
         document.getElementById("offlineMiningLevel").textContent = offlineMiningGains;
 
+        // Show the offline progress modal
         document.getElementById("offlineModal").style.display = "block";
     }
 }
 
+// Function to handle online/offline events
 window.addEventListener('online', () => {
+    // The device is now online, call the updateOfflineProgress function
     calculateOfflineProgress();
 });
 
 window.addEventListener('offline', () => {
+    // The device is now offline, save the current timestamp
     const currentTime = new Date().getTime();
     localStorage.setItem('lastSavedTimestamp', currentTime);
 });
-
-// Function to detect Android device specs and show compatibility notification
-function detectAndroidDeviceSpecs() {
-    const userAgent = navigator.userAgent.toLowerCase();
-
-    if (userAgent.includes("android")) {
-        const isLowEndDevice = /* Add your criteria to determine low-end devices */;
-
-        if (isLowEndDevice) {
-            // Display the compatibility notification modal
-            document.getElementById("compatibilityModal").style.display = "block";
-        }
-    }
-}
-
-// Call the detectAndroidDeviceSpecs function when the page loads
-window.onload = function () {
-    detectAndroidDeviceSpecs();
-};
-
-// Function to close the compatibility notification modal
-function closeCompatibilityNotification() {
-    document.getElementById("compatibilityModal").style.display = "none";
-}
