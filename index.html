@@ -8,13 +8,12 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
-    <link rel="stylesheet" href="styles.css"> <!-- Your custom CSS file -->
+    <link rel="stylesheet" href="styles.css">
     <style>
-        /* Common Styles */
         body {
             font-family: 'MedievalFont', serif;
-            background-color: #251c12; /* Updated background color */
-            color: #f7dfc4; /* Updated text color */
+            background-color: #251c12;
+            color: #f7dfc4;
             margin: 0;
             padding: 0;
         }
@@ -27,19 +26,17 @@
             margin-top: 15px;
         }
 
-        /* Container Styles */
         .container {
             background-color: rgba(0, 0, 0, 0.8);
             border: 5px solid #8a5c2e;
-            padding: 20px; /* Reduced padding inside the container */
+            padding: 20px;
             border-radius: 15px;
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
-            margin: 0 auto; /* Center the container horizontally */
-            max-width: 800px; /* Limit container width for readability */
-            overflow: hidden; /* Prevent vertical stretching */
+            margin: 0 auto;
+            max-width: 800px;
+            overflow: hidden;
         }
 
-        /* Tab Navigation Styles */
         .nav-pills .nav-link {
             font-size: 18px;
             padding: 10px 20px;
@@ -47,7 +44,7 @@
             border-radius: 0;
             border-top: 3px solid #8a5c2e;
             border-bottom: 3px solid #3c1e0f;
-            color: #f7dfc4; /* Updated text color */
+            color: #f7dfc4;
         }
 
         .nav-pills .nav-link.active {
@@ -57,25 +54,23 @@
             border-bottom: 3px solid #8a5c2e;
         }
 
-        /* Upgrade Button Styles */
         .upgrade {
             font-size: 18px;
             color: #f7dfc4;
-            background-color: #8a5c2e; /* Updated button background color */
-            border: 2px solid #5a3921; /* Updated button border color */
-            padding: 15px; /* Reduced padding for buttons */
-            margin-bottom: 10px; /* Increased margin for spacing */
+            background-color: #8a5c2e;
+            border: 2px solid #5a3921;
+            padding: 15px;
+            margin-bottom: 10px;
             cursor: pointer;
             transition: background-color 0.3s, color 0.3s;
-            border-radius: 10px; /* Added border radius for button */
+            border-radius: 10px;
         }
 
         .upgrade:hover {
-            background-color: #5a3921; /* Button hover background color */
-            color: #ffcc00; /* Button hover text color */
+            background-color: #5a3921;
+            color: #ffcc00;
         }
 
-        /* Modal Styles */
         .modal {
             display: none;
             position: fixed;
@@ -90,7 +85,7 @@
         }
 
         .modal-content {
-            background-color: #251c12; /* Updated modal background color */
+            background-color: #251c12;
             color: #f7dfc4;
             padding: 20px;
             border-radius: 10px;
@@ -107,37 +102,19 @@
             cursor: pointer;
         }
 
-        /* Castle Image Styles */
         .castle-image {
-            border: 5px solid #532c08; /* Castle border color */
-            border-radius: 10px; /* Added border radius to castle */
-        }
-
-        /* Language Selector Styles */
-        #language-selector {
-            margin-bottom: 10px;
+            border: 5px solid #532c08;
+            border-radius: 10px;
         }
     </style>
-    <!-- Google AdSense Meta Tag -->
     <meta name="google-adsense-account" content="ca-pub-5816082932921993">
-    <!-- Site Ads Meta Tag -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5816082932921993"
         crossorigin="anonymous"></script>
 </head>
 
 <body>
     <div class="container mt-5">
-        <!-- Language Selector -->
-        <select id="language-selector">
-            <option value="en">English</option>
-            <option value="es">Español</option>
-            <option value="ic">Íslenska</option> <!-- Icelandic -->
-            <!-- Add more language options as needed -->
-        </select>
-
-        <!-- Tab Content -->
         <div class="tab-content">
-            <!-- Castle Tab -->
             <div class="tab-pane fade show active" id="castle-tab">
                 <div class="col-12 text-center">
                     <img id="castle" src="https://raw.githubusercontent.com/largefort/Medievalskilling/main/castle.png"
@@ -150,7 +127,6 @@
                     </div>
                 </div>
             </div>
-            <!-- Skilling Tab -->
             <div class="tab-pane fade" id="skilling-tab">
                 <div class="col-12 text-center">
                     <h2>Skilling</h2>
@@ -162,7 +138,6 @@
                     </div>
                 </div>
             </div>
-            <!-- Shop Tab -->
             <div class="tab-pane fade" id="shop-tab">
                 <div class="col-12 text-center">
                     <h2>Shop</h2>
@@ -175,7 +150,6 @@
                 </div>
             </div>
         </div>
-        <!-- Bottom Tab Navigation -->
         <div class="nav nav-pills nav-fill fixed-bottom">
             <a class="nav-link active" data-toggle="pill" href="#castle-tab"><i class="fas fa-castle"></i> Castle</a>
             <a class="nav-link" data-toggle="pill" href="#skilling-tab"><i class="fas fa-hammer"></i> Skilling</a>
@@ -183,111 +157,32 @@
         </div>
     </div>
 
-    <!-- Offline Progress Modal -->
-    <div id="offlineModal" class="modal">
+    <div id="compatibilityModal" class="modal">
         <div class="modal-content">
-            <span class="close" onclick="closeOfflineModal()">&times;</span>
-            <h2>Offline Progress</h2>
-            <p>You were offline, and your progress has been calculated:</p>
-            <p>Gold earned: <span id="offlineGoldEarned">0</span></p>
-            <p>Woodcutting levels gained: <span id="offlineWoodcuttingLevel">0</span></p>
-            <p>Mining levels gained: <span id="offlineMiningLevel">0</span></p>
+            <span class="close" onclick="closeCompatibilityNotification()">&times;</span>
+            <h2>Device Compatibility Warning</h2>
+            <p>Your mobile device's specifications may not fully support this game for optimal performance.</p>
+            <p>Please consider enabling the performance or compatibility mode for a better gaming experience.</p>
+            <button class="upgrade" onclick="closeCompatibilityNotification()">Enable Compatibility Mode</button>
         </div>
     </div>
 
-    <!-- Scripts -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="script.js"></script>
     <script>
-        // Function to open the offline progress modal
         function openOfflineModal() {
             document.getElementById("offlineModal").style.display = "block";
         }
 
-        // Function to close the offline progress modal
         function closeOfflineModal() {
             document.getElementById("offlineModal").style.display = "none";
         }
 
-        // Example usage: Call openOfflineModal when the page loads
         window.onload = function () {
             openOfflineModal();
-        }
-
-        // Language Localization
-        const languages = {
-            en: {
-                "castle-tab": "Castle",
-                "woodcutting-tab": "Woodcutting",
-                "mining-tab": "Mining",
-                "shop-tab": "Shop",
-                // Add more localization for English as needed
-            },
-            es: {
-                "castle-tab": "Castillo",
-                "woodcutting-tab": "Tala de madera",
-                "mining-tab": "Minería",
-                "shop-tab": "Tienda",
-                // Add more localization for Spanish as needed
-            },
-            ic: {
-                "castle-tab": "Kastali",
-                "woodcutting-tab": "Tréskera",
-                "mining-tab": "Grufta",
-                "shop-tab": "Búð",
-                // Add more localization for Icelandic as needed
-                "castle": "Kastali",
-                "counter": "Gullmýntir: 0",
-                "owned-upgrades": {
-                    "knights": "Riddarar: 0",
-                    "archers": "Örvarar: 0",
-                    "wizards": "Galdramenn: 0"
-                },
-                "skilling-tab": "Hæfni",
-                "upgrade": "Uppgræðsla",
-                "woodcutting": "Tréskera",
-                "mining": "Grufta",
-                "woodcutting-level": "Tréskera Level: 1",
-                "mining-level": "Grufta Level: 1",
-                "shop-tab": "Búð",
-                "knight": "Riddari (<span id='knight-cost'>10</span> gullmýntir)",
-                "archer": "Örvari (<span id='archer-cost'>25</span> gullmýntir)",
-                "wizard": "Galdramann (<span id='wizard-cost'>50</span> gullmýntir)",
-                "offlineModal": {
-                    "title": "Háttspunaframför",
-                    "gold-earned": "Gull unnið: <span id='offlineGoldEarned'>0</span>",
-                    "woodcutting-level-gained": "Tréskera Level unnið: <span id='offlineWoodcuttingLevel'>0</span>",
-                    "mining-level-gained": "Grufta Level unnið: <span id='offlineMiningLevel'>0</span>"
-                }
-            },
-            // Add more languages as needed
         };
-
-        // Function to update text content based on the selected language
-        function updateLanguage() {
-            const selectedLanguage = document.getElementById("language-selector").value;
-            const languageFile = languages[selectedLanguage];
-            for (const key in languageFile) {
-                if (languageFile.hasOwnProperty(key)) {
-                    if (typeof languageFile[key] === 'string') {
-                        document.getElementById(key).textContent = languageFile[key];
-                    } else if (typeof languageFile[key] === 'object') {
-                        for (const subKey in languageFile[key]) {
-                            if (languageFile[key].hasOwnProperty(subKey)) {
-                                document.getElementById(key + '-' + subKey).textContent = languageFile[key][subKey];
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-        // Add an event listener to the language selector to update the language
-        document.getElementById("language-selector").addEventListener("change", updateLanguage);
-
-        // Initialize the page with the default language (e.g., English)
-        updateLanguage();
     </script>
 </body>
 
