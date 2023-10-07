@@ -6,7 +6,6 @@ let woodcuttingLevel = 1;
 let miningLevel = 1;
 let db;
 
-// Function to disable finger zooming
 function disableFingerZooming() {
     document.addEventListener('touchmove', function (event) {
         if (event.scale !== 1) { event.preventDefault(); }
@@ -133,54 +132,81 @@ function handleSkillingClick(skill) {
     updateUI();
 }
 
-// Function to calculate and update passive income
-function updatePassiveIncome() {
-    let totalPassiveIncome = knightCount + archerCount * 2 + wizardCount * 5;
+// Define an array of building names
+const buildings = [
+    "Farm",
+    "Blacksmith",
+    "Tavern",
+    "Marketplace",
+    "Stable",
+    "Carpenter's Workshop",
+    "Bakery",
+    "Alchemist's Lab",
+    "Armory",
+    "Mage Tower",
+    "Guardhouse",
+    "Inn",
+    "Chapel",
+    "Library",
+    "Tannery",
+    "Barracks",
+    "Granary",
+    "Town Hall",
+    "Workshop",
+    "Apothecary",
+    "Jousting Arena"
+];
 
-    coins += totalPassiveIncome;
-    saveGameData();
-    updateUI();
-}
+// Function to populate the "Build" tab with building names
+function populateBuildTab() {
+    const buildTab = document.getElementById("build-tab");
 
-// Function to start passive income updates at intervals (e.g., every second)
-function startPassiveIncome() {
-    setInterval(updatePassiveIncome, 1000);
-}
-
-startPassiveIncome();
-
-// Function to calculate and display offline progress details
-function calculateOfflineProgress() {
-    // Retrieve the last saved timestamp from localStorage
-    const lastSavedTimestamp = localStorage.getItem('lastSavedTimestamp');
-
-    if (lastSavedTimestamp) {
-        const currentTime = new Date().getTime();
-        const elapsedMilliseconds = currentTime - parseInt(lastSavedTimestamp);
-
-        // Calculate progress based on elapsed time (adjust this calculation as needed)
-        const offlineCoinsEarned = Math.floor(elapsedMilliseconds / 1000); // 1 coin per second
-        const offlineWoodcuttingGains = Math.floor(elapsedMilliseconds / 20000); // 1 level every 20 seconds
-        const offlineMiningGains = Math.floor(elapsedMilliseconds / 30000); // 1 level every 30 seconds
-
-        // Display the offline progress details in the modal
-        document.getElementById("offlineGoldEarned").textContent = offlineCoinsEarned;
-        document.getElementById("offlineWoodcuttingLevel").textContent = offlineWoodcuttingGains;
-        document.getElementById("offlineMiningLevel").textContent = offlineMiningGains;
-
-        // Show the offline progress modal
-        document.getElementById("offlineModal").style.display = "block";
+    for (let i = 0; i < buildings.length; i++) {
+        const buildingName = buildings[i];
+        const buildingDiv = document.createElement("div");
+        buildingDiv.classList.add("upgrade");
+        buildingDiv.textContent = buildingName;
+        buildTab.appendChild(buildingDiv);
     }
 }
 
-// Function to handle online/offline events
-window.addEventListener('online', () => {
-    // The device is now online, call the updateOfflineProgress function
-    calculateOfflineProgress();
+populateBuildTab();
+
+// Add event listeners for building upgrades
+const buildingUpgrades = document.querySelectorAll("#build-tab .upgrade");
+buildingUpgrades.forEach((upgrade, index) => {
+    upgrade.addEventListener("click", () => {
+        // Handle the building upgrade logic here
+        if (coins >= (index + 1) * 100) {
+            coins -= (index + 1) * 100;
+            increaseBuildingLevel(buildings[index]);
+        }
+        saveGameData();
+        updateUI();
+    });
 });
 
-window.addEventListener('offline', () => {
-    // The device is now offline, save the current timestamp
-    const currentTime = new Date().getTime();
-    localStorage.setItem('lastSavedTimestamp', currentTime);
-});
+// Object to store building levels
+const buildingLevels = {};
+
+// Function to increase building level
+function increaseBuildingLevel(buildingName) {
+    if (!buildingLevels[buildingName]) {
+        buildingLevels[buildingName] = 1;
+    } else {
+        buildingLevels[buildingName]++;
+    }
+    updateBuildingLevels();
+}
+
+// Function to update the UI with building levels
+function updateBuildingLevels() {
+    for (const buildingName in buildingLevels) {
+        const buildingLevel = buildingLevels[buildingName];
+        // Update the UI to display building levels
+        document.getElementById(`${buildingName.toLowerCase()}-level`).textContent = buildingLevel;
+    }
+}
+
+// Initialize the UI with building levels
+updateBuildingLevels();
