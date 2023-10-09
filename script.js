@@ -4,7 +4,8 @@ let archerCount = 0;
 let wizardCount = 0;
 let woodcuttingLevel = 1;
 let miningLevel = 1;
-let paladinCount = 0; // Added Paladin count
+let paladinCount = 0;
+let passiveIncome = 0; // Added passive income variable
 let db;
 
 function disableFingerZooming() {
@@ -43,7 +44,7 @@ function saveGameData() {
         wizardCount,
         woodcuttingLevel,
         miningLevel,
-        paladinCount, // Include Paladin count
+        paladinCount,
     };
 
     const transaction = db.transaction(["gameState"], "readwrite");
@@ -65,7 +66,7 @@ function loadGameData() {
             wizardCount = savedState.wizardCount;
             woodcuttingLevel = savedState.woodcuttingLevel;
             miningLevel = savedState.miningLevel;
-            paladinCount = savedState.paladinCount; // Load Paladin count
+            paladinCount = savedState.paladinCount;
 
             updateUI();
         }
@@ -81,7 +82,9 @@ function updateUI() {
     document.getElementById("wizard-count").textContent = wizardCount;
     document.getElementById("woodcutting-level").textContent = woodcuttingLevel;
     document.getElementById("mining-level").textContent = miningLevel;
-    document.getElementById("paladin-count").textContent = paladinCount; // Update Paladin count
+    document.getElementById("paladin-count").textContent = paladinCount; // Display Paladin count
+
+    updatePassiveIncome(); // Update passive income display
 }
 
 function clickCastle() {
@@ -110,7 +113,7 @@ function buyUpgrade(type) {
                 wizardCount++;
             }
             break;
-        case "paladin": // Handle Paladin upgrade
+        case "paladin": // Handling the purchase of Paladins
             if (coins >= 100) { // Adjust the cost as needed
                 coins -= 100;
                 paladinCount++;
@@ -141,3 +144,29 @@ function handleSkillingClick(skill) {
     saveGameData();
     updateUI();
 }
+
+// Define an array of building names (removed)
+// Function to populate the "Build" tab with building names (removed)
+
+// Add event listeners for building upgrades (removed)
+
+// Object to store building levels (removed)
+
+// Function to increase building level (removed)
+
+// Function to update the UI with building levels (removed)
+
+// Initialize the UI with building levels (removed)
+
+function updatePassiveIncome() {
+    const totalPassiveIncome = paladinCount * 5; // Example: Each Paladin generates 5 coins per second
+    passiveIncome = totalPassiveIncome;
+}
+
+function earnPassiveIncome() {
+    coins += passiveIncome;
+    saveGameData();
+    updateUI();
+}
+
+setInterval(earnPassiveIncome, 1000); // Earn passive income every second
