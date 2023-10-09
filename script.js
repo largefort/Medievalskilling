@@ -2,6 +2,9 @@ let coins = 0;
 let knightCount = 0;
 let archerCount = 0;
 let wizardCount = 0;
+let knightUpgradeLevel = 1;
+let archerUpgradeLevel = 1;
+let wizardUpgradeLevel = 1;
 let woodcuttingLevel = 1;
 let miningLevel = 1;
 let db;
@@ -41,6 +44,9 @@ function saveGameData() {
         knightCount,
         archerCount,
         wizardCount,
+        knightUpgradeLevel,
+        archerUpgradeLevel,
+        wizardUpgradeLevel,
         woodcuttingLevel,
         miningLevel,
     };
@@ -62,6 +68,9 @@ function loadGameData() {
             knightCount = savedState.knightCount;
             archerCount = savedState.archerCount;
             wizardCount = savedState.wizardCount;
+            knightUpgradeLevel = savedState.knightUpgradeLevel;
+            archerUpgradeLevel = savedState.archerUpgradeLevel;
+            wizardUpgradeLevel = savedState.wizardUpgradeLevel;
             woodcuttingLevel = savedState.woodcuttingLevel;
             miningLevel = savedState.miningLevel;
 
@@ -77,6 +86,9 @@ function updateUI() {
     document.getElementById("knight-count").textContent = knightCount;
     document.getElementById("archer-count").textContent = archerCount;
     document.getElementById("wizard-count").textContent = wizardCount;
+    document.getElementById("knight-upgrade-level").textContent = knightUpgradeLevel;
+    document.getElementById("archer-upgrade-level").textContent = archerUpgradeLevel;
+    document.getElementById("wizard-upgrade-level").textContent = wizardUpgradeLevel;
     document.getElementById("woodcutting-level").textContent = woodcuttingLevel;
     document.getElementById("mining-level").textContent = miningLevel;
 }
@@ -90,34 +102,42 @@ function clickCastle() {
 function buyUpgrade(type) {
     let upgradeCost = 0;
     let upgradeCount = 0;
+    let upgradeLevel = 0;
 
     switch (type) {
         case "knight":
             upgradeCost = 10;
             upgradeCount = knightCount;
+            upgradeLevel = knightUpgradeLevel;
             break;
         case "archer":
             upgradeCost = 25;
             upgradeCount = archerCount;
+            upgradeLevel = archerUpgradeLevel;
             break;
         case "wizard":
             upgradeCost = 50;
             upgradeCount = wizardCount;
+            upgradeLevel = wizardUpgradeLevel;
             break;
     }
 
     if (coins >= upgradeCost) {
         coins -= upgradeCost;
         upgradeCount++;
+        upgradeLevel++;
         switch (type) {
             case "knight":
                 knightCount = upgradeCount;
+                knightUpgradeLevel = upgradeLevel;
                 break;
             case "archer":
                 archerCount = upgradeCount;
+                archerUpgradeLevel = upgradeLevel;
                 break;
             case "wizard":
                 wizardCount = upgradeCount;
+                wizardUpgradeLevel = upgradeLevel;
                 break;
         }
         saveGameData();
@@ -148,7 +168,7 @@ function handleSkillingClick(skill) {
 
 // Function to calculate and update passive income
 function updatePassiveIncome() {
-    let totalPassiveIncome = knightCount + archerCount * 2 + wizardCount * 5;
+    let totalPassiveIncome = knightCount * knightUpgradeLevel + archerCount * archerUpgradeLevel * 2 + wizardCount * wizardUpgradeLevel * 5;
 
     coins += totalPassiveIncome;
     saveGameData();
