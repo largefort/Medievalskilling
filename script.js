@@ -4,12 +4,9 @@ let archerCount = 0;
 let wizardCount = 0;
 let woodcuttingLevel = 1;
 let miningLevel = 1;
-let knightUpgradeLevel = 0; // New upgrade levels
-let archerUpgradeLevel = 0;
-let wizardUpgradeLevel = 0;
+let paladinCount = 0; // Added Paladin count
 let db;
 
-// Function to disable finger zooming
 function disableFingerZooming() {
     document.addEventListener('touchmove', function (event) {
         if (event.scale !== 1) { event.preventDefault(); }
@@ -46,9 +43,7 @@ function saveGameData() {
         wizardCount,
         woodcuttingLevel,
         miningLevel,
-        knightUpgradeLevel, // Save upgrade levels
-        archerUpgradeLevel,
-        wizardUpgradeLevel,
+        paladinCount, // Include Paladin count
     };
 
     const transaction = db.transaction(["gameState"], "readwrite");
@@ -70,9 +65,7 @@ function loadGameData() {
             wizardCount = savedState.wizardCount;
             woodcuttingLevel = savedState.woodcuttingLevel;
             miningLevel = savedState.miningLevel;
-            knightUpgradeLevel = savedState.knightUpgradeLevel; // Load upgrade levels
-            archerUpgradeLevel = savedState.archerUpgradeLevel;
-            wizardUpgradeLevel = savedState.wizardUpgradeLevel;
+            paladinCount = savedState.paladinCount; // Load Paladin count
 
             updateUI();
         }
@@ -88,9 +81,7 @@ function updateUI() {
     document.getElementById("wizard-count").textContent = wizardCount;
     document.getElementById("woodcutting-level").textContent = woodcuttingLevel;
     document.getElementById("mining-level").textContent = miningLevel;
-    document.getElementById("knight-upgrade-level").textContent = knightUpgradeLevel; // Update upgrade levels
-    document.getElementById("archer-upgrade-level").textContent = archerUpgradeLevel;
-    document.getElementById("wizard-upgrade-level").textContent = wizardUpgradeLevel;
+    document.getElementById("paladin-count").textContent = paladinCount; // Update Paladin count
 }
 
 function clickCastle() {
@@ -105,21 +96,24 @@ function buyUpgrade(type) {
             if (coins >= 10) {
                 coins -= 10;
                 knightCount++;
-                knightUpgradeLevel++; // Increase upgrade level
             }
             break;
         case "archer":
             if (coins >= 25) {
                 coins -= 25;
                 archerCount++;
-                archerUpgradeLevel++; // Increase upgrade level
             }
             break;
         case "wizard":
             if (coins >= 50) {
                 coins -= 50;
                 wizardCount++;
-                wizardUpgradeLevel++; // Increase upgrade level
+            }
+            break;
+        case "paladin": // Handle Paladin upgrade
+            if (coins >= 100) { // Adjust the cost as needed
+                coins -= 100;
+                paladinCount++;
             }
             break;
     }
@@ -147,55 +141,3 @@ function handleSkillingClick(skill) {
     saveGameData();
     updateUI();
 }
-
-// Function to calculate and update passive income
-function updatePassiveIncome() {
-    let totalPassiveIncome = knightCount + archerCount * 2 + wizardCount * 5;
-
-    coins += totalPassiveIncome;
-    saveGameData();
-    updateUI();
-}
-
-// Function to start passive income updates at intervals (e.g., every second)
-function startPassiveIncome() {
-    setInterval(updatePassiveIncome, 1000);
-}
-
-startPassiveIncome();
-
-// Function to calculate and display offline progress details
-function calculateOfflineProgress() {
-    // Retrieve the last saved timestamp from localStorage
-    const lastSavedTimestamp = localStorage.getItem('lastSavedTimestamp');
-
-    if (lastSavedTimestamp) {
-        const currentTime = new Date().getTime();
-        const elapsedMilliseconds = currentTime - parseInt(lastSavedTimestamp);
-
-        // Calculate progress based on elapsed time (adjust this calculation as needed)
-        const offlineCoinsEarned = Math.floor(elapsedMilliseconds / 1000); // 1 coin per second
-        const offlineWoodcuttingGains = Math.floor(elapsedMilliseconds / 20000); // 1 level every 20 seconds
-        const offlineMiningGains = Math.floor(elapsedMilliseconds / 30000); // 1 level every 30 seconds
-
-        // Display the offline progress details in the modal
-        document.getElementById("offlineGoldEarned").textContent = offlineCoinsEarned;
-        document.getElementById("offlineWoodcuttingLevel").textContent = offlineWoodcuttingGains;
-        document.getElementById("offlineMiningLevel").textContent = offlineMiningGains;
-
-        // Show the offline progress modal
-        document.getElementById("offlineModal").style.display = "block";
-    }
-}
-
-// Function to handle online/offline events
-window.addEventListener('online', () => {
-    // The device is now online, call the updateOfflineProgress function
-    calculateOfflineProgress();
-});
-
-window.addEventListener('offline', () => {
-    // The device is now offline, save the current timestamp
-    const currentTime = new Date().getTime();
-    localStorage.setItem('lastSavedTimestamp', currentTime);
-});
