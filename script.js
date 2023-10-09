@@ -88,28 +88,41 @@ function clickCastle() {
 }
 
 function buyUpgrade(type) {
+    let upgradeCost = 0;
+    let upgradeCount = 0;
+
     switch (type) {
         case "knight":
-            if (coins >= 10) {
-                coins -= 10;
-                knightCount++;
-            }
+            upgradeCost = 10;
+            upgradeCount = knightCount;
             break;
         case "archer":
-            if (coins >= 25) {
-                coins -= 25;
-                archerCount++;
-            }
+            upgradeCost = 25;
+            upgradeCount = archerCount;
             break;
         case "wizard":
-            if (coins >= 50) {
-                coins -= 50;
-                wizardCount++;
-            }
+            upgradeCost = 50;
+            upgradeCount = wizardCount;
             break;
     }
-    saveGameData();
-    updateUI();
+
+    if (coins >= upgradeCost) {
+        coins -= upgradeCost;
+        upgradeCount++;
+        switch (type) {
+            case "knight":
+                knightCount = upgradeCount;
+                break;
+            case "archer":
+                archerCount = upgradeCount;
+                break;
+            case "wizard":
+                wizardCount = upgradeCount;
+                break;
+        }
+        saveGameData();
+        updateUI();
+    }
 }
 
 function compactNumberFormat(num) {
