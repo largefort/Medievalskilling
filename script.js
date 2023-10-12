@@ -1,14 +1,13 @@
-let deniers = 0; // Deniers are a medieval currency
-let florins = 0; // Florins were a gold coin used in the medieval era
-let ducats = 0;  // Ducats were a popular currency in medieval Europe
-let knights = 0;
-let archers = 0;
-let wizards = 0;
+let coins = 0;
+let deniers = 0; // Add a new variable for Deniers
+let knightCount = 0;
+let archerCount = 0;
+let wizardCount = 0;
 let woodcuttingLevel = 1;
 let miningLevel = 1;
-let paladins = 0;
-let medievalKingdomIncome = 0;
-let medievalKingdom;
+let paladinCount = 0;
+let passiveIncome = 0;
+let db;
 
 function disableFingerZooming() {
     document.addEventListener('touchmove', function (event) {
@@ -18,133 +17,121 @@ function disableFingerZooming() {
 
 disableFingerZooming();
 
-function establishMedievalKingdom() {
-    const quest = indexedDB.open("MedievalKingdomDB", 1);
+function initializeDB() {
+    const request = indexedDB.open("MedievalClickerDB", 1);
 
-    quest.onupgradeneeded = function (event) {
-        medievalKingdom = event.target.result;
-        if (!medievalKingdom.objectStoreNames.contains('kingdomState')) {
-            medievalKingdom.createObjectStore('kingdomState');
+    request.onupgradeneeded = function (event) {
+        db = event.target.result;
+        if (!db.objectStoreNames.contains('gameState')) {
+            db.createObjectStore('gameState');
         }
     };
 
-    quest.onsuccess = function (event) {
-        medievalKingdom = event.target.result;
-        retrieveKingdomData();
+    request.onsuccess = function (event) {
+        db = event.target.result;
+        loadGameData();
     };
 
-    quest.onerror = function (event) {
-        console.log("Error while establishing the Kingdom", event);
+    request.onerror = function (event) {
+        console.log("Error opening DB", event);
     };
 }
 
-function saveKingdomData() {
-    const kingdomState = {
-        deniers,
-        florins,
-        ducats,
-        knights,
-        archers,
-        wizards,
+function saveGameData() {
+    const gameState = {
+        coins,
+        deniers, // Update the saved Deniers count
+        knightCount,
+        archerCount,
+        wizardCount,
         woodcuttingLevel,
         miningLevel,
-        paladins,
+        paladinCount,
     };
 
-    const transaction = medievalKingdom.transaction(["kingdomState"], "readwrite");
-    const store = transaction.objectStore("kingdomState");
-    store.put(kingdomState, "currentKingdomState");
+    const transaction = db.transaction(["gameState"], "readwrite");
+    const store = transaction.objectStore("gameState");
+    store.put(gameState, "currentGameState");
 }
 
-function retrieveKingdomData() {
-    const transaction = medievalKingdom.transaction(["kingdomState"], "readonly");
-    const store = transaction.objectStore("kingdomState");
-    const quest = store.get("currentKingdomState");
-    quest.onsuccess = function (event) {
-        if (quest.result) {
-            const savedState = quest.result;
+function loadGameData() {
+    const transaction = db.transaction(["gameState"], "readonly");
+    const store = transaction.objectStore("gameState");
+    const request = store.get("currentGameState");
+    request.onsuccess = function (event) {
+        if (request.result) {
+            const savedState = request.result;
 
-            deniers = savedState.deniers;
-            florins = savedState.florins;
-            ducats = savedState.ducats;
-            knights = savedState.knights;
-            archers = savedState.archers;
-            wizards = savedState.wizards;
+            coins = savedState.coins;
+            deniers = savedState.deniers; // Update the loaded Deniers count
+            knightCount = savedState.knightCount;
+            archerCount = savedState.archerCount;
+            wizardCount = savedState.wizardCount;
             woodcuttingLevel = savedState.woodcuttingLevel;
             miningLevel = savedState.miningLevel;
-            paladins = savedState.paladins;
+            paladinCount = savedState.paladinCount;
 
-            updateMedievalUI();
+            updateUI();
         }
     };
 }
 
-establishMedievalKingdom();
+initializeDB();
 
-function updateMedievalUI() {
-    document.getElementById("deniers-counter").textContent = `Deniers: ${medievalNumberFormat(deniers)}`;
-    document.getElementById("florins-counter").textContent = `Florins: ${medievalNumberFormat(florins)}`;
-    document.getElementById("ducats-counter").textContent = `Ducats: ${medievalNumberFormat(ducats)}`;
-    document.getElementById("knights-count").textContent = knights;
-    document.getElementById("archers-count").textContent = archers;
-    document.getElementById("wizards-count").textContent = wizards;
+function updateUI() {
+    document.getElementById("counter").textContent = `Deniers: ${deniers}`; // Update the displayed Deniers count
+    document.getElementById("knight-count").textContent = knightCount;
+    document.getElementById("archer-count").textContent = archerCount;
+    document.getElementById("wizard-count").textContent = wizardCount;
     document.getElementById("woodcutting-level").textContent = woodcuttingLevel;
     document.getElementById("mining-level").textContent = miningLevel;
-    document.getElementById("paladins-count").textContent = paladins;
+    document.getElementById("paladin-count").textContent = paladinCount;
 
-    updateKingdomIncome();
+    updatePassiveIncome();
 }
 
-function conquerCastle() {
+function clickCastle() {
     deniers++;
-    saveKingdomData();
-    updateMedievalUI();
+    saveGameData();
+    updateUI();
 }
 
-function recruitArmy(type) {
+function buyUpgrade(type) {
     switch (type) {
         case "knight":
-            if (deniers >= 10) {
+            if (deniers >= 10) { // Adjust the currency check to Deniers
                 deniers -= 10;
-                knights++;
-                updateKingdomIncome(); // Update income when recruiting Knights
+                knightCount++;
+                updatePassiveIncome();
             }
             break;
         case "archer":
-            if (deniers >= 25) {
+            if (deniers >= 25) { // Adjust the currency check to Deniers
                 deniers -= 25;
-                archers++;
-                updateKingdomIncome(); // Update income when recruiting Archers
+                archerCount++;
+                updatePassiveIncome();
             }
             break;
         case "wizard":
-            if (deniers >= 50) {
+            if (deniers >= 50) { // Adjust the currency check to Deniers
                 deniers -= 50;
-                wizards++;
-                updateKingdomIncome(); // Update income when recruiting Wizards
+                wizardCount++;
+                updatePassiveIncome();
             }
             break;
         case "paladin":
-            if (deniers >= 100) {
+            if (deniers >= 100) { // Adjust the currency check to Deniers
                 deniers -= 100;
-                paladins++;
-                updateKingdomIncome(); // Update income when recruiting Paladins
+                paladinCount++;
+                updatePassiveIncome();
             }
             break;
     }
-    saveKingdomData();
-    updateMedievalUI();
+    saveGameData();
+    updateUI();
 }
 
-function medievalNumberFormat(num) {
-    if (num < 1e3) return num;
-    if (num >= 1e3 && num < 1e6) return +(num / 1e3).toFixed(1) + "K";
-    if (num >= 1e6 && num < 1e9) return +(num / 1e6).toFixed(1) + "M";
-    if (num >= 1e9 && num < 1e12) return +(num / 1e9).toFixed(1) + "B";
-    return +(num / 1e12).toFixed(1) + "T";
-}
-
-function improveSkills(skill) {
+function handleSkillingClick(skill) {
     switch (skill) {
         case "woodcutting":
             woodcuttingLevel++;
@@ -153,19 +140,21 @@ function improveSkills(skill) {
             miningLevel++;
             break;
     }
-    saveKingdomData();
-    updateMedievalUI();
+    saveGameData();
+    updateUI();
 }
 
-function updateKingdomIncome() {
-    const totalKingdomIncome = (knights + archers + wizards + paladins) * 1; // Adjust the income rate as needed
-    medievalKingdomIncome = totalKingdomIncome;
+function updatePassiveIncome() {
+    const totalPassiveIncome = (knightCount + archerCount + wizardCount + paladinCount) * 1; // Adjust the income rate as needed
+    passiveIncome = totalPassiveIncome;
+
+    setTimeout(updatePassiveIncome, 1000); // Update every second (adjust as needed)
 }
 
-function collectIncome() {
-    deniers += medievalKingdomIncome;
-    saveKingdomData();
-    updateMedievalUI();
+function earnPassiveIncome() {
+    deniers += passiveIncome; // Adjust the currency when earning passive income
+    saveGameData();
+    updateUI();
 }
 
-setInterval(collectIncome, 1000);
+setInterval(earnPassiveIncome, 1000);
