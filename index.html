@@ -129,7 +129,7 @@
                 <div class="col-12 text-center">
                     <img id="castle" src="https://raw.githubusercontent.com/largefort/Medievalskilling/main/castle.png"
                         alt="Castle" onclick="clickCastle()" class="castle-image" />
-                    <div id="counter">Gold coins: 0</div>
+                    <div id="counter">Deniers: 0</div> <!-- Updated currency notation -->
                     <div id="owned-upgrades" class="mt-3">
                         <div>Knights: <span id="knight-count">0</span></div>
                         <div>Archers: <span id="archer-count">0</span></div>
@@ -155,13 +155,13 @@
                 <div class="col-12 text-center">
                     <h2>Shop</h2>
                     <div class="upgrade" onclick="buyUpgrade('knight')"><i class="fas fa-chess-knight"></i> Knight (<span
-                            id="knight-cost">10</span> coins)</div>
+                            id="knight-cost">10</span> deniers)</div> <!-- Updated currency notation -->
                     <div class="upgrade" onclick="buyUpgrade('archer')"><i class="fas fa-bullseye"></i> Archer (<span
-                            id="archer-cost">25</span> coins)</div>
+                            id="archer-cost">25</span> deniers)</div> <!-- Updated currency notation -->
                     <div class="upgrade" onclick="buyUpgrade('wizard')"><i class="fas fa-hat-wizard"></i> Wizard (<span
-                            id="wizard-cost">50</span> coins)</div>
+                            id="wizard-cost">50</span> deniers)</div> <!-- Updated currency notation -->
                     <div class="upgrade" onclick="buyUpgrade('paladin')"><i class="fas fa-shield-alt"></i> Paladin (<span
-                            id="paladin-cost">100</span> coins)</div> <!-- Added Paladin upgrade -->
+                            id="paladin-cost">100</span> deniers)</div> <!-- Updated currency notation and added Paladin upgrade -->
                 </div>
             </div>
         </div>
@@ -191,7 +191,7 @@
             <span class="close" onclick="closeOfflineModal()">&times;</span>
             <h2>Offline Progress</h2>
             <p>You were offline, and your progress has been calculated:</p>
-            <p>Gold earned: <span id="offlineGoldEarned">0</span></p>
+            <p>Deniers earned: <span id="offlineGoldEarned">0</span></p> <!-- Updated currency notation -->
             <p>Woodcutting levels gained: <span id="offlineWoodcuttingLevel">0</span></p>
             <p>Mining levels gained: <span id="offlineMiningLevel">0</span></p>
         </div>
@@ -210,7 +210,7 @@
 
         // Function to close the offline progress modal
         function closeOfflineModal() {
-            document.getElementById("offlineModal").style.display = "none";
+            document.getElementById("offlineModal").style display = "none";
         }
 
         // Example usage: Call openOfflineModal when the page loads
