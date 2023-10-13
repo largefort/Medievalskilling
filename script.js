@@ -1,14 +1,15 @@
 let coins = 0;
-let deniers = 0; // Add a new variable for Deniers
 let knightCount = 0;
 let archerCount = 0;
 let wizardCount = 0;
 let woodcuttingLevel = 1;
 let miningLevel = 1;
-let paladinCount = 0;
-let passiveIncome = 0;
+let knightUpgradeLevel = 0; // New upgrade levels
+let archerUpgradeLevel = 0;
+let wizardUpgradeLevel = 0;
 let db;
 
+// Function to disable finger zooming
 function disableFingerZooming() {
     document.addEventListener('touchmove', function (event) {
         if (event.scale !== 1) { event.preventDefault(); }
@@ -40,13 +41,14 @@ function initializeDB() {
 function saveGameData() {
     const gameState = {
         coins,
-        deniers, // Update the saved Deniers count
         knightCount,
         archerCount,
         wizardCount,
         woodcuttingLevel,
         miningLevel,
-        paladinCount,
+        knightUpgradeLevel, // Save upgrade levels
+        archerUpgradeLevel,
+        wizardUpgradeLevel,
     };
 
     const transaction = db.transaction(["gameState"], "readwrite");
@@ -63,13 +65,14 @@ function loadGameData() {
             const savedState = request.result;
 
             coins = savedState.coins;
-            deniers = savedState.deniers; // Update the loaded Deniers count
             knightCount = savedState.knightCount;
             archerCount = savedState.archerCount;
             wizardCount = savedState.wizardCount;
             woodcuttingLevel = savedState.woodcuttingLevel;
             miningLevel = savedState.miningLevel;
-            paladinCount = savedState.paladinCount;
+            knightUpgradeLevel = savedState.knightUpgradeLevel; // Load upgrade levels
+            archerUpgradeLevel = savedState.archerUpgradeLevel;
+            wizardUpgradeLevel = savedState.wizardUpgradeLevel;
 
             updateUI();
         }
@@ -79,19 +82,19 @@ function loadGameData() {
 initializeDB();
 
 function updateUI() {
-    document.getElementById("counter").textContent = `Deniers: ${deniers}`; // Update the displayed Deniers count
+    document.getElementById("counter").textContent = `Gold coins: ${compactNumberFormat(coins)}`;
     document.getElementById("knight-count").textContent = knightCount;
     document.getElementById("archer-count").textContent = archerCount;
     document.getElementById("wizard-count").textContent = wizardCount;
     document.getElementById("woodcutting-level").textContent = woodcuttingLevel;
     document.getElementById("mining-level").textContent = miningLevel;
-    document.getElementById("paladin-count").textContent = paladinCount;
-
-    updatePassiveIncome();
+    document.getElementById("knight-upgrade-level").textContent = knightUpgradeLevel; // Update upgrade levels
+    document.getElementById("archer-upgrade-level").textContent = archerUpgradeLevel;
+    document.getElementById("wizard-upgrade-level").textContent = wizardUpgradeLevel;
 }
 
 function clickCastle() {
-    deniers++;
+    coins++;
     saveGameData();
     updateUI();
 }
@@ -99,36 +102,37 @@ function clickCastle() {
 function buyUpgrade(type) {
     switch (type) {
         case "knight":
-            if (deniers >= 10) { // Adjust the currency check to Deniers
-                deniers -= 10;
+            if (coins >= 10) {
+                coins -= 10;
                 knightCount++;
-                updatePassiveIncome();
+                knightUpgradeLevel++; // Increase upgrade level
             }
             break;
         case "archer":
-            if (deniers >= 25) { // Adjust the currency check to Deniers
-                deniers -= 25;
+            if (coins >= 25) {
+                coins -= 25;
                 archerCount++;
-                updatePassiveIncome();
+                archerUpgradeLevel++; // Increase upgrade level
             }
             break;
         case "wizard":
-            if (deniers >= 50) { // Adjust the currency check to Deniers
-                deniers -= 50;
+            if (coins >= 50) {
+                coins -= 50;
                 wizardCount++;
-                updatePassiveIncome();
-            }
-            break;
-        case "paladin":
-            if (deniers >= 100) { // Adjust the currency check to Deniers
-                deniers -= 100;
-                paladinCount++;
-                updatePassiveIncome();
+                wizardUpgradeLevel++; // Increase upgrade level
             }
             break;
     }
     saveGameData();
     updateUI();
+}
+
+function compactNumberFormat(num) {
+    if (num < 1e3) return num;
+    if (num >= 1e3 && num < 1e6) return +(num / 1e3).toFixed(1) + "K";
+    if (num >= 1e6 && num < 1e9) return +(num / 1e6).toFixed(1) + "M";
+    if (num >= 1e9 && num < 1e12) return +(num / 1e9).toFixed(1) + "B";
+    return +(num / 1e12).toFixed(1) + "T";
 }
 
 function handleSkillingClick(skill) {
@@ -144,17 +148,54 @@ function handleSkillingClick(skill) {
     updateUI();
 }
 
+// Function to calculate and update passive income
 function updatePassiveIncome() {
-    const totalPassiveIncome = (knightCount + archerCount + wizardCount + paladinCount) * 1; // Adjust the income rate as needed
-    passiveIncome = totalPassiveIncome;
+    let totalPassiveIncome = knightCount + archerCount * 2 + wizardCount * 5;
 
-    setTimeout(updatePassiveIncome, 1000); // Update every second (adjust as needed)
-}
-
-function earnPassiveIncome() {
-    deniers += passiveIncome; // Adjust the currency when earning passive income
+    coins += totalPassiveIncome;
     saveGameData();
     updateUI();
 }
 
-setInterval(earnPassiveIncome, 5);
+// Function to start passive income updates at intervals (e.g., every second)
+function startPassiveIncome() {
+    setInterval(updatePassiveIncome, 1000);
+}
+
+startPassiveIncome();
+
+// Function to calculate and display offline progress details
+function calculateOfflineProgress() {
+    // Retrieve the last saved timestamp from localStorage
+    const lastSavedTimestamp = localStorage.getItem('lastSavedTimestamp');
+
+    if (lastSavedTimestamp) {
+        const currentTime = new Date().getTime();
+        const elapsedMilliseconds = currentTime - parseInt(lastSavedTimestamp);
+
+        // Calculate progress based on elapsed time (adjust this calculation as needed)
+        const offlineCoinsEarned = Math.floor(elapsedMilliseconds / 1000); // 1 coin per second
+        const offlineWoodcuttingGains = Math.floor(elapsedMilliseconds / 20000); // 1 level every 20 seconds
+        const offlineMiningGains = Math.floor(elapsedMilliseconds / 30000); // 1 level every 30 seconds
+
+        // Display the offline progress details in the modal
+        document.getElementById("offlineGoldEarned").textContent = offlineCoinsEarned;
+        document.getElementById("offlineWoodcuttingLevel").textContent = offlineWoodcuttingGains;
+        document.getElementById("offlineMiningLevel").textContent = offlineMiningGains;
+
+        // Show the offline progress modal
+        document.getElementById("offlineModal").style.display = "block";
+    }
+}
+
+// Function to handle online/offline events
+window.addEventListener('online', () => {
+    // The device is now online, call the updateOfflineProgress function
+    calculateOfflineProgress();
+});
+
+window.addEventListener('offline', () => {
+    // The device is now offline, save the current timestamp
+    const currentTime = new Date().getTime();
+    localStorage.setItem('lastSavedTimestamp', currentTime);
+});
