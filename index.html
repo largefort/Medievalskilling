@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="stylesheet" href="styles.css">
     <style>
         body {
             font-family: 'MedievalFont', serif;
@@ -70,11 +71,44 @@
             color: #ffcc00;
         }
 
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 1;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background-color: #251c12;
+            color: #f7dfc4;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            text-align: center;
+        }
+
+        .close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 24px;
+            color: #f7dfc4;
+            cursor: pointer;
+        }
+
         .castle-image {
             border: 5px solid #532c08;
             border-radius: 10px;
         }
     </style>
+    <meta name="google-adsense-account" content="ca-pub-5816082932921993">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js?client=ca-pub-5816082932921993" crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -106,10 +140,10 @@
             <div class="tab-pane fade" id="shop-tab">
                 <div class="col-12 text-center">
                     <h2>Shop</h2>
-                    <div class="upgrade" onclick="playPurchaseAudio(); buyUpgrade('knight')"><i class="fas fa-chess-knight"></i> Knight (<span id="knight-cost">10</span> coins)</div>
-                    <div class="upgrade" onclick="playPurchaseAudio(); buyUpgrade('archer')"><i class="fas fa-bullseye"></i> Archer (<span id="archer-cost">25</span> coins)</div>
-                    <div class="upgrade" onclick="playPurchaseAudio(); buyUpgrade('wizard')"><i class="fas fa-hat-wizard"></i> Wizard (<span id="wizard-cost">50</span> coins)</div>
-                    <div class="upgrade" onclick="playPurchaseAudio(); buyUpgrade('paladin')"><i class="fas fa-shield-alt"></i> Paladin (<span id="paladin-cost">100</span> coins)</div>
+                    <div class="upgrade" onclick="buyUpgrade('knight')"><i class="fas fa-chess-knight"></i> Knight (<span id="knight-cost">10</span> coins)</div>
+                    <div class="upgrade" onclick="buyUpgrade('archer')"><i class="fas fa-bullseye"></i> Archer (<span id="archer-cost">25</span> coins)</div>
+                    <div class="upgrade" onclick="buyUpgrade('wizard')"><i class="fas fa-hat-wizard"></i> Wizard (<span id="wizard-cost">50</span> coins)</div>
+                    <div class="upgrade" onclick="buyUpgrade('paladin')"><i class="fas fa-shield-alt"></i> Paladin (<span id="paladin-cost">100</span> coins)</div>
                 </div>
             </div>
         </div>
@@ -119,32 +153,56 @@
             <a class="nav-link" data-toggle="pill" href="#shop-tab"><i class="fas fa-shopping-cart"></i> Shop</a>
         </div>
     </div>
-    
-    <audio id="medieval-theme-audio" src="medievaltheme.mp3"></audio>
-    <audio id="purchase-audio" src="purchase.mp3"></audio>
-    <audio id="castle-click-audio" src="castle-click.mp3"></audio>
-    
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="script.js"></script>
-    
     <script>
-        function clickCastle() {
-            var castleAudio = document.getElementById("castle-click-audio");
-            castleAudio.play();
+        function openReminderModal() {
+            document.getElementById("reminderModal").style display = "block";
         }
 
-        function playMedievalThemeAudio() {
-            var medievalThemeAudio = document.getElementById("medieval-theme-audio");
-            medievalThemeAudio.play();
+        function closeReminderModal() {
+            document.getElementById("reminderModal").style.display = "none";
         }
 
-        function playPurchaseAudio() {
-            var purchaseAudio = document.getElementById("purchase-audio");
-            purchaseAudio.play();
+        function startCountdown() {
+            var endDate = new Date();
+            endDate.setDate(endDate.getDate() + 1);
+            endDate.setHours(0, 0, 0, 0);
+
+            var countdownInterval = setInterval(function () {
+                var now = new Date().getTime();
+                var distance = endDate - now;
+
+                if (distance <= 0) {
+                    clearInterval(countdownInterval);
+                    document.getElementById("countdown").innerHTML = "Continue by tomorrow!";
+                } else {
+                    var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60);
+                    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60);
+                    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                    document.getElementById("countdown").innerHTML = "Next session in: " + hours + "h " + minutes + "m " + seconds + "s";
+                }
+            }, 1000);
         }
+
+        window.onload = function () {
+            openReminderModal();
+            startCountdown();
+        };
     </script>
+
+    <!-- Fullscreen modal for reminder -->
+    <div id="reminderModal" class="modal">
+        <div class="modal-content">
+            <h2>Game Reminder</h2>
+            <p>You have been playing Medieval Clicker all day. It's time to take a break!</p>
+            <p>Continue playing by tomorrow.</p>
+            <div id="countdown"></div>
+        </div>
+    </div>
 </body>
 
 </html>
