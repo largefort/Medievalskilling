@@ -7,6 +7,7 @@ let miningLevel = 1;
 let paladinCount = 0;
 let passiveIncome = 0;
 let db;
+let lastSaveTime = Date.now(); // Initialize lastSaveTime with the current time
 
 function disableFingerZooming() {
     document.addEventListener('touchmove', function (event) {
@@ -45,6 +46,7 @@ function saveGameData() {
         woodcuttingLevel,
         miningLevel,
         paladinCount,
+        lastSaveTime: Date.now(), // Update the last save time
     };
 
     const transaction = db.transaction(["gameState"], "readwrite");
@@ -67,6 +69,7 @@ function loadGameData() {
             woodcuttingLevel = savedState.woodcuttingLevel;
             miningLevel = savedState.miningLevel;
             paladinCount = savedState.paladinCount;
+            lastSaveTime = savedState.lastSaveTime; // Update the last save time
 
             updateUI();
         }
@@ -155,7 +158,13 @@ function updatePassiveIncome() {
 }
 
 function earnPassiveIncome() {
-    coins += passiveIncome;
+    const currentTime = Date.now();
+    const timeDifference = currentTime - lastSaveTime;
+    const offlinePassiveIncome = Math.floor((knightCount + archerCount + wizardCount + paladinCount) * 1 * (timeDifference / 1000));
+
+    coins += offlinePassiveIncome;
+    lastSaveTime = currentTime; // Update the last save time
+
     saveGameData();
     updateUI();
 }
