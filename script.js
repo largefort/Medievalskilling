@@ -153,6 +153,7 @@ function handleSkillingClick(skill) {
 }
 
 function updatePassiveIncome() {
+    // Calculate passive income based on knights, archers, wizards, and paladins
     const totalPassiveIncome = (knightCount + archerCount + wizardCount + paladinCount) * 1; // Adjust the income rate as needed
     passiveIncome = totalPassiveIncome;
 }
@@ -169,4 +170,4 @@ function earnPassiveIncome() {
     updateUI();
 }
 
-setInterval(earnPassiveIncome, 100);
+setInterval(earnPassiveIncome, 1000);
