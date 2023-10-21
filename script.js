@@ -154,14 +154,19 @@ function handleSkillingClick(skill) {
 
 function updatePassiveIncome() {
     // Calculate passive income based on knights, archers, wizards, and paladins
-    const totalPassiveIncome = (knightCount + archerCount + wizardCount + paladinCount) * 1; // Adjust the income rate as needed
+    const knightIncomeRate = 2;   // Adjust the income rate for knights
+    const archerIncomeRate = 3;   // Adjust the income rate for archers
+    const wizardIncomeRate = 4;   // Adjust the income rate for wizards
+    const paladinIncomeRate = 5;  // Adjust the income rate for paladins
+
+    const totalPassiveIncome = (knightCount * knightIncomeRate + archerCount * archerIncomeRate + wizardCount * wizardIncomeRate + paladinCount * paladinIncomeRate);
     passiveIncome = totalPassiveIncome;
 }
 
 function earnPassiveIncome() {
     const currentTime = Date.now();
     const timeDifference = currentTime - lastSaveTime;
-    const offlinePassiveIncome = Math.floor((knightCount + archerCount + wizardCount + paladinCount) * 1 * (timeDifference / 1000));
+    const offlinePassiveIncome = Math.floor((knightCount * knightIncomeRate + archerCount * archerIncomeRate + wizardCount * wizardIncomeRate + paladinCount * paladinIncomeRate) * (timeDifference / 1000));
 
     coins += offlinePassiveIncome;
     lastSaveTime = currentTime; // Update the last save time
