@@ -102,28 +102,24 @@ function buyUpgrade(type) {
             if (coins >= 10) {
                 coins -= 10;
                 knightCount++;
-                updatePassiveIncome(); // Update passive income when buying Knights
             }
             break;
         case "archer":
             if (coins >= 25) {
                 coins -= 25;
                 archerCount++;
-                updatePassiveIncome(); // Update passive income when buying Archers
             }
             break;
         case "wizard":
             if (coins >= 50) {
                 coins -= 50;
                 wizardCount++;
-                updatePassiveIncome(); // Update passive income when buying Wizards
             }
             break;
         case "paladin":
             if (coins >= 100) {
                 coins -= 100;
                 paladinCount++;
-                updatePassiveIncome(); // Update passive income when buying Paladins
             }
             break;
     }
@@ -154,10 +150,10 @@ function handleSkillingClick(skill) {
 
 function updatePassiveIncome() {
     // Calculate passive income based on knights, archers, wizards, and paladins
-    const knightIncomeRate = 2;   // Adjust the income rate for knights
-    const archerIncomeRate = 3;   // Adjust the income rate for archers
-    const wizardIncomeRate = 4;   // Adjust the income rate for wizards
-    const paladinIncomeRate = 5;  // Adjust the income rate for paladins
+    const knightIncomeRate = 1;   // Adjust the income rate for knights
+    const archerIncomeRate = 2;   // Adjust the income rate for archers
+    const wizardIncomeRate = 3;   // Adjust the income rate for wizards
+    const paladinIncomeRate = 4;  // Adjust the income rate for paladins
 
     const totalPassiveIncome = (knightCount * knightIncomeRate + archerCount * archerIncomeRate + wizardCount * wizardIncomeRate + paladinCount * paladinIncomeRate);
     passiveIncome = totalPassiveIncome;
@@ -166,7 +162,7 @@ function updatePassiveIncome() {
 function earnPassiveIncome() {
     const currentTime = Date.now();
     const timeDifference = currentTime - lastSaveTime;
-    const offlinePassiveIncome = Math.floor((knightCount * knightIncomeRate + archerCount * archerIncomeRate + wizardCount * wizardIncomeRate + paladinCount * paladinIncomeRate) * (timeDifference / 1000));
+    const offlinePassiveIncome = Math.floor(passiveIncome * (timeDifference / 1000));
 
     coins += offlinePassiveIncome;
     lastSaveTime = currentTime; // Update the last save time
