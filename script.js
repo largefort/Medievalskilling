@@ -172,3 +172,25 @@ function earnPassiveIncome() {
 }
 
 setInterval(earnPassiveIncome, 1000);
+
+// Function to request fullscreen
+function requestFullscreen(element) {
+    if (element.requestFullscreen) {
+        element.requestFullscreen();
+    } else if (element.mozRequestFullScreen) { // Firefox
+        element.mozRequestFullScreen();
+    } else if (element.webkitRequestFullscreen) { // Chrome and Safari
+        element.webkitRequestFullscreen();
+    } else if (element.msRequestFullscreen) { // Internet Explorer
+        element.msRequestFullscreen();
+    }
+}
+
+// Auto-enter fullscreen mode when the game starts
+function autoEnterFullscreen() {
+    const element = document.documentElement; // Use the document.documentElement to make the entire page fullscreen
+    requestFullscreen(element);
+}
+
+// Call autoEnterFullscreen when the game starts
+autoEnterFullscreen();
