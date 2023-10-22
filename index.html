@@ -141,9 +141,16 @@
             background-color: rgba(75, 37, 19, 0.8);
             color: #8A5C2E;
         }
-  </style>
-  <meta name="google-adsense-account" content="ca-pub-5816082932921993">
-  <script async src="https://pagead2.googlesyndication.com/pagead/js?client=ca-pub-5816082932921993" crossorigin="anonymous"></script>
+
+        /* Medieval Font */
+        @font-face {
+            font-family: 'MedievalFont';
+            src: url('your-medieval-font.woff') format('woff');
+        }
+
+    </style>
+    <meta name="google-adsense-account" content="ca-pub-5816082932921993">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js?client=ca-pub-5816082932921993" crossorigin="anonymous"></script>
 </head>
 <body>
   <div class="container mt-5">
@@ -216,10 +223,8 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> 
   <script src="script.js"></script> 
   <script>
-
-
         function openReminderModal() {
-            document.getElementById("reminderModal").style display = "block";
+            document.getElementById("reminderModal").style.display = "block";
         }
 
         function closeReminderModal() {
@@ -240,8 +245,8 @@
                     document.getElementById("countdown").innerHTML = "Continue by tomorrow!";
                 } else {
                     var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60);
-                    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60);
-                    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                    var seconds = Math floor((distance % (1000 * 60)) / 1000);
 
                     document.getElementById("countdown").innerHTML = "Next session in: " + hours + "h " + minutes + "m " + seconds + "s";
                 }
@@ -252,14 +257,14 @@
             openReminderModal();
             startCountdown();
         };
-  </script> <!-- Fullscreen modal for reminder -->
-  <div id="reminderModal" class="modal">
-    <div class="modal-content">
-      <h2>Game Reminder</h2>
-      <p>You have been playing Medieval Clicker all day. It's time to take a break!</p>
-      <p>Continue playing by tomorrow.</p>
-      <div id="countdown"></div>
+    </script> <!-- Fullscreen modal for reminder -->
+    <div id="reminderModal" class="modal">
+      <div class="modal-content">
+        <h2>Game Reminder</h2>
+        <p>You have been playing Medieval Clicker all day. It's time to take a break!</p>
+        <p>Continue playing by tomorrow.</p>
+        <div id="countdown"></div>
+      </div>
     </div>
-  </div>
-</body>
+  </body>
 </html>
