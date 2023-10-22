@@ -1,15 +1,14 @@
 <!DOCTYPE html>
 <html>
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Medieval Clicker</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
-    <link rel="stylesheet" href="styles.css">
-    <style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Medieval Clicker</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+  <link rel="stylesheet" href="styles.css">
+  <style>
         body {
             font-family: 'MedievalFont', serif;
             background-color: #251c12;
@@ -142,58 +141,83 @@
             background-color: rgba(75, 37, 19, 0.8);
             color: #8A5C2E;
         }
-    </style>
-    <meta name="google-adsense-account" content="ca-pub-5816082932921993">
-    <script async src="https://pagead2.googlesyndication.com/pagead/js?client=ca-pub-5816082932921993" crossorigin="anonymous"></script>
+  </style>
+  <meta name="google-adsense-account" content="ca-pub-5816082932921993">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js?client=ca-pub-5816082932921993" crossorigin="anonymous"></script>
 </head>
-
 <body>
-    <div class="container mt-5">
-        <div class="tab-content">
-            <div class="tab-pane fade show active" id="castle-tab">
-                <div class="col-12 text-center">
-                    <img id="castle" src="https://raw.githubusercontent.com/largefort/Medievalskilling/main/castle.png" alt="Castle" onclick="clickCastle()" class="castle-image" />
-                    <div id="counter">Gold coins: 0</div>
-                    <div id="owned-upgrades" class="mt-3">
-                        <div>Knights: <span id="knight-count">0</span></div>
-                        <div>Archers: <span id="archer-count">0</span></div>
-                        <div>Wizards: <span id="wizard-count">0</span></div>
-                        <div>Paladins: <span id="paladin-count">0</span></div>
-                    </div>
-                </div>
+  <div class="container mt-5">
+    <div class="tab-content">
+      <div class="tab-pane fade show active" id="castle-tab">
+        <div class="col-12 text-center">
+          <img id="castle" src="https://raw.githubusercontent.com/largefort/Medievalskilling/main/castle.png" alt="Castle" onclick="clickCastle()" class="castle-image">
+          <div id="counter">
+            Gold coins: 0
+          </div>
+          <div id="owned-upgrades" class="mt-3">
+            <div>
+              Knights: <span id="knight-count">0</span>
             </div>
-            <div class="tab-pane fade" id="skilling-tab">
-                <div class="col-12 text-center">
-                    <h2>Skilling</h2>
-                    <div class="upgrade" onclick="handleSkillingClick('woodcutting')">Woodcutting</div>
-                    <div class="upgrade" onclick="handleSkillingClick('mining')">Mining</div>
-                    <div class="mt-3">
-                        <div>Woodcutting Level: <span id="woodcutting-level">1</span></div>
-                        <div>Mining Level: <span id="mining-level">1</span></div>
-                    </div>
-                </div>
+            <div>
+              Archers: <span id="archer-count">0</span>
             </div>
-            <div class="tab-pane fade" id="shop-tab">
-                <div class="col-12 text-center">
-                    <h2>Shop</h2>
-                    <div class="upgrade" onclick="buyUpgrade('knight')"><i class="fas fa-chess-knight"></i> Knight (<span id="knight-cost">10</span> coins)</div>
-                    <div class="upgrade" onclick="buyUpgrade('archer')"><i class="fas fa-bullseye"></i> Archer (<span id="archer-cost">25</span> coins)</div>
-                    <div class="upgrade" onclick="buyUpgrade('wizard')"><i class="fas fa-hat-wizard"></i> Wizard (<span id="wizard-cost">50</span> coins)</div>
-                    <div class="upgrade" onclick="buyUpgrade('paladin')"><i class="fas fa-shield-alt"></i> Paladin (<span id="paladin-cost">100</span> coins)</div>
-                </div>
+            <div>
+              Wizards: <span id="wizard-count">0</span>
             </div>
+            <div>
+              Paladins: <span id="paladin-count">0</span>
+            </div>
+          </div>
         </div>
-        <div class="nav nav-pills nav-fill fixed-bottom">
-            <a class="nav-link active" data-toggle="pill" href="#castle-tab"><i class="fas fa-castle"></i> Castle</a>
-            <a class="nav-link" data-toggle="pill" href="#skilling-tab"><i class="fas fa-hammer"></i> Skilling</a>
-            <a class="nav-link" data-toggle="pill" href="#shop-tab"><i class="fas fa-shopping-cart"></i> Shop</a>
+      </div>
+      <div class="tab-pane fade" id="skilling-tab">
+        <div class="col-12 text-center">
+          <h2>Skilling</h2>
+          <div class="upgrade" onclick="handleSkillingClick('woodcutting')">
+            Woodcutting
+          </div>
+          <div class="upgrade" onclick="handleSkillingClick('mining')">
+            Mining
+          </div>
+          <div class="mt-3">
+            <div>
+              Woodcutting Level: <span id="woodcutting-level">1</span>
+            </div>
+            <div>
+              Mining Level: <span id="mining-level">1</span>
+            </div>
+          </div>
         </div>
+      </div>
+      <div class="tab-pane fade" id="shop-tab">
+        <div class="col-12 text-center">
+          <h2>Shop</h2>
+          <div class="upgrade" onclick="buyUpgrade('knight')">
+            Knight (<span id="knight-cost">10</span> coins)
+          </div>
+          <div class="upgrade" onclick="buyUpgrade('archer')">
+            Archer (<span id="archer-cost">25</span> coins)
+          </div>
+          <div class="upgrade" onclick="buyUpgrade('wizard')">
+            Wizard (<span id="wizard-cost">50</span> coins)
+          </div>
+          <div class="upgrade" onclick="buyUpgrade('paladin')">
+            Paladin (<span id="paladin-cost">100</span> coins)
+          </div>
+        </div>
+      </div>
     </div>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script src="script.js"></script>
-    <script>
+    <div class="nav nav-pills nav-fill fixed-bottom">
+      <a class="nav-link active" data-toggle="pill" href="#castle-tab">Castle</a> <a class="nav-link" data-toggle="pill" href="#skilling-tab">Skilling</a> <a class="nav-link" data-toggle="pill" href="#shop-tab">Shop</a>
+    </div>
+  </div>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script> 
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> 
+  <script src="script.js"></script> 
+  <script>
+
+
         function openReminderModal() {
             document.getElementById("reminderModal").style display = "block";
         }
@@ -228,17 +252,14 @@
             openReminderModal();
             startCountdown();
         };
-    </script>
-
-    <!-- Fullscreen modal for reminder -->
-    <div id="reminderModal" class="modal">
-        <div class="modal-content">
-            <h2>Game Reminder</h2>
-            <p>You have been playing Medieval Clicker all day. It's time to take a break!</p>
-            <p>Continue playing by tomorrow.</p>
-            <div id="countdown"></div>
-        </div>
+  </script> <!-- Fullscreen modal for reminder -->
+  <div id="reminderModal" class="modal">
+    <div class="modal-content">
+      <h2>Game Reminder</h2>
+      <p>You have been playing Medieval Clicker all day. It's time to take a break!</p>
+      <p>Continue playing by tomorrow.</p>
+      <div id="countdown"></div>
     </div>
+  </div>
 </body>
-
 </html>
