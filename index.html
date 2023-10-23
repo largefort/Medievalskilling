@@ -149,7 +149,6 @@
         font-family: 'MedievalFont';
         src: url('your-medieval-font.woff') format('woff');
     }
-
   </style>
   <meta name="google-adsense-account" content="ca-pub-5816082932921993">
   <script async src="https://pagead2.googlesyndication.com/pagead/js?client=ca-pub-5816082932921993" crossorigin="anonymous"></script>
@@ -220,53 +219,57 @@
       <a class="nav-link active" data-toggle="pill" href="#castle-tab">Castle</a> <a class="nav-link" data-toggle="pill" href="#skilling-tab">Skilling</a> <a class="nav-link" data-toggle="pill" href="#shop-tab">Shop</a>
     </div>
   </div>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script> 
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> 
-  <script src="script.js"></script> 
+  <button id="fullscreen-button" style="display: none;" onclick="autoEnterFullscreen()">
+    Enter Fullscreen
+  </button>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script src="script.js"></script>
   <script>
-        function openReminderModal() {
-            document.getElementById("reminderModal").style.display = "block";
+    function openReminderModal() {
+      document.getElementById("reminderModal").style.display = "block";
+    }
+
+    function closeReminderModal() {
+      document.getElementById("reminderModal").style.display = "none";
+    }
+
+    function startCountdown() {
+      var endDate = new Date();
+      endDate.setDate(endDate.getDate() + 1);
+      endDate.setHours(0, 0, 0, 0);
+
+      var countdownInterval = setInterval(function () {
+        var now = new Date().getTime();
+        var distance = endDate - now;
+
+        if (distance <= 0) {
+          clearInterval(countdownInterval);
+          document.getElementById("countdown").innerHTML = "Continue by tomorrow!";
+        } else {
+          var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60);
+          var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60);
+          var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+          document.getElementById("countdown").innerHTML = "Next session in: " + hours + "h " + minutes + "m " + seconds + "s";
         }
+      }, 1000);
+    }
 
-        function closeReminderModal() {
-            document.getElementById("reminderModal").style display = "none";
-        }
-
-        function startCountdown() {
-            var endDate = new Date();
-            endDate.setDate(endDate.getDate() + 1);
-            endDate.setHours(0, 0, 0, 0);
-
-            var countdownInterval = setInterval(function () {
-                var now = new Date().getTime();
-                var distance = endDate - now;
-
-                if (distance <= 0) {
-                    clearInterval(countdownInterval);
-                    document.getElementById("countdown").innerHTML = "Continue by tomorrow!";
-                } else {
-                    var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60);
-                    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-                    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-                    document.getElementById("countdown").innerHTML = "Next session in: " + hours + "h " + minutes + "m " + seconds + "s";
-                }
-            }, 1000);
-        }
-
-        window.onload = function () {
-            openReminderModal();
-            startCountdown();
-        };
-    </script> <!-- Fullscreen modal for reminder -->
-    <div id="reminderModal" class="modal">
-      <div class="modal-content">
-        <h2>Game Reminder</h2>
-        <p>You have been playing Medieval Clicker all day. It's time to take a break!</p>
-        <p>Continue playing by tomorrow.</p>
-        <div id="countdown"></div>
-      </div>
+    window.onload = function () {
+      openReminderModal();
+      startCountdown();
+    };
+  </script>
+  <!-- Fullscreen modal for reminder -->
+  <div id="reminderModal" class="modal">
+    <div class="modal-content">
+      <h2>Game Reminder</h2>
+      <p>You have been playing Medieval Clicker all day. It's time to take a break!</p>
+      <p>Continue playing by tomorrow.</p>
+      <div id="countdown"></div>
     </div>
-  </body>
+  </div>
+</body>
 </html>
