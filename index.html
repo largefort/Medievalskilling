@@ -183,30 +183,34 @@
           <h2>Shop</h2>
           <div class="upgrade" onclick="buyUpgrade('knight')">
             Knight (<span id="knight-cost">10</span> coins)
-            <audio id="knight-upgrade-sound">
+            <audio id="knight-upgrade-sound" autoplay>
               <source src="upgradesound.mp3" type="audio/mp3">
               Your browser does not support the audio element.
             </audio>
           </div>
           <div class="upgrade" onclick="buyUpgrade('archer')">
             Archer (<span id="archer-cost">25</span> coins)
+            <audio id="archer-upgrade-sound" autoplay>
+              <source src="upgradesound.mp3" type="audio/mp3">
+              Your browser does not support the audio element.
+            </audio>
           </div>
           <div class="upgrade" onclick="buyUpgrade('wizard')">
             Wizard (<span id="wizard-cost">50</span> coins)
-            <audio id="wizard-upgrade-sound">
+            <audio id="wizard-upgrade-sound" autoplay>
               <source src="upgradesound.mp3" type="audio/mp3">
               Your browser does not support the audio element.
             </audio>
           </div>
           <div class="upgrade" onclick="buyUpgrade('paladin')">
             Paladin (<span id="paladin-cost">100</span> coins)
-            <audio id="paladin-upgrade-sound">
+            <audio id="paladin-upgrade-sound" autoplay>
               <source src="upgradesound.mp3" type="audio/mp3">
               Your browser does not support the audio element.
             </audio>
           </div>
         </div>
-      </div>      
+      </div>
     </div>
     <div class="nav nav-pills nav-fill fixed-bottom">
       <a class="nav-link active" data-toggle="pill" href="#castle-tab">Castle</a>
@@ -221,47 +225,5 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   <script src="script.js"></script>
-  <script>
-    function openReminderModal() {
-      document.getElementById("reminderModal").style.display = "block";
-    }
-    function closeReminderModal() {
-      document.getElementById("reminderModal").style.display = "none";
-    }
-    function startCountdown() {
-      var endDate = new Date();
-      endDate.setDate(endDate.getDate() + 1);
-      endDate.setHours(0, 0, 0, 0);
-      var countdownInterval = setInterval(function () {
-        var now = new Date().getTime();
-        var distance = endDate - now;
-        if (distance <= 0) {
-          clearInterval(countdownInterval);
-          document.getElementById("countdown").innerHTML = "Continue by tomorrow!";
-        } else {
-          var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60);
-          var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60);
-          var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-          document.getElementById("countdown").innerHTML = "Next session in: " + hours + "h " + minutes + "m " + seconds + "s";
-        }
-      }, 1000);
-    }
-    window.onload = function () {
-      openReminderModal();
-      startCountdown();
-    };
-  </script>
-  <div id="reminderModal" class="modal">
-    <div class="modal-content">
-      <h2>Game Reminder</h2>
-      <p>You have been playing Medieval Clicker all day. It's time to take a break!</p>
-      <p>Continue playing by tomorrow.</p>
-      <div id="countdown"></div>
-    </div>
-  </div>
-  <audio id="medievaltheme" loop>
-    <source src="medievaltheme.mp3" type="audio/mp3">
-    Your browser does not support the audio element.
-  </audio>
 </body>
 </html>
