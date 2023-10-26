@@ -9,6 +9,14 @@ let passiveIncome = 0;
 let db;
 let lastSaveTime = Date.now(); // Initialize lastSaveTime with the current time
 
+// Add an HTML audio element to preload the audio file
+document.write(`
+<audio id="upgradeSound">
+    <source src="upgradesound.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+</audio>
+`);
+
 function disableFingerZooming() {
     document.addEventListener('touchmove', function (event) {
         if (event.scale !== 1) { event.preventDefault(); }
@@ -124,32 +132,45 @@ function clickCastle() {
 }
 
 function buyUpgrade(type) {
+    let cost = 0;
+
     switch (type) {
         case "knight":
-            if (coins >= 10) {
-                coins -= 10;
+            cost = 10;
+            if (coins >= cost) {
+                coins -= cost;
                 knightCount++;
             }
             break;
         case "archer":
-            if (coins >= 25) {
-                coins -= 25;
+            cost = 25;
+            if (coins >= cost) {
+                coins -= cost;
                 archerCount++;
             }
             break;
         case "wizard":
-            if (coins >= 50) {
-                coins -= 50;
+            cost = 50;
+            if (coins >= cost) {
+                coins -= cost;
                 wizardCount++;
             }
             break;
         case "paladin":
-            if (coins >= 100) {
-                coins -= 100;
+            cost = 100;
+            if (coins >= cost) {
+                coins -= cost;
                 paladinCount++;
             }
             break;
     }
+
+    if (cost > 0) {
+        // Play the upgrade sound
+        const upgradeSound = document.getElementById("upgradeSound");
+        upgradeSound.play();
+    }
+
     saveGameData();
     updateUI();
 }
