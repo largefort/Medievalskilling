@@ -104,6 +104,7 @@
     .castle-image {
       border: 5px solid #532c08;
       border-radius: 10px;
+      cursor: pointer; /* Add cursor style to indicate clickability */
     }
 
     .upgrade {
@@ -156,7 +157,7 @@
     <div class="tab-content">
       <div class="tab-pane fade show active" id="castle-tab">
         <div class="col-12 text-center">
-          <img id="castle" src="https://raw.githubusercontent.com/largefort/Medievalskilling/main/castle.png" alt="Castle" onclick="clickCastle()" class="castle-image">
+          <img id="castle" src="https://raw.githubusercontent.com/largefort/Medievalskilling/main/castle.png" alt="Castle" class="castle-image" onclick="clickCastle()">
           <div id="counter">
             Gold coins: 0
           </div>
@@ -201,31 +202,15 @@
           <div class="upgrade" onclick="buyUpgrade('knight')">
             Knight (<span id="knight-cost">10</span> coins)
           </div>
-          <audio id="knight-upgrade-sound">
-            <source src="upgradesound.mp3" type="audio/mp3">
-            Your browser does not support the audio element.
-          </audio>
           <div class="upgrade" onclick="buyUpgrade('archer')">
             Archer (<span id="archer-cost">25</span> coins)
           </div>
-          <audio id="archer-upgrade-sound">
-            <source src="upgradesound.mp3" type="audio/mp3">
-            Your browser does not support the audio element.
-          </audio>
           <div class="upgrade" onclick="buyUpgrade('wizard')">
             Wizard (<span id="wizard-cost">50</span> coins)
           </div>
-          <audio id="wizard-upgrade-sound">
-            <source src="upgradesound.mp3" type="audio/mp3">
-            Your browser does not support the audio element.
-          </audio>
           <div class="upgrade" onclick="buyUpgrade('paladin')">
             Paladin (<span id="paladin-cost">100</span> coins)
           </div>
-          <audio id="paladin-upgrade-sound">
-            <source src="upgradesound.mp3" type="audio/mp3">
-            Your browser does not support the audio element.
-          </audio>
         </div>
       </div>
     </div>
