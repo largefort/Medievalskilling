@@ -181,28 +181,28 @@
       <div class="tab-pane fade" id="shop-tab">
         <div class="col-12 text-center">
           <h2>Shop</h2>
-          <div class="upgrade" onclick="buyUpgrade('knight')">
+          <div class="upgrade" onclick="buyUpgrade('knight'); playClickSound();">
             Knight (<span id="knight-cost">10</span> coins)
             <audio id="knight-upgrade-sound" autoplay>
               <source src="upgradesound.mp3" type="audio/mp3">
               Your browser does not support the audio element.
             </audio>
           </div>
-          <div class="upgrade" onclick="buyUpgrade('archer')">
+          <div class="upgrade" onclick="buyUpgrade('archer'); playClickSound();">
             Archer (<span id="archer-cost">25</span> coins)
             <audio id="archer-upgrade-sound" autoplay>
               <source src="upgradesound.mp3" type="audio/mp3">
               Your browser does not support the audio element.
             </audio>
           </div>
-          <div class="upgrade" onclick="buyUpgrade('wizard')">
+          <div class="upgrade" onclick="buyUpgrade('wizard'); playClickSound();">
             Wizard (<span id="wizard-cost">50</span> coins)
             <audio id="wizard-upgrade-sound" autoplay>
               <source src="upgradesound.mp3" type="audio/mp3">
               Your browser does not support the audio element.
             </audio>
           </div>
-          <div class="upgrade" onclick="buyUpgrade('paladin')">
+          <div class="upgrade" onclick="buyUpgrade('paladin'); playClickSound();">
             Paladin (<span id="paladin-cost">100</span> coins)
             <audio id="paladin-upgrade-sound" autoplay>
               <source src="upgradesound.mp3" type="audio/mp3">
@@ -218,16 +218,21 @@
       <a class="nav-link" data-toggle="pill" href="#shop-tab">Shop</a>
     </div>
   </div>
-  <button id="fullscreen-button" style="display: none;" onclick="autoEnterFullscreen()">
+  <button id="fullscreen-button" style="display: none;" onclick="autoEnterFullscreen(); playClickSound();">
     Enter Fullscreen
   </button>
+  <script>
+    function playClickSound() {
+      const clickSound = document.getElementById("click-sound");
+      if (clickSound) {
+        clickSound.currentTime = 0;
+        clickSound.play();
+      }
+    }
+  </script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   <script src="script.js"></script>
-  <audio id="medievaltheme" loop autoplay>
-    <source src="medievaltheme.mp3" type="audio/mp3">
-    Your browser does not support the audio element.
-  </audio>
 </body>
 </html>
