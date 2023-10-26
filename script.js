@@ -9,10 +9,18 @@ let passiveIncome = 0;
 let db;
 let lastSaveTime = Date.now(); // Initialize lastSaveTime with the current time
 
-// Add an HTML audio element to preload the audio file
+// Add an HTML audio element to preload the upgrade sound file
 document.write(`
 <audio id="upgradeSound">
     <source src="upgradesound.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+</audio>
+`);
+
+// Add an HTML audio element to preload the click sound file
+document.write(`
+<audio id="clickSound">
+    <source src="click-sound.mp3" type="audio/mpeg">
     Your browser does not support the audio element.
 </audio>
 `);
@@ -129,6 +137,10 @@ function clickCastle() {
     coins++;
     saveGameData();
     updateUI();
+
+    // Play the click sound
+    const clickSound = document.getElementById("clickSound");
+    clickSound.play();
 }
 
 function buyUpgrade(type) {
