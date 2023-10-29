@@ -5,7 +5,6 @@ let wizardCount = 0;
 let woodcuttingLevel = 1;
 let miningLevel = 1;
 let paladinCount = 0;
-let horsemancount = 0;
 let passiveIncome = 0;
 let db;
 let lastSaveTime = Date.now(); // Initialize lastSaveTime with the current time
@@ -58,7 +57,6 @@ function saveGameData() {
         woodcuttingLevel,
         miningLevel,
         paladinCount,
-        horsemancount,
         lastSaveTime: Date.now(), // Update the last save time
     };
 
@@ -82,7 +80,6 @@ function loadGameData() {
             woodcuttingLevel = savedState.woodcuttingLevel;
             miningLevel = savedState.miningLevel;
             paladinCount = savedState.paladinCount;
-            horsemancount = savedstate.horsemancount;
             lastSaveTime = savedState.lastSaveTime; // Update the last save time
 
             updateUI();
@@ -196,15 +193,6 @@ function buyUpgrade(type) {
             }
             break;
     }
-      break;
-        case "horseman":
-            cost = 200;
-            if (coins >= cost) {
-                coins -= cost;
-                horsemancount++;
-            }
-            break;
-    }
 
     if (cost > 0) {
         // Play the upgrade sound
@@ -238,16 +226,14 @@ function handleSkillingClick(skill) {
 }
 
 function updatePassiveIncome() {
-    // Calculate passive income based on knights, archers, wizards, and paladins and horsemans
+    // Calculate passive income based on knights, archers, wizards, and paladins
     const knightIncomeRate = 1;   // Adjust the income rate for knights
     const archerIncomeRate = 2;   // Adjust the income rate for archers
     const wizardIncomeRate = 3;   // Adjust the income rate for wizards
     const paladinIncomeRate = 4;  // Adjust the income rate for paladins
-    const horsemanincomerate = 8; // Adjust the income rate for horseman
-   
 
-    const totalPassiveIncome = (knightCount * knightIncomeRate + archerCount * archerIncomeRate + wizardCount * wizardIncomeRate + paladinCount * paladinIncomeRate); * horsemancount * horsemanIncomerate);
-    passiveIncome = totalPassiveIncome; 
+    const totalPassiveIncome = (knightCount * knightIncomeRate + archerCount * archerIncomeRate + wizardCount * wizardIncomeRate + paladinCount * paladinIncomeRate);
+    passiveIncome = totalPassiveIncome;
 }
 
 function earnPassiveIncome() {
