@@ -89,6 +89,29 @@ function loadGameData() {
 
 initializeDB();
 
+// Function to toggle music
+function toggleMusic() {
+    const medievalThemeAudio = document.getElementById("medievaltheme");
+    if (medievalThemeAudio.paused) {
+        medievalThemeAudio.play();
+    } else {
+        medievalThemeAudio.pause();
+    }
+}
+
+// Function to toggle sound effects
+function toggleSoundEffects() {
+    const clickSoundAudio = document.getElementById("click-sound");
+    const upgradeSoundAudio = document.getElementById("upgradesound");
+    
+    clickSoundAudio.muted = !clickSoundAudio.muted;
+    upgradeSoundAudio.muted = !upgradeSoundAudio.muted;
+}
+
+// Add event listeners to the checkboxes
+document.getElementById("toggle-music").addEventListener("change", toggleMusic);
+document.getElementById("toggle-sfx").addEventListener("change", toggleSoundEffects);
+
 // Function to request fullscreen
 function requestFullscreen(element) {
     if (element.requestFullscreen) {
