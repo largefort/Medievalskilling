@@ -1,251 +1,268 @@
-let coins = 0;
-let knightCount = 0;
-let archerCount = 0;
-let wizardCount = 0;
-let woodcuttingLevel = 1;
-let miningLevel = 1;
-let paladinCount = 0;
-let passiveIncome = 0;
-let db;
-let lastSaveTime = Date.now(); // Initialize lastSaveTime with the current time
+ <!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Medieval Clicker</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    body {
+      font-family: 'MedievalFont', serif;
+      background-color: #251c12;
+      color: #f7dfc4;
+      margin: 0;
+      padding: 0;
+    }
 
-// Add an HTML audio element for the upgrade sound
-document.write(`
-<audio id="upgradeSound">
-    <source src="upgradesound.mp3" type="audio/mpeg">
+    .text-center {
+      text-align: center;
+    }
+
+    .mt-3 {
+      margin-top: 15px;
+    }
+
+    .container {
+      background-color: rgba(0, 0, 0, 0.8);
+      border: 5px solid #8a5c2e;
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
+      margin: 0 auto;
+      max-width: 800px;
+      overflow: hidden;
+    }
+
+    .nav-pills .nav-link {
+      font-size: 18px;
+      padding: 10px 20px;
+      background-color: rgba(90, 57, 33, 0.8);
+      border-radius: 0;
+      border-top: 3px solid #8a5c2e;
+      border-bottom: 3px solid #3c1e0f;
+      color: #f7dfc4;
+    }
+
+    .nav-pills .nav-link.active {
+      background-color: rgba(60, 30, 15, 0.8);
+      color: #ffcc00;
+      border-top: 3px solid #3c1e0f;
+      border-bottom: 3px solid #8a5c2e;
+    }
+
+    .upgrade {
+      font-size: 18px;
+      color: #f7dfc4;
+      background-color: #8a5c2e;
+      border: 2px solid #5a3921;
+      padding: 15px;
+      margin-bottom: 10px;
+      cursor: pointer;
+      transition: background-color 0.3s, color 0.3s;
+      border-radius: 10px;
+    }
+
+    .upgrade:hover {
+      background-color: #5a3921;
+      color: #ffcc00;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.7);
+      z-index: 1;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-content {
+      background-color: #251c12;
+      color: #f7dfc4;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+      text-align: center;
+    }
+
+    .close {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      font-size: 24px;
+      color: #f7dfc4;
+      cursor: pointer;
+    }
+
+    .castle-image {
+      border: 5px solid #532c08;
+      border-radius: 10px;
+    }
+
+    .upgrade {
+      background-color: #6B4423;
+      border: 2px solid #8A5C2E;
+      color: #FFD700;
+      transition: background-color 0.3s, color 0.3s;
+      font-weight: bold;
+    }
+
+    .upgrade:hover {
+      background-color: #8A5C2E;
+      color: #FFCC00;
+    }
+
+    .container {
+      background-color: rgba(0, 0, 0, 0.6);
+      border: 5px solid #8A5C2E;
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
+    }
+
+    .nav-pills .nav-link {
+      font-size: 18px;
+      padding: 10px 20px;
+      background-color: rgba(112, 67, 38, 0.8);
+      border-radius: 0;
+      border-top: 3px solid #8A5C2E;
+      border-bottom: 3px solid #3c1e0f;
+      color: #FFD700;
+    }
+
+    .nav-pills .nav-link.active {
+      background-color: rgba(75, 37, 19, 0.8);
+      color: #8A5C2E;
+      font-weight: bold;
+    }
+
+    @font-face {
+      font-family: 'MedievalFont';
+      src: url('your-medieval-font.woff') format('woff');
+    }
+  </style>
+  <meta name="google-adsense-account" content="ca-pub-5816082932921993">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js?client=ca-pub-5816082932921993" crossorigin="anonymous"></script>
+</head>
+<body>
+  <div class="container mt-5">
+    <div class="tab-content">
+      <div class="tab-pane fade show active" id="castle-tab">
+        <div class="col-12 text-center">
+          <img id="castle" src="https://raw.githubusercontent.com/largefort/Medievalskilling/main/castle.png" alt="Castle" onclick="clickCastle()" class="castle-image">
+          <div id="counter">
+            Gold coins: 0
+          </div>
+          <div id="owned-upgrades" class="mt-3">
+            <div>
+              Knights: <span id="knight-count">0</span>
+            </div>
+            <div>
+              Archers: <span id="archer-count">0</span>
+            </div>
+            <div>
+              Wizards: <span id="wizard-count">0</span>
+            </div>
+            <div>
+              Paladins: <span id="paladin-count">0</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="tab-pane fade" id="skilling-tab">
+        <div class="col-12 text-center">
+          <h2>Skilling</h2>
+          <div class="upgrade" onclick="handleSkillingClick('woodcutting')">
+            Woodcutting
+          </div>
+          <div class="upgrade" onclick="handleSkillingClick('mining')">
+            Mining
+          </div>
+          <div class="mt-3">
+            <div>
+              Woodcutting Level: <span id="woodcutting-level">1</span>
+            </div>
+            <div>
+              Mining Level: <span id="mining-level">1</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="tab-pane fade" id="shop-tab">
+        <div class="col-12 text-center">
+          <h2>Shop</h2>
+          <div class="upgrade" onclick="buyUpgrade('knight')">
+            Knight (<span id="knight-cost">10</span> coins)
+          </div>
+          <audio id="knight-upgrade-sound">
+            <source src="upgradesound.mp3" type="audio/mp3">
+            Your browser does not support the audio element.
+          </audio>
+          <div class="upgrade" onclick="buyUpgrade('archer')">
+            Archer (<span id="archer-cost">25</span> coins)
+          </div>
+          <audio id="archer-upgrade-sound">
+            <source src="upgradesound.mp3" type="audio/mp3">
+            Your browser does not support the audio element.
+          </audio>
+          <div class="upgrade" onclick="buyUpgrade('wizard')">
+            Wizard (<span id="wizard-cost">50</span> coins)
+          </div>
+          <audio id="wizard-upgrade-sound">
+            <source src="upgradesound.mp3" type="audio/mp3">
+            Your browser does not support the audio element.
+          </audio>
+          <div class="upgrade" onclick="buyUpgrade('paladin')">
+            Paladin (<span id="paladin-cost">100</span> coins)
+          </div>
+          <audio id="paladin-upgrade-sound">
+            <source src="upgradesound.mp3" type="audio/mp3">
+            Your browser does not support the audio element.
+          </audio>
+        </div>
+      </div>
+      <div class="tab-pane fade" id="settings-tab">
+        <div class="col-12 text-center">
+          <h2>Settings</h2>
+          <div class="form-check">
+            <label class="form-check-label">
+              <input type="checkbox" id="toggle-music"> Toggle Music
+            </label>
+          </div>
+          <div class="form-check">
+            <label class="form-check-label">
+              <input type="checkbox" id="toggle-sfx"> Toggle Sound Effects
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="nav nav-pills nav-fill fixed-bottom">
+      <a class="nav-link active" data-toggle="pill" href="#castle-tab">Castle</a>
+      <a class="nav-link" data-toggle="pill" href="#skilling-tab">Skilling</a>
+  <a class="nav-link" data-toggle="pill" href="#shop-tab">Shop</a>
+
+      <a class="nav-link" data-toggle="pill" href="#settings-tab">Settings</a>
+    </div>
+  </div>
+  <button id="fullscreen-button" style="display: none;" onclick="autoEnterFullscreen()">
+    Enter Fullscreen
+  </button>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script src="script.js"></script>
+  <audio id="medievaltheme" loop autoplay>
+    <source src="medievaltheme.mp3" type="audio/mp3">
     Your browser does not support the audio element.
-</audio>
-`);
-
-// Preload the click sound
-const clickSound = new Audio("click-sound.mp3");
-
-function disableFingerZooming() {
-    document.addEventListener('touchmove', function (event) {
-        if (event.scale !== 1) { event.preventDefault(); }
-    }, { passive: false });
-}
-
-disableFingerZooming();
-
-function initializeDB() {
-    const request = indexedDB.open("MedievalClickerDB", 1);
-
-    request.onupgradeneeded = function (event) {
-        db = event.target.result;
-        if (!db.objectStoreNames.contains('gameState')) {
-            db.createObjectStore('gameState');
-        }
-    };
-
-    request.onsuccess = function (event) {
-        db = event.target.result;
-        loadGameData();
-    };
-
-    request.onerror = function (event) {
-        console.log("Error opening DB", event);
-    };
-}
-
-function saveGameData() {
-    const gameState = {
-        coins,
-        knightCount,
-        archerCount,
-        wizardCount,
-        woodcuttingLevel,
-        miningLevel,
-        paladinCount,
-        lastSaveTime: Date.now(), // Update the last save time
-    };
-
-    const transaction = db.transaction(["gameState"], "readwrite");
-    const store = transaction.objectStore("gameState");
-    store.put(gameState, "currentGameState");
-}
-
-function loadGameData() {
-    const transaction = db.transaction(["gameState"], "readonly");
-    const store = transaction.objectStore("gameState");
-    const request = store.get("currentGameState");
-    request.onsuccess = function (event) {
-        if (request.result) {
-            const savedState = request.result;
-
-            coins = savedState.coins;
-            knightCount = savedState.knightCount;
-            archerCount = savedState.archerCount;
-            wizardCount = savedState.wizardCount;
-            woodcuttingLevel = savedState.woodcuttingLevel;
-            miningLevel = savedState.miningLevel;
-            paladinCount = savedState.paladinCount;
-            lastSaveTime = savedState.lastSaveTime; // Update the last save time
-
-            updateUI();
-        }
-    };
-}
-
-initializeDB();
-
-// Function to toggle music
-function toggleMusic() {
-    const medievalThemeAudio = document.getElementById("medievaltheme");
-    if (medievalThemeAudio.paused) {
-        medievalThemeAudio.play();
-    } else {
-        medievalThemeAudio.pause();
-    }
-}
-
-// Function to toggle sound effects
-function toggleSoundEffects() {
-    const clickSoundAudio = document.getElementById("click-sound");
-    const upgradeSoundAudio = document.getElementById("upgradesound");
-    
-    clickSoundAudio.muted = !clickSoundAudio.muted;
-    upgradeSoundAudio.muted = !upgradeSoundAudio.muted;
-}
-
-// Add event listeners to the checkboxes
-document.getElementById("toggle-music").addEventListener("change", toggleMusic);
-document.getElementById("toggle-sfx").addEventListener("change", toggleSoundEffects);
-
-// Function to request fullscreen
-function requestFullscreen(element) {
-    if (element.requestFullscreen) {
-        element.requestFullscreen();
-    } else if (element.mozRequestFullScreen) { // Firefox
-        element.mozRequestFullScreen();
-    } else if (element.webkitRequestFullscreen) { // Chrome and Safari
-        element.webkitRequestFullscreen();
-    } else if (element.msRequestFullscreen) { // Internet Explorer
-        element.msRequestFullscreen();
-    }
-}
-
-// Auto-enter fullscreen mode when the game starts
-function autoEnterFullscreen() {
-    const element = document.documentElement; // Use the document.documentElement to make the entire page fullscreen
-
-    if (element.requestFullscreen || element.mozRequestFullScreen || element.webkitRequestFullscreen || element.msRequestFullscreen) {
-        requestFullscreen(element);
-    } else {
-        console.log('Fullscreen mode is not supported in this browser.');
-    }
-}
-
-// Call autoEnterFullscreen when the game starts
-autoEnterFullscreen();
-
-function updateUI() {
-    document.getElementById("counter").textContent = `Gold coins: ${compactNumberFormat(coins)}`;
-    document.getElementById("knight-count").textContent = knightCount;
-    document.getElementById("archer-count").textContent = archerCount;
-    document.getElementById("wizard-count").textContent = wizardCount;
-    document.getElementById("woodcutting-level").textContent = woodcuttingLevel;
-    document.getElementById("mining-level").textContent = miningLevel;
-    document.getElementById("paladin-count").textContent = paladinCount;
-
-    updatePassiveIncome();
-}
-
-function clickCastle() {
-    coins++;
-    saveGameData();
-    updateUI();
-
-    // Play the preloaded click sound
-    clickSound.play();
-}
-
-function buyUpgrade(type) {
-    let cost = 0;
-
-    switch (type) {
-        case "knight":
-            cost = 10;
-            if (coins >= cost) {
-                coins -= cost;
-                knightCount++;
-            }
-            break;
-        case "archer":
-            cost = 25;
-            if (coins >= cost) {
-                coins -= cost;
-                archerCount++;
-            }
-            break;
-        case "wizard":
-            cost = 50;
-            if (coins >= cost) {
-                coins -= cost;
-                wizardCount++;
-            }
-            break;
-        case "paladin":
-            cost = 100;
-            if (coins >= cost) {
-                coins -= cost;
-                paladinCount++;
-            }
-            break;
-    }
-
-    if (cost > 0) {
-        // Play the upgrade sound
-        const upgradeSound = document.getElementById("upgradeSound");
-        upgradeSound.play();
-    }
-
-    saveGameData();
-    updateUI();
-}
-
-function compactNumberFormat(num) {
-    if (num < 1e3) return num;
-    if (num >= 1e3 && num < 1e6) return +(num / 1e3).toFixed(1) + "K";
-    if (num >= 1e6 && num < 1e9) return +(num / 1e6).toFixed(1) + "M";
-    if (num >= 1e9 && num < 1e12) return +(num / 1e9).toFixed(1) + "B";
-    return +(num / 1e12).toFixed(1) + "T";
-}
-
-function handleSkillingClick(skill) {
-    switch (skill) {
-        case "woodcutting":
-            woodcuttingLevel++;
-            break;
-        case "mining":
-            miningLevel++;
-            break;
-    }
-    saveGameData();
-    updateUI();
-}
-
-function updatePassiveIncome() {
-    // Calculate passive income based on knights, archers, wizards, and paladins
-    const knightIncomeRate = 1;   // Adjust the income rate for knights
-    const archerIncomeRate = 2;   // Adjust the income rate for archers
-    const wizardIncomeRate = 3;   // Adjust the income rate for wizards
-    const paladinIncomeRate = 4;  // Adjust the income rate for paladins
-
-    const totalPassiveIncome = (knightCount * knightIncomeRate + archerCount * archerIncomeRate + wizardCount * wizardIncomeRate + paladinCount * paladinIncomeRate);
-    passiveIncome = totalPassiveIncome;
-}
-
-function earnPassiveIncome() {
-    const currentTime = Date.now();
-    const timeDifference = currentTime - lastSaveTime;
-    const offlinePassiveIncome = Math.floor(passiveIncome * (timeDifference / 1000));
-
-    coins += offlinePassiveIncome;
-    lastSaveTime = currentTime; // Update the last save time
-
-    saveGameData();
-    updateUI();
-}
-
-setInterval(earnPassiveIncome, 1000);
+  </audio>
+  <audio id="click-sound" src="click-sound.mp3" type="audio/mp3"></audio>
+</body>
+</html>
