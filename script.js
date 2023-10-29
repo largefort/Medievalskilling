@@ -238,15 +238,15 @@ function handleSkillingClick(skill) {
 }
 
 function updatePassiveIncome() {
-    // Calculate passive income based on knights, archers, wizards, and paladins
+    // Calculate passive income based on knights, archers, wizards, and paladins and horsemans
     const knightIncomeRate = 1;   // Adjust the income rate for knights
     const archerIncomeRate = 2;   // Adjust the income rate for archers
     const wizardIncomeRate = 3;   // Adjust the income rate for wizards
-    const paladinIncomeRate = 4;
-    const horsemanincomerate = 8;
-    // Adjust the income rate for paladins
+    const paladinIncomeRate = 4;  // Adjust the income rate for paladins
+    const horsemanincomerate = 8; // Adjust the income rate for horseman
+   
 
-    const totalPassiveIncome = (knightCount * knightIncomeRate + archerCount * archerIncomeRate + wizardCount * wizardIncomeRate + paladinCount * paladinIncomeRate); * horsemancount * horsemanincomerate);
+    const totalPassiveIncome = (knightCount * knightIncomeRate + archerCount * archerIncomeRate + wizardCount * wizardIncomeRate + paladinCount * paladinIncomeRate); * horsemancount * horsemanIncomerate);
     passiveIncome = totalPassiveIncome; 
 }
 
