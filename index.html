@@ -1,5 +1,5 @@
- <!DOCTYPE html>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -8,6 +8,8 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="your-medieval-font.woff"> <!-- Include your MedievalFont here -->
+
   <style>
     body {
       font-family: 'MedievalFont', serif;
@@ -15,6 +17,17 @@
       color: #f7dfc4;
       margin: 0;
       padding: 0;
+    }
+
+    .container {
+      background-color: #4b3626; /* Darker brown background */
+      border: 5px solid #8a5c2e;
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
+      margin: 0 auto;
+      max-width: 800px;
+      overflow: hidden;
     }
 
     .text-center {
@@ -25,39 +38,29 @@
       margin-top: 15px;
     }
 
-    .container {
-      background-color: rgba(0, 0, 0, 0.8);
-      border: 5px solid #8a5c2e;
-      padding: 20px;
-      border-radius: 15px;
-      box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
-      margin: 0 auto;
-      max-width: 800px;
-      overflow: hidden;
-    }
-
     .nav-pills .nav-link {
       font-size: 18px;
       padding: 10px 20px;
-      background-color: rgba(90, 57, 33, 0.8);
+      background-color: #6b4423; /* Dark brown background */
       border-radius: 0;
       border-top: 3px solid #8a5c2e;
       border-bottom: 3px solid #3c1e0f;
-      color: #f7dfc4;
+      color: #ffd700; /* Gold text color */
     }
 
     .nav-pills .nav-link.active {
-      background-color: rgba(60, 30, 15, 0.8);
+      background-color: #4b3626; /* Darker brown background for active tab */
       color: #ffcc00;
       border-top: 3px solid #3c1e0f;
       border-bottom: 3px solid #8a5c2e;
+      font-weight: bold;
     }
 
     .upgrade {
       font-size: 18px;
-      color: #f7dfc4;
-      background-color: #8a5c2e;
-      border: 2px solid #5a3921;
+      color: #ffd700; /* Gold text color for upgrades */
+      background-color: #6b4423; /* Dark brown background for upgrades */
+      border: 2px solid #8a5c2e;
       padding: 15px;
       margin-bottom: 10px;
       cursor: pointer;
@@ -66,7 +69,7 @@
     }
 
     .upgrade:hover {
-      background-color: #5a3921;
+      background-color: #8a5c2e; /* Hover background color */
       color: #ffcc00;
     }
 
@@ -84,8 +87,8 @@
     }
 
     .modal-content {
-      background-color: #251c12;
-      color: #f7dfc4;
+      background-color: #4b3626; /* Darker brown background for modal */
+      color: #ffd700;
       padding: 20px;
       border-radius: 10px;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
@@ -97,7 +100,7 @@
       top: 10px;
       right: 10px;
       font-size: 24px;
-      color: #f7dfc4;
+      color: #ffd700;
       cursor: pointer;
     }
 
@@ -118,38 +121,9 @@
       background-color: #8A5C2E;
       color: #FFCC00;
     }
-
-    .container {
-      background-color: rgba(0, 0, 0, 0.6);
-      border: 5px solid #8A5C2E;
-      padding: 20px;
-      border-radius: 15px;
-      box-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
-    }
-
-    .nav-pills .nav-link {
-      font-size: 18px;
-      padding: 10px 20px;
-      background-color: rgba(112, 67, 38, 0.8);
-      border-radius: 0;
-      border-top: 3px solid #8A5C2E;
-      border-bottom: 3px solid #3c1e0f;
-      color: #FFD700;
-    }
-
-    .nav-pills .nav-link.active {
-      background-color: rgba(75, 37, 19, 0.8);
-      color: #8A5C2E;
-      font-weight: bold;
-    }
-
-    @font-face {
-      font-family: 'MedievalFont';
-      src: url('your-medieval-font.woff') format('woff');
-    }
   </style>
+
   <meta name="google-adsense-account" content="ca-pub-5816082932921993">
-  <script async src="https://pagead2.googlesyndication.com/pagead/js?client=ca-pub-5816082932921993" crossorigin="anonymous"></script>
 </head>
 <body>
   <div class="container mt-5">
@@ -247,8 +221,7 @@
     <div class="nav nav-pills nav-fill fixed-bottom">
       <a class="nav-link active" data-toggle="pill" href="#castle-tab">Castle</a>
       <a class="nav-link" data-toggle="pill" href="#skilling-tab">Skilling</a>
-  <a class="nav-link" data-toggle="pill" href="#shop-tab">Shop</a>
-
+      <a class="nav-link" data-toggle="pill" href="#shop-tab">Shop</a>
       <a class="nav-link" data-toggle="pill" href="#settings-tab">Settings</a>
     </div>
   </div>
