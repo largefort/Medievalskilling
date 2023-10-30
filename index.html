@@ -73,53 +73,9 @@
       color: #ffcc00;
     }
 
-    .modal {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0, 0, 0, 0.7);
-      z-index: 1;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .modal-content {
-      background-color: #4b3626; /* Darker brown background for modal */
-      color: #ffd700;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-      text-align: center;
-    }
-
-    .close {
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      font-size: 24px;
-      color: #ffd700;
-      cursor: pointer;
-    }
-
-    .castle-image {
-      border: 5px solid #532c08;
-      border-radius: 10px;
-    }
-
-    .upgrade {
-      background-color: #6B4423;
-      border: 2px solid #8A5C2E;
-      color: #FFD700;
-      transition: background-color 0.3s, color 0.3s;
-      font-weight: bold;
-    }
-
-    .upgrade:hover {
-      background-color: #8A5C2E;
-      color: #FFCC00;
+    .upgrade-counter {
+      color: #ffd700; /* Gold text color for counters */
+      margin-left: 10px;
     }
   </style>
 
@@ -150,6 +106,7 @@
           </div>
         </div>
       </div>
+
       <div class="tab-pane fade" id="skilling-tab">
         <div class="col-12 text-center">
           <h2>Skilling</h2>
@@ -169,11 +126,13 @@
           </div>
         </div>
       </div>
+
       <div class="tab-pane fade" id="shop-tab">
         <div class="col-12 text-center">
           <h2>Shop</h2>
           <div class="upgrade" onclick="buyUpgrade('knight')">
             Knight (<span id="knight-cost">10</span> coins)
+            <span id="knight-counter" class="upgrade-counter">0</span> <!-- Add the counter -->
           </div>
           <audio id="knight-upgrade-sound">
             <source src="upgradesound.mp3" type="audio/mp3">
@@ -181,6 +140,7 @@
           </audio>
           <div class="upgrade" onclick="buyUpgrade('archer')">
             Archer (<span id="archer-cost">25</span> coins)
+            <span id="archer-counter" class="upgrade-counter">0</span> <!-- Add the counter -->
           </div>
           <audio id="archer-upgrade-sound">
             <source src="upgradesound.mp3" type="audio/mp3">
@@ -188,6 +148,7 @@
           </audio>
           <div class="upgrade" onclick="buyUpgrade('wizard')">
             Wizard (<span id="wizard-cost">50</span> coins)
+            <span id="wizard-counter" class="upgrade-counter">0</span> <!-- Add the counter -->
           </div>
           <audio id="wizard-upgrade-sound">
             <source src="upgradesound.mp3" type="audio/mp3">
@@ -195,6 +156,7 @@
           </audio>
           <div class="upgrade" onclick="buyUpgrade('paladin')">
             Paladin (<span id="paladin-cost">100</span> coins)
+            <span id="paladin-counter" class="upgrade-counter">0</span> <!-- Add the counter -->
           </div>
           <audio id="paladin-upgrade-sound">
             <source src="upgradesound.mp3" type="audio/mp3">
@@ -202,6 +164,7 @@
           </audio>
         </div>
       </div>
+
       <div class="tab-pane fade" id="settings-tab">
         <div class="col-12 text-center">
           <h2>Settings</h2>
@@ -237,5 +200,73 @@
     Your browser does not support the audio element.
   </audio>
   <audio id="click-sound" src="click-sound.mp3" type="audio/mp3"></audio>
+ <script>
+  // JavaScript code for upgrade counters (see previous response for details)
+  let knightCounter = 0;
+  let archerCounter = 0;
+  let wizardCounter = 0;
+  let paladinCounter = 0;
+
+  function updateUpgradeCounters() {
+    document.getElementById("knight-counter").textContent = knightCounter;
+    document.getElementById("archer-counter").textContent = archerCounter;
+    document.getElementById("wizard-counter").textContent = wizardCounter;
+    document.getElementById("paladin-counter").textContent = paladinCounter;
+  }
+
+  function buyUpgrade(upgradeType) {
+    // Example cost for each upgrade
+    let cost = 0;
+    
+    // Determine the cost and effect of the upgrade based on the upgradeType
+    switch (upgradeType) {
+      case "knight":
+        cost = 10;
+        // Your code to increase the power or effect of knights goes here
+        break;
+      case "archer":
+        cost = 25;
+        // Your code to increase the power or effect of archers goes here
+        break;
+      case "wizard":
+        cost = 50;
+        // Your code to increase the power or effect of wizards goes here
+        break;
+      case "paladin":
+        cost = 100;
+        // Your code to increase the power or effect of paladins goes here
+        break;
+      default:
+        // Handle invalid upgradeType
+        alert("Invalid upgrade type.");
+        return;
+    }
+
+    // Check if the player has enough coins to purchase the upgrade
+    let currentCoins = parseInt(document.getElementById("counter").textContent.match(/\d+/)[0], 10);
+    if (currentCoins < cost) {
+      alert("Not enough coins to purchase this upgrade.");
+      return;
+    }
+
+    // Deduct the cost from the player's coins
+    currentCoins -= cost;
+    document.getElementById("counter").textContent = `Gold coins: ${currentCoins}`;
+
+    // Increment the respective upgrade counter
+    if (upgradeType === "knight") {
+      knightCounter++;
+    } else if (upgradeType === "archer") {
+      archerCounter++;
+    } else if (upgradeType === "wizard") {
+      wizardCounter++;
+    } else if (upgradeType === "paladin") {
+      paladinCounter++;
+    }
+
+    // Update the counters
+    updateUpgradeCounters();
+  }
+</script>
 </body>
 </html>
