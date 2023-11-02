@@ -229,8 +229,8 @@ function updatePassiveIncome() {
     // Calculate passive income based on knights, archers, wizards, and paladins
     const knightIncomeRate = 1;   // Adjust the income rate for knights
     const archerIncomeRate = 2;   // Adjust the income rate for archers
-    const wizardIncomeRate = 3;   // Adjust the income rate for wizards
-    const paladinIncomeRate = 4;  // Adjust the income rate for paladins
+    const wizardIncomeRate = 8;   // Adjust the income rate for wizards
+    const paladinIncomeRate = 10;  // Adjust the income rate for paladins
 
     const totalPassiveIncome = (knightCount * knightIncomeRate + archerCount * archerIncomeRate + wizardCount * wizardIncomeRate + paladinCount * paladinIncomeRate);
     passiveIncome = totalPassiveIncome;
