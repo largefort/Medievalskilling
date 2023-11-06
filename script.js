@@ -248,4 +248,4 @@ function earnPassiveIncome() {
     updateUI();
 }
 
-setInterval(earnPassiveIncome, 1000);
+setInterval(earnPassiveIncome, 100);
