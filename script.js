@@ -125,19 +125,6 @@ function requestFullscreen(element) {
     }
 }
 
-// Auto-enter fullscreen mode when the game starts
-function autoEnterFullscreen() {
-    const element = document.documentElement; // Use the document.documentElement to make the entire page fullscreen
-
-    if (element.requestFullscreen || element.mozRequestFullScreen || element.webkitRequestFullscreen || element.msRequestFullscreen) {
-        requestFullscreen(element);
-    } else {
-        console.log('Fullscreen mode is not supported in this browser.');
-    }
-}
-
-// Call autoEnterFullscreen when the game starts
-autoEnterFullscreen();
 
 function updateUI() {
     document.getElementById("counter").textContent = `Gold coins: ${compactNumberFormat(coins)}`;
