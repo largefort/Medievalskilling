@@ -7,6 +7,7 @@ let miningLevel = 1;
 let paladinCount = 0;
 let passiveIncome = 0;
 let db;
+let lastSaveTime = Date.now(); // Initialize lastSaveTime with the current time
 
 // Add an HTML audio element for the upgrade sound
 document.write(`
@@ -56,6 +57,7 @@ function saveGameData() {
         woodcuttingLevel,
         miningLevel,
         paladinCount,
+        lastSaveTime: Date.now(), // Update the last save time
     };
 
     const transaction = db.transaction(["gameState"], "readwrite");
@@ -78,6 +80,7 @@ function loadGameData() {
             woodcuttingLevel = savedState.woodcuttingLevel;
             miningLevel = savedState.miningLevel;
             paladinCount = savedState.paladinCount;
+            lastSaveTime = savedState.lastSaveTime; // Update the last save time
 
             updateUI();
         }
@@ -100,7 +103,7 @@ function toggleMusic() {
 function toggleSoundEffects() {
     const clickSoundAudio = document.getElementById("click-sound");
     const upgradeSoundAudio = document.getElementById("upgradesound");
-
+    
     clickSoundAudio.muted = !clickSoundAudio.muted;
     upgradeSoundAudio.muted = !upgradeSoundAudio.muted;
 }
@@ -121,6 +124,7 @@ function requestFullscreen(element) {
         element.msRequestFullscreen();
     }
 }
+
 
 function updateUI() {
     document.getElementById("counter").textContent = `Gold coins: ${compactNumberFormat(coins)}`;
@@ -219,4 +223,16 @@ function updatePassiveIncome() {
     passiveIncome = totalPassiveIncome;
 }
 
-setInterval(updatePassiveIncome, 100);
+function earnPassiveIncome() {
+    const currentTime = Date.now();
+    const timeDifference = currentTime - lastSaveTime;
+    const offlinePassiveIncome = Math.floor(passiveIncome * (timeDifference / 1000));
+
+    coins += offlinePassiveIncome;
+    lastSaveTime = currentTime; // Update the last save time
+
+    saveGameData();
+    updateUI();
+}
+
+setInterval(earnPassiveIncome, 1000);
