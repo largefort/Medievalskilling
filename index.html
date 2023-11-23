@@ -1,11 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
+ <!DOCTYPE html>
+<html>
+<head><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5816082932921993"
+     crossorigin="anonymous"></script><head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Medieval Clicker</title>
-  <meta http-equiv="Access-Control-Allow-Origin" content="*">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
@@ -28,27 +27,31 @@
     }
 
     .container {
-      background-color: rgba(0, 0, 0, 0.6);
-      border: 5px solid #8A5C2E;
+      background-color: rgba(0, 0, 0, 0.8);
+      border: 5px solid #8a5c2e;
       padding: 20px;
       border-radius: 15px;
-      box-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
+      margin: 0 auto;
+      max-width: 800px;
+      overflow: hidden;
     }
 
     .nav-pills .nav-link {
       font-size: 18px;
       padding: 10px 10px;
-      background-color: rgba(112, 67, 38, 0.8);
+      background-color: rgba(90, 57, 33, 0.8);
       border-radius: 0;
-      border-top: 3px solid #8A5C2E;
+      border-top: 3px solid #8a5c2e;
       border-bottom: 3px solid #3c1e0f;
-      color: #FFD700;
+      color: #f7dfc4;
     }
 
     .nav-pills .nav-link.active {
-      background-color: rgba(75, 37, 19, 0.8);
-      color: #8A5C2E;
-      font-weight: bold;
+      background-color: rgba(60, 30, 15, 0.8);
+      color: #ffcc00;
+      border-top: 3px solid #3c1e0f;
+      border-bottom: 3px solid #8a5c2e;
     }
 
     .upgrade {
@@ -104,15 +107,51 @@
       border-radius: 10px;
     }
 
+    .upgrade {
+      background-color: #6B4423;
+      border: 2px solid #8A5C2E;
+      color: #FFD700;
+      transition: background-color 0.3s, color 0.3s;
+      font-weight: bold;
+    }
+
+    .upgrade:hover {
+      background-color: #8A5C2E;
+      color: #FFCC00;
+    }
+
+    .container {
+      background-color: rgba(0, 0, 0, 0.6);
+      border: 5px solid #8A5C2E;
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
+    }
+
+    .nav-pills .nav-link {
+      font-size: 18px;
+      padding: 10px 10px;
+      background-color: rgba(112, 67, 38, 0.8);
+      border-radius: 0;
+      border-top: 3px solid #8A5C2E;
+      border-bottom: 3px solid #3c1e0f;
+      color: #FFD700;
+    }
+
+    .nav-pills .nav-link.active {
+      background-color: rgba(75, 37, 19, 0.8);
+      color: #8A5C2E;
+      font-weight: bold;
+    }
+
     @font-face {
       font-family: 'MedievalFont';
       src: url('your-medieval-font.woff') format('woff');
     }
   </style>
-  <meta name="google-adsense-account" content="your-google-adsense-account">
-  <script async defer src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <meta name="google-adsense-account" content="ca-pub-5816082932921993">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js?client=ca-pub-5816082932921993" crossorigin="anonymous"></script>
 </head>
-
 <body>
   <div class="container mt-5">
     <div class="tab-content">
@@ -209,22 +248,32 @@
     <div class="nav nav-pills nav-fill fixed-bottom">
       <a class="nav-link active" data-toggle="pill" href="#castle-tab">Castle</a>
       <a class="nav-link" data-toggle="pill" href="#skilling-tab">Skilling</a>
-      <a class="nav-link" data-toggle="pill" href="#shop-tab">Shop</a>
+  <a class="nav-link" data-toggle="pill" href="#shop-tab">Shop</a>
+
       <a class="nav-link" data-toggle="pill" href="#settings-tab">Settings</a>
     </div>
   </div>
   <button id="fullscreen-button" style="display: none;" onclick="autoEnterFullscreen()">
     Enter Fullscreen
   </button>
-  <script defer src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-  <script defer src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-  <script defer src="script.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script src="script.js"></script>
   <audio id="medievaltheme" loop autoplay>
     <source src="medievaltheme.mp3" type="audio/mp3">
     Your browser does not support the audio element.
   </audio>
   <audio id="click-sound" src="click-sound.mp3" type="audio/mp3"></audio>
 </body>
-
 </html>
+<body><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5816082932921993"
+     crossorigin="anonymous"></script>
+<!-- lol -->
+<ins class="adsbygoogle"
+     style="display:inline-block;width:728px;height:90px"
+     data-ad-client="ca-pub-5816082932921993"
+     data-ad-slot="4602212142"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script> </body>
