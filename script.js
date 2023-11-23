@@ -6,8 +6,6 @@ let woodcuttingLevel = 1;
 let miningLevel = 1;
 let paladinCount = 0;
 let passiveIncome = 0;
-let db;
-let lastSaveTime = Date.now(); // Initialize lastSaveTime with the current time
 
 // Add an HTML audio element for the upgrade sound
 document.write(`
@@ -28,67 +26,6 @@ function disableFingerZooming() {
 
 disableFingerZooming();
 
-function initializeDB() {
-    const request = indexedDB.open("MedievalClickerDB", 1);
-
-    request.onupgradeneeded = function (event) {
-        db = event.target.result;
-        if (!db.objectStoreNames.contains('gameState')) {
-            db.createObjectStore('gameState');
-        }
-    };
-
-    request.onsuccess = function (event) {
-        db = event.target.result;
-        loadGameData();
-    };
-
-    request.onerror = function (event) {
-        console.log("Error opening DB", event);
-    };
-}
-
-function saveGameData() {
-    const gameState = {
-        coins,
-        knightCount,
-        archerCount,
-        wizardCount,
-        woodcuttingLevel,
-        miningLevel,
-        paladinCount,
-        lastSaveTime: Date.now(), // Update the last save time
-    };
-
-    const transaction = db.transaction(["gameState"], "readwrite");
-    const store = transaction.objectStore("gameState");
-    store.put(gameState, "currentGameState");
-}
-
-function loadGameData() {
-    const transaction = db.transaction(["gameState"], "readonly");
-    const store = transaction.objectStore("gameState");
-    const request = store.get("currentGameState");
-    request.onsuccess = function (event) {
-        if (request.result) {
-            const savedState = request.result;
-
-            coins = savedState.coins;
-            knightCount = savedState.knightCount;
-            archerCount = savedState.archerCount;
-            wizardCount = savedState.wizardCount;
-            woodcuttingLevel = savedState.woodcuttingLevel;
-            miningLevel = savedState.miningLevel;
-            paladinCount = savedState.paladinCount;
-            lastSaveTime = savedState.lastSaveTime; // Update the last save time
-
-            updateUI();
-        }
-    };
-}
-
-initializeDB();
-
 // Function to toggle music
 function toggleMusic() {
     const medievalThemeAudio = document.getElementById("medievaltheme");
@@ -103,7 +40,7 @@ function toggleMusic() {
 function toggleSoundEffects() {
     const clickSoundAudio = document.getElementById("click-sound");
     const upgradeSoundAudio = document.getElementById("upgradesound");
-    
+
     clickSoundAudio.muted = !clickSoundAudio.muted;
     upgradeSoundAudio.muted = !upgradeSoundAudio.muted;
 }
@@ -125,7 +62,6 @@ function requestFullscreen(element) {
     }
 }
 
-
 function updateUI() {
     document.getElementById("counter").textContent = `Gold coins: ${compactNumberFormat(coins)}`;
     document.getElementById("knight-count").textContent = knightCount;
@@ -140,7 +76,6 @@ function updateUI() {
 
 function clickCastle() {
     coins++;
-    saveGameData();
     updateUI();
 
     // Play the preloaded click sound
@@ -187,7 +122,6 @@ function buyUpgrade(type) {
         upgradeSound.play();
     }
 
-    saveGameData();
     updateUI();
 }
 
@@ -208,7 +142,6 @@ function handleSkillingClick(skill) {
             miningLevel++;
             break;
     }
-    saveGameData();
     updateUI();
 }
 
@@ -223,16 +156,4 @@ function updatePassiveIncome() {
     passiveIncome = totalPassiveIncome;
 }
 
-function earnPassiveIncome() {
-    const currentTime = Date.now();
-    const timeDifference = currentTime - lastSaveTime;
-    const offlinePassiveIncome = Math.floor(passiveIncome * (timeDifference / 1000));
-
-    coins += offlinePassiveIncome;
-    lastSaveTime = currentTime; // Update the last save time
-
-    saveGameData();
-    updateUI();
-}
-
-setInterval(earnPassiveIncome, 50);
+setInterval(updatePassiveIncome, 100);
