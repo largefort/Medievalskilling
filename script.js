@@ -219,4 +219,4 @@ function updatePassiveIncome() {
     passiveIncome = totalPassiveIncome;
 }
 
-setInterval(updatePassiveIncome, 50);
+setInterval(updatePassiveIncome, 100);
