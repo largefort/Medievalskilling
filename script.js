@@ -102,8 +102,8 @@ function toggleMusic() {
 // Function to toggle sound effects
 function toggleSoundEffects() {
     const clickSoundAudio = document.getElementById("click-sound");
-    const upgradeSoundAudio = document.getElementById("upgradeSound");
-
+    const upgradeSoundAudio = document.getElementById("upgradesound");
+    
     clickSoundAudio.muted = !clickSoundAudio.muted;
     upgradeSoundAudio.muted = !upgradeSoundAudio.muted;
 }
@@ -124,6 +124,7 @@ function requestFullscreen(element) {
         element.msRequestFullscreen();
     }
 }
+
 
 function updateUI() {
     document.getElementById("counter").textContent = `Gold coins: ${compactNumberFormat(coins)}`;
@@ -148,12 +149,10 @@ function clickCastle() {
 
 function buyUpgrade(type) {
     let cost = 0;
-    let upgradeCount;
 
     switch (type) {
         case "knight":
             cost = 10;
-            upgradeCount = knightCount;
             if (coins >= cost) {
                 coins -= cost;
                 knightCount++;
@@ -161,7 +160,6 @@ function buyUpgrade(type) {
             break;
         case "archer":
             cost = 25;
-            upgradeCount = archerCount;
             if (coins >= cost) {
                 coins -= cost;
                 archerCount++;
@@ -169,7 +167,6 @@ function buyUpgrade(type) {
             break;
         case "wizard":
             cost = 50;
-            upgradeCount = wizardCount;
             if (coins >= cost) {
                 coins -= cost;
                 wizardCount++;
@@ -177,7 +174,6 @@ function buyUpgrade(type) {
             break;
         case "paladin":
             cost = 100;
-            upgradeCount = paladinCount;
             if (coins >= cost) {
                 coins -= cost;
                 paladinCount++;
