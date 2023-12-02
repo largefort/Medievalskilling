@@ -5,11 +5,11 @@ let wizardCount = 0;
 let woodcuttingLevel = 1;
 let miningLevel = 1;
 let paladinCount = 0;
+let mercenaryCount = 0;
 let passiveIncome = 0;
 let db;
-let lastSaveTime = Date.now(); // Initialize lastSaveTime with the current time
+let lastSaveTime = Date.now();
 
-// Add an HTML audio element for the upgrade sound
 document.write(`
 <audio id="upgradeSound">
     <source src="upgradesound.mp3" type="audio/mpeg">
@@ -17,7 +17,6 @@ document.write(`
 </audio>
 `);
 
-// Preload the click sound
 const clickSound = new Audio("click-sound.mp3");
 
 function disableFingerZooming() {
@@ -57,7 +56,8 @@ function saveGameData() {
         woodcuttingLevel,
         miningLevel,
         paladinCount,
-        lastSaveTime: Date.now(), // Update the last save time
+        mercenaryCount,
+        lastSaveTime: Date.now(),
     };
 
     const transaction = db.transaction(["gameState"], "readwrite");
@@ -80,7 +80,8 @@ function loadGameData() {
             woodcuttingLevel = savedState.woodcuttingLevel;
             miningLevel = savedState.miningLevel;
             paladinCount = savedState.paladinCount;
-            lastSaveTime = savedState.lastSaveTime; // Update the last save time
+            mercenaryCount = savedState.mercenaryCount;
+            lastSaveTime = savedState.lastSaveTime;
 
             updateUI();
         }
@@ -89,7 +90,6 @@ function loadGameData() {
 
 initializeDB();
 
-// Function to toggle music
 function toggleMusic() {
     const medievalThemeAudio = document.getElementById("medievaltheme");
     if (medievalThemeAudio.paused) {
@@ -99,7 +99,6 @@ function toggleMusic() {
     }
 }
 
-// Function to toggle sound effects
 function toggleSoundEffects() {
     const clickSoundAudio = document.getElementById("click-sound");
     const upgradeSoundAudio = document.getElementById("upgradesound");
@@ -108,23 +107,20 @@ function toggleSoundEffects() {
     upgradeSoundAudio.muted = !upgradeSoundAudio.muted;
 }
 
-// Add event listeners to the checkboxes
 document.getElementById("toggle-music").addEventListener("change", toggleMusic);
 document.getElementById("toggle-sfx").addEventListener("change", toggleSoundEffects);
 
-// Function to request fullscreen
 function requestFullscreen(element) {
     if (element.requestFullscreen) {
         element.requestFullscreen();
-    } else if (element.mozRequestFullScreen) { // Firefox
+    } else if (element.mozRequestFullScreen) {
         element.mozRequestFullScreen();
-    } else if (element.webkitRequestFullscreen) { // Chrome and Safari
+    } else if (element.webkitRequestFullscreen) {
         element.webkitRequestFullscreen();
-    } else if (element.msRequestFullscreen) { // Internet Explorer
+    } else if (element.msRequestFullscreen) {
         element.msRequestFullscreen();
     }
 }
-
 
 function updateUI() {
     document.getElementById("counter").textContent = `Gold coins: ${compactNumberFormat(coins)}`;
@@ -134,7 +130,7 @@ function updateUI() {
     document.getElementById("woodcutting-level").textContent = woodcuttingLevel;
     document.getElementById("mining-level").textContent = miningLevel;
     document.getElementById("paladin-count").textContent = paladinCount;
-
+    document.getElementById("mercenary-count").textContent = mercenaryCount;
     updatePassiveIncome();
 }
 
@@ -142,8 +138,6 @@ function clickCastle() {
     coins++;
     saveGameData();
     updateUI();
-
-    // Play the preloaded click sound
     clickSound.play();
 }
 
@@ -179,10 +173,16 @@ function buyUpgrade(type) {
                 paladinCount++;
             }
             break;
+        case "mercenary":
+            cost = 200;
+            if (coins >= cost) {
+                coins -= cost;
+                mercenaryCount++;
+            }
+            break;
     }
 
     if (cost > 0) {
-        // Play the upgrade sound
         const upgradeSound = document.getElementById("upgradeSound");
         upgradeSound.play();
     }
@@ -213,13 +213,19 @@ function handleSkillingClick(skill) {
 }
 
 function updatePassiveIncome() {
-    // Calculate passive income based on knights, archers, wizards, and paladins
-    const knightIncomeRate = 1;   // Adjust the income rate for knights
-    const archerIncomeRate = 2;   // Adjust the income rate for archers
-    const wizardIncomeRate = 4;   // Adjust the income rate for wizards
-    const paladinIncomeRate = 8;  // Adjust the income rate for paladins
+    const knightIncomeRate = 1;
+    const archerIncomeRate = 2;
+    const wizardIncomeRate = 4;
+    const paladinIncomeRate = 8;
+    const mercenaryIncomeRate = 16;
 
-    const totalPassiveIncome = (knightCount * knightIncomeRate + archerCount * archerIncomeRate + wizardCount * wizardIncomeRate + paladinCount * paladinIncomeRate);
+    const totalPassiveIncome = (
+        knightCount * knightIncomeRate +
+        archerCount * archerIncomeRate +
+        wizardCount * wizardIncomeRate +
+        paladinCount * paladinIncomeRate +
+        mercenaryCount * mercenaryIncomeRate
+    );
     passiveIncome = totalPassiveIncome;
 }
 
@@ -229,7 +235,7 @@ function earnPassiveIncome() {
     const offlinePassiveIncome = Math.floor(passiveIncome * (timeDifference / 1000));
 
     coins += offlinePassiveIncome;
-    lastSaveTime = currentTime; // Update the last save time
+    lastSaveTime = currentTime;
 
     saveGameData();
     updateUI();
