@@ -17,7 +17,6 @@
       margin: 0;
       padding: 0;
     }
-
     .container {
       background-color: rgba(0, 0, 0, 0.6);
       border: 5px solid #8A5C2E;
@@ -26,7 +25,6 @@
       box-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
       margin-top: 50px;
     }
-
     .nav-pills .nav-link {
       font-size: 18px;
       padding: 10px 10px;
@@ -36,13 +34,11 @@
       color: #FFD700;
       margin: 5px;
     }
-
     .nav-pills .nav-link.active {
       background-color: rgba(75, 37, 19, 0.8);
       color: #8A5C2E;
       font-weight: bold;
     }
-
     .upgrade {
       font-size: 18px;
       color: #f7dfc4;
@@ -54,12 +50,10 @@
       transition: background-color 0.3s, color 0.3s;
       border-radius: 10px;
     }
-
     .upgrade:hover {
       background-color: #5a3921;
       color: #ffcc00;
     }
-
     .modal {
       display: none;
       position: fixed;
@@ -72,7 +66,6 @@
       align-items: center;
       justify-content: center;
     }
-
     .modal-content {
       background-color: #251c12;
       color: #f7dfc4;
@@ -81,7 +74,6 @@
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
       text-align: center;
     }
-
     .close {
       position: absolute;
       top: 10px;
@@ -90,14 +82,12 @@
       color: #f7dfc4;
       cursor: pointer;
     }
-
     .castle-image {
       border: 5px solid #532c08;
       border-radius: 10px;
       max-width: 100%;
       height: auto;
     }
-
     @font-face {
       font-family: 'MedievalFont';
       src: url('your-medieval-font.woff') format('woff');
@@ -110,7 +100,6 @@
 <body>
   <div class="container">
     <div class="tab-content">
-      <!-- Castle Tab -->
       <div class="tab-pane fade show active" id="castle-tab">
         <div class="text-center">
           <img id="castle" src="https://raw.githubusercontent.com/largefort/Medievalskilling/main/castle.png" alt="Castle" class="castle-image" onclick="clickCastle()">
@@ -122,11 +111,11 @@
             <div>Archer: <span id="archer-count">0</span></div>
             <div>Wizard: <span id="wizard-count">0</span></div>
             <div>Paladin: <span id="paladin-count">0</span></div>
+            <div>Mercenary: <span id="mercenary-count">0</span></div>
           </div>
         </div>
       </div>
 
-      <!-- Skilling Tab -->
       <div class="tab-pane fade" id="skilling-tab">
         <div class="text-center">
           <h2>Skilling</h2>
@@ -139,52 +128,45 @@
         </div>
       </div>
 
-      <!-- Shop Tab -->
       <div class="tab-pane fade" id="shop-tab">
         <div class="text-center">
           <h2>Shop</h2>
           <div class="upgrade" onclick="buyUpgrade('knight')">Knight (<span id="knight-cost">10</span> coins)</div>
           <audio id="knight-upgrade-sound">
             <source src="upgradesound.mp3" type="audio/mp3">
-            Your browser does not support the audio element.
           </audio>
           <div class="upgrade" onclick="buyUpgrade('archer')">Archer (<span id="archer-cost">25</span> coins)</div>
           <audio id="archer-upgrade-sound">
             <source src="upgradesound.mp3" type="audio/mp3">
-            Your browser does not support the audio element.
           </audio>
           <div class="upgrade" onclick="buyUpgrade('wizard')">Wizard (<span id="wizard-cost">50</span> coins)</div>
           <audio id="wizard-upgrade-sound">
             <source src="upgradesound.mp3" type="audio/mp3">
-            Your browser does not support the audio element.
           </audio>
           <div class="upgrade" onclick="buyUpgrade('paladin')">Paladin (<span id="paladin-cost">100</span> coins)</div>
           <audio id="paladin-upgrade-sound">
             <source src="upgradesound.mp3" type="audio/mp3">
-            Your browser does not support the audio element.
+          </audio>
+          <div class="upgrade" onclick="buyUpgrade('mercenary')">Mercenary (<span id="mercenary-cost">200</span> coins)</div>
+          <audio id="mercenary-upgrade-sound">
+            <source src="mercenary-sound.mp3" type="audio/mp3">
           </audio>
         </div>
       </div>
 
-      <!-- Settings Tab -->
       <div class="tab-pane fade" id="settings-tab">
         <div class="text-center">
           <h2>Settings</h2>
           <div class="form-check">
-            <label class="form-check-label">
-              <input type="checkbox" id="toggle-music"> Toggle Music
-            </label>
+            <input type="checkbox" id="toggle-music"> <label class="form-check-label">Toggle Music</label>
           </div>
           <div class="form-check">
-            <label class="form-check-label">
-              <input type="checkbox" id="toggle-sfx"> Toggle Sound Effects
-            </label>
+            <input type="checkbox" id="toggle-sfx"> <label class="form-check-label">Toggle Sound Effects</label>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Navigation -->
     <div class="nav nav-pills nav-fill fixed-bottom">
       <a class="nav-link active" data-toggle="pill" href="#castle-tab">Castle</a>
       <a class="nav-link" data-toggle="pill" href="#skilling-tab">Skilling</a>
@@ -193,17 +175,14 @@
     </div>
   </div>
 
-  <!-- Fullscreen Button -->
   <button id="fullscreen-button" style="display: none;" onclick="autoEnterFullscreen()">Enter Fullscreen</button>
 
-  <!-- Scripts and Audio -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   <script src="script.js"></script>
   <audio id="medievaltheme" loop autoplay>
     <source src="medievaltheme.mp3" type="audio/mp3">
-    Your browser does not support the audio element.
   </audio>
   <audio id="click-sound" src="click-sound.mp3" type="audio/mp3"></audio>
 </body>
