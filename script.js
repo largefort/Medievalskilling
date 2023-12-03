@@ -78,6 +78,7 @@ function loadGameData() {
             lastSaveTime = savedState.lastSaveTime;
 
             updateUI();
+            updatePassiveIncome();
         }
     };
 }
@@ -133,6 +134,7 @@ function clickCastle() {
 
 function buyUpgrade(type) {
     let cost = 0;
+    let purchased = false;
 
     switch (type) {
         case "knight":
@@ -140,7 +142,7 @@ function buyUpgrade(type) {
             if (coins >= cost) {
                 coins -= cost;
                 knightCount++;
-                totalUpgradesPurchased++;
+                purchased = true;
             }
             break;
         case "archer":
@@ -148,7 +150,7 @@ function buyUpgrade(type) {
             if (coins >= cost) {
                 coins -= cost;
                 archerCount++;
-                totalUpgradesPurchased++;
+                purchased = true;
             }
             break;
         case "wizard":
@@ -156,7 +158,7 @@ function buyUpgrade(type) {
             if (coins >= cost) {
                 coins -= cost;
                 wizardCount++;
-                totalUpgradesPurchased++;
+                purchased = true;
             }
             break;
         case "paladin":
@@ -164,7 +166,7 @@ function buyUpgrade(type) {
             if (coins >= cost) {
                 coins -= cost;
                 paladinCount++;
-                totalUpgradesPurchased++;
+                purchased = true;
             }
             break;
         case "mercenary":
@@ -172,12 +174,14 @@ function buyUpgrade(type) {
             if (coins >= cost) {
                 coins -= cost;
                 mercenaryCount++;
-                totalUpgradesPurchased++;
+                purchased = true;
             }
             break;
     }
 
-    if (cost > 0 && coins >= cost) {
+    if (purchased) {
+        totalUpgradesPurchased++;
+        updatePassiveIncome();
         saveGameData();
         updateUI();
     }
@@ -186,8 +190,8 @@ function buyUpgrade(type) {
 function compactNumberFormat(num) {
     if (num < 1e3) return num;
     if (num >= 1e3 && num < 1e6) return +(num / 1e3).toFixed(1) + "K";
-    if (num >= 1e6 and num < 1e9) return +(num / 1e6).toFixed(1) + "M";
-    if (num >= 1e9 and num < 1e12) return +(num / 1e9).toFixed(1) + "B";
+    if (num >= 1e6 && num < 1e9) return +(num / 1e6).toFixed(1) + "M";
+    if (num >= 1e9 && num < 1e12) return +(num / 1e9).toFixed(1) + "B";
     return +(num / 1e12).toFixed(1) + "T";
 }
 
@@ -211,14 +215,13 @@ function updatePassiveIncome() {
     const paladinIncomeRate = 8;
     const mercenaryIncomeRate = 16;
 
-    const totalPassiveIncome = (
+    passiveIncome = (
         knightCount * knightIncomeRate +
         archerCount * archerIncomeRate +
         wizardCount * wizardIncomeRate +
         paladinCount * paladinIncomeRate +
         mercenaryCount * mercenaryIncomeRate
     );
-    passiveIncome = totalPassiveIncome;
 }
 
 function earnPassiveIncome() {
