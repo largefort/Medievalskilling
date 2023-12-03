@@ -7,25 +7,13 @@ let miningLevel = 1;
 let paladinCount = 0;
 let mercenaryCount = 0;
 let passiveIncome = 0;
+let totalClicks = 0;
+let totalCoinsEarned = 0;
+let totalUpgradesPurchased = 0;
 let db;
 let lastSaveTime = Date.now();
 
-document.write(`
-<audio id="upgradeSound">
-    <source src="upgradesound.mp3" type="audio/mpeg">
-    Your browser does not support the audio element.
-</audio>
-`);
-
 const clickSound = new Audio("click-sound.mp3");
-
-function disableFingerZooming() {
-    document.addEventListener('touchmove', function (event) {
-        if (event.scale !== 1) { event.preventDefault(); }
-    }, { passive: false });
-}
-
-disableFingerZooming();
 
 function initializeDB() {
     const request = indexedDB.open("MedievalClickerDB", 1);
@@ -57,6 +45,9 @@ function saveGameData() {
         miningLevel,
         paladinCount,
         mercenaryCount,
+        totalClicks,
+        totalCoinsEarned,
+        totalUpgradesPurchased,
         lastSaveTime: Date.now(),
     };
 
@@ -81,6 +72,9 @@ function loadGameData() {
             miningLevel = savedState.miningLevel;
             paladinCount = savedState.paladinCount;
             mercenaryCount = savedState.mercenaryCount;
+            totalClicks = savedState.totalClicks;
+            totalCoinsEarned = savedState.totalCoinsEarned;
+            totalUpgradesPurchased = savedState.totalUpgradesPurchased;
             lastSaveTime = savedState.lastSaveTime;
 
             updateUI();
@@ -110,20 +104,8 @@ function toggleSoundEffects() {
 document.getElementById("toggle-music").addEventListener("change", toggleMusic);
 document.getElementById("toggle-sfx").addEventListener("change", toggleSoundEffects);
 
-function requestFullscreen(element) {
-    if (element.requestFullscreen) {
-        element.requestFullscreen();
-    } else if (element.mozRequestFullScreen) {
-        element.mozRequestFullScreen();
-    } else if (element.webkitRequestFullscreen) {
-        element.webkitRequestFullscreen();
-    } else if (element.msRequestFullscreen) {
-        element.msRequestFullscreen();
-    }
-}
-
 function updateUI() {
-    document.getElementById("counter").textContent = `Gold coins: ${compactNumberFormat(coins)}`;
+    document.getElementById("counter").textContent = `Gold coins: ${coins}`;
     document.getElementById("knight-count").textContent = knightCount;
     document.getElementById("archer-count").textContent = archerCount;
     document.getElementById("wizard-count").textContent = wizardCount;
@@ -131,11 +113,19 @@ function updateUI() {
     document.getElementById("mining-level").textContent = miningLevel;
     document.getElementById("paladin-count").textContent = paladinCount;
     document.getElementById("mercenary-count").textContent = mercenaryCount;
-    updatePassiveIncome();
+    updateStatsUI();
+}
+
+function updateStatsUI() {
+    document.getElementById("total-clicks").textContent = `Total Castle Clicks: ${totalClicks}`;
+    document.getElementById("total-coins-earned").textContent = `Total Coins Earned: ${totalCoinsEarned}`;
+    document.getElementById("total-upgrades-purchased").textContent = `Total Upgrades Purchased: ${totalUpgradesPurchased}`;
 }
 
 function clickCastle() {
     coins++;
+    totalClicks++;
+    totalCoinsEarned++;
     saveGameData();
     updateUI();
     clickSound.play();
@@ -150,6 +140,7 @@ function buyUpgrade(type) {
             if (coins >= cost) {
                 coins -= cost;
                 knightCount++;
+                totalUpgradesPurchased++;
             }
             break;
         case "archer":
@@ -157,6 +148,7 @@ function buyUpgrade(type) {
             if (coins >= cost) {
                 coins -= cost;
                 archerCount++;
+                totalUpgradesPurchased++;
             }
             break;
         case "wizard":
@@ -164,6 +156,7 @@ function buyUpgrade(type) {
             if (coins >= cost) {
                 coins -= cost;
                 wizardCount++;
+                totalUpgradesPurchased++;
             }
             break;
         case "paladin":
@@ -171,6 +164,7 @@ function buyUpgrade(type) {
             if (coins >= cost) {
                 coins -= cost;
                 paladinCount++;
+                totalUpgradesPurchased++;
             }
             break;
         case "mercenary":
@@ -178,24 +172,22 @@ function buyUpgrade(type) {
             if (coins >= cost) {
                 coins -= cost;
                 mercenaryCount++;
+                totalUpgradesPurchased++;
             }
             break;
     }
 
-    if (cost > 0) {
-        const upgradeSound = document.getElementById("upgradeSound");
-        upgradeSound.play();
+    if (cost > 0 && coins >= cost) {
+        saveGameData();
+        updateUI();
     }
-
-    saveGameData();
-    updateUI();
 }
 
 function compactNumberFormat(num) {
     if (num < 1e3) return num;
     if (num >= 1e3 && num < 1e6) return +(num / 1e3).toFixed(1) + "K";
-    if (num >= 1e6 && num < 1e9) return +(num / 1e6).toFixed(1) + "M";
-    if (num >= 1e9 && num < 1e12) return +(num / 1e9).toFixed(1) + "B";
+    if (num >= 1e6 and num < 1e9) return +(num / 1e6).toFixed(1) + "M";
+    if (num >= 1e9 and num < 1e12) return +(num / 1e9).toFixed(1) + "B";
     return +(num / 1e12).toFixed(1) + "T";
 }
 
