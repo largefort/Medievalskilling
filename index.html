@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -96,7 +95,6 @@
   <meta name="google-adsense-account" content="your-google-adsense-account">
   <script async src="https://pagead2.googlesyndication.com/pagead/js?client=your-google-adsense-account" crossorigin="anonymous"></script>
 </head>
-
 <body>
   <div class="container">
     <div class="tab-content">
@@ -115,7 +113,6 @@
           </div>
         </div>
       </div>
-
       <div class="tab-pane fade" id="skilling-tab">
         <div class="text-center">
           <h2>Skilling</h2>
@@ -127,7 +124,6 @@
           </div>
         </div>
       </div>
-
       <div class="tab-pane fade" id="shop-tab">
         <div class="text-center">
           <h2>Shop</h2>
@@ -153,7 +149,14 @@
           </audio>
         </div>
       </div>
-
+      <div class="tab-pane fade" id="stats-tab">
+        <div class="text-center">
+          <h2>Stats</h2>
+          <div id="total-clicks">Total Castle Clicks: 0</div>
+          <div id="total-coins-earned">Total Coins Earned: 0</div>
+          <div id="total-upgrades-purchased">Total Upgrades Purchased: 0</div>
+        </div>
+      </div>
       <div class="tab-pane fade" id="settings-tab">
         <div class="text-center">
           <h2>Settings</h2>
@@ -166,15 +169,14 @@
         </div>
       </div>
     </div>
-
     <div class="nav nav-pills nav-fill fixed-bottom">
       <a class="nav-link active" data-toggle="pill" href="#castle-tab">Castle</a>
       <a class="nav-link" data-toggle="pill" href="#skilling-tab">Skilling</a>
       <a class="nav-link" data-toggle="pill" href="#shop-tab">Shop</a>
+      <a class="nav-link" data-toggle="pill" href="#stats-tab">Stats</a>
       <a class="nav-link" data-toggle="pill" href="#settings-tab">Settings</a>
     </div>
   </div>
-
   <button id="fullscreen-button" style="display: none;" onclick="autoEnterFullscreen()">Enter Fullscreen</button>
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
