@@ -103,8 +103,16 @@ function toggleSoundEffects() {
 document.getElementById("toggle-music").addEventListener("change", toggleMusic);
 document.getElementById("toggle-sfx").addEventListener("change", toggleSoundEffects);
 
+function compactNumberFormat(num) {
+    if (num < 1000) return num;
+    if (num >= 1000 && num < 1000000) return (num / 1000).toFixed(1) + "K";
+    if (num >= 1000000 && num < 1000000000) return (num / 1000000).toFixed(1) + "M";
+    if (num >= 1000000000 && num < 1000000000000) return (num / 1000000000).toFixed(1) + "B";
+    return (num / 1000000000000).toFixed(1) + "T";
+}
+
 function updateUI() {
-    document.getElementById("counter").textContent = `Gold coins: ${coins}`;
+    document.getElementById("counter").textContent = `Gold coins: ${compactNumberFormat(coins)}`;
     document.getElementById("knight-count").textContent = knightCount;
     document.getElementById("archer-count").textContent = archerCount;
     document.getElementById("wizard-count").textContent = wizardCount;
@@ -117,15 +125,15 @@ function updateUI() {
 
 function updateStatsUI() {
     document.getElementById("total-clicks").textContent = `Total Castle Clicks: ${totalClicks}`;
-    document.getElementById("total-coins-earned").textContent = `Total Coins Earned: ${totalCoinsEarned}`;
+    document.getElementById("total-coins-earned").textContent = `Total Coins Earned: ${compactNumberFormat(totalCoinsEarned)}`;
     document.getElementById("total-upgrades-purchased").textContent = `Total Upgrades Purchased: ${totalUpgradesPurchased}`;
-    document.getElementById("highest-coins-held").textContent = `Highest Gold Coins Held: ${highestCoinsHeld}`;
+    document.getElementById("highest-coins-held").textContent = `Highest Gold Coins Held: ${compactNumberFormat(highestCoinsHeld)}`;
     document.getElementById("total-knights-recruited").textContent = `Total Knights Recruited: ${totalKnightsRecruited}`;
     document.getElementById("total-archers-recruited").textContent = `Total Archers Recruited: ${totalArchersRecruited}`;
     document.getElementById("total-wizards-recruited").textContent = `Total Wizards Recruited: ${totalWizardsRecruited}`;
     document.getElementById("total-paladins-recruited").textContent = `Total Paladins Recruited: ${totalPaladinsRecruited}`;
     document.getElementById("total-mercenaries-recruited").textContent = `Total Mercenaries Recruited: ${totalMercenariesRecruited}`;
-    document.getElementById("total-resources-gathered").textContent = `Total Resources Gathered: ${totalResourcesGathered}`;
+    document.getElementById("total-resources-gathered").textContent = `Total Resources Gathered: ${compactNumberFormat(totalResourcesGathered)}`;
     document.getElementById("total-skills-upgraded").textContent = `Total Skills Upgraded: ${totalSkillsUpgraded}`;
 }
 
@@ -223,21 +231,24 @@ function updatePassiveIncome() {
     const paladinIncomeRate = 8;
     const mercenaryIncomeRate = 16;
 
-    passiveIncome = (
+    const totalPassiveIncome = (
         knightCount * knightIncomeRate +
         archerCount * archerIncomeRate +
         wizardCount * wizardIncomeRate +
         paladinCount * paladinIncomeRate +
         mercenaryCount * mercenaryIncomeRate
     );
+    passiveIncome = totalPassiveIncome;
 }
 
 function earnPassiveIncome() {
     const currentTime = Date.now();
     const timeDifference = currentTime - lastSaveTime;
     const offlinePassiveIncome = Math.floor(passiveIncome * (timeDifference / 1000));
+
     coins += offlinePassiveIncome;
     lastSaveTime = currentTime;
+
     saveGameData();
     updateUI();
 }
