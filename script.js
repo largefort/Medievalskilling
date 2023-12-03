@@ -10,6 +10,14 @@ let passiveIncome = 0;
 let totalClicks = 0;
 let totalCoinsEarned = 0;
 let totalUpgradesPurchased = 0;
+let highestCoinsHeld = 0;
+let totalKnightsRecruited = 0;
+let totalArchersRecruited = 0;
+let totalWizardsRecruited = 0;
+let totalPaladinsRecruited = 0;
+let totalMercenariesRecruited = 0;
+let totalResourcesGathered = 0;
+let totalSkillsUpgraded = 0;
 let db;
 let lastSaveTime = Date.now();
 
@@ -17,19 +25,16 @@ const clickSound = new Audio("click-sound.mp3");
 
 function initializeDB() {
     const request = indexedDB.open("MedievalClickerDB", 1);
-
     request.onupgradeneeded = function (event) {
         db = event.target.result;
         if (!db.objectStoreNames.contains('gameState')) {
             db.createObjectStore('gameState');
         }
     };
-
     request.onsuccess = function (event) {
         db = event.target.result;
         loadGameData();
     };
-
     request.onerror = function (event) {
         console.log("Error opening DB", event);
     };
@@ -37,20 +42,12 @@ function initializeDB() {
 
 function saveGameData() {
     const gameState = {
-        coins,
-        knightCount,
-        archerCount,
-        wizardCount,
-        woodcuttingLevel,
-        miningLevel,
-        paladinCount,
-        mercenaryCount,
-        totalClicks,
-        totalCoinsEarned,
-        totalUpgradesPurchased,
-        lastSaveTime: Date.now(),
+        coins, knightCount, archerCount, wizardCount, woodcuttingLevel, miningLevel,
+        paladinCount, mercenaryCount, passiveIncome, totalClicks, totalCoinsEarned,
+        totalUpgradesPurchased, highestCoinsHeld, totalKnightsRecruited, totalArchersRecruited,
+        totalWizardsRecruited, totalPaladinsRecruited, totalMercenariesRecruited,
+        totalResourcesGathered, totalSkillsUpgraded, lastSaveTime: Date.now()
     };
-
     const transaction = db.transaction(["gameState"], "readwrite");
     const store = transaction.objectStore("gameState");
     store.put(gameState, "currentGameState");
@@ -63,7 +60,6 @@ function loadGameData() {
     request.onsuccess = function (event) {
         if (request.result) {
             const savedState = request.result;
-
             coins = savedState.coins;
             knightCount = savedState.knightCount;
             archerCount = savedState.archerCount;
@@ -75,8 +71,15 @@ function loadGameData() {
             totalClicks = savedState.totalClicks;
             totalCoinsEarned = savedState.totalCoinsEarned;
             totalUpgradesPurchased = savedState.totalUpgradesPurchased;
+            highestCoinsHeld = savedState.highestCoinsHeld;
+            totalKnightsRecruited = savedState.totalKnightsRecruited;
+            totalArchersRecruited = savedState.totalArchersRecruited;
+            totalWizardsRecruited = savedState.totalWizardsRecruited;
+            totalPaladinsRecruited = savedState.totalPaladinsRecruited;
+            totalMercenariesRecruited = savedState.totalMercenariesRecruited;
+            totalResourcesGathered = savedState.totalResourcesGathered;
+            totalSkillsUpgraded = savedState.totalSkillsUpgraded;
             lastSaveTime = savedState.lastSaveTime;
-
             updateUI();
             updatePassiveIncome();
         }
@@ -87,17 +90,12 @@ initializeDB();
 
 function toggleMusic() {
     const medievalThemeAudio = document.getElementById("medievaltheme");
-    if (medievalThemeAudio.paused) {
-        medievalThemeAudio.play();
-    } else {
-        medievalThemeAudio.pause();
-    }
+    medievalThemeAudio.paused ? medievalThemeAudio.play() : medievalThemeAudio.pause();
 }
 
 function toggleSoundEffects() {
     const clickSoundAudio = document.getElementById("click-sound");
     const upgradeSoundAudio = document.getElementById("upgradesound");
-    
     clickSoundAudio.muted = !clickSoundAudio.muted;
     upgradeSoundAudio.muted = !upgradeSoundAudio.muted;
 }
@@ -121,12 +119,23 @@ function updateStatsUI() {
     document.getElementById("total-clicks").textContent = `Total Castle Clicks: ${totalClicks}`;
     document.getElementById("total-coins-earned").textContent = `Total Coins Earned: ${totalCoinsEarned}`;
     document.getElementById("total-upgrades-purchased").textContent = `Total Upgrades Purchased: ${totalUpgradesPurchased}`;
+    document.getElementById("highest-coins-held").textContent = `Highest Gold Coins Held: ${highestCoinsHeld}`;
+    document.getElementById("total-knights-recruited").textContent = `Total Knights Recruited: ${totalKnightsRecruited}`;
+    document.getElementById("total-archers-recruited").textContent = `Total Archers Recruited: ${totalArchersRecruited}`;
+    document.getElementById("total-wizards-recruited").textContent = `Total Wizards Recruited: ${totalWizardsRecruited}`;
+    document.getElementById("total-paladins-recruited").textContent = `Total Paladins Recruited: ${totalPaladinsRecruited}`;
+    document.getElementById("total-mercenaries-recruited").textContent = `Total Mercenaries Recruited: ${totalMercenariesRecruited}`;
+    document.getElementById("total-resources-gathered").textContent = `Total Resources Gathered: ${totalResourcesGathered}`;
+    document.getElementById("total-skills-upgraded").textContent = `Total Skills Upgraded: ${totalSkillsUpgraded}`;
 }
 
 function clickCastle() {
     coins++;
     totalClicks++;
     totalCoinsEarned++;
+    if (coins > highestCoinsHeld) {
+        highestCoinsHeld = coins;
+    }
     saveGameData();
     updateUI();
     clickSound.play();
@@ -135,13 +144,13 @@ function clickCastle() {
 function buyUpgrade(type) {
     let cost = 0;
     let purchased = false;
-
     switch (type) {
         case "knight":
             cost = 10;
             if (coins >= cost) {
                 coins -= cost;
                 knightCount++;
+                totalKnightsRecruited++;
                 purchased = true;
             }
             break;
@@ -150,6 +159,7 @@ function buyUpgrade(type) {
             if (coins >= cost) {
                 coins -= cost;
                 archerCount++;
+                totalArchersRecruited++;
                 purchased = true;
             }
             break;
@@ -158,6 +168,7 @@ function buyUpgrade(type) {
             if (coins >= cost) {
                 coins -= cost;
                 wizardCount++;
+                totalWizardsRecruited++;
                 purchased = true;
             }
             break;
@@ -166,6 +177,7 @@ function buyUpgrade(type) {
             if (coins >= cost) {
                 coins -= cost;
                 paladinCount++;
+                totalPaladinsRecruited++;
                 purchased = true;
             }
             break;
@@ -174,11 +186,11 @@ function buyUpgrade(type) {
             if (coins >= cost) {
                 coins -= cost;
                 mercenaryCount++;
+                totalMercenariesRecruited++;
                 purchased = true;
             }
             break;
     }
-
     if (purchased) {
         totalUpgradesPurchased++;
         updatePassiveIncome();
@@ -187,21 +199,17 @@ function buyUpgrade(type) {
     }
 }
 
-function compactNumberFormat(num) {
-    if (num < 1e3) return num;
-    if (num >= 1e3 && num < 1e6) return +(num / 1e3).toFixed(1) + "K";
-    if (num >= 1e6 && num < 1e9) return +(num / 1e6).toFixed(1) + "M";
-    if (num >= 1e9 && num < 1e12) return +(num / 1e9).toFixed(1) + "B";
-    return +(num / 1e12).toFixed(1) + "T";
-}
-
 function handleSkillingClick(skill) {
     switch (skill) {
         case "woodcutting":
             woodcuttingLevel++;
+            totalSkillsUpgraded++;
+            totalResourcesGathered += woodcuttingLevel;
             break;
         case "mining":
             miningLevel++;
+            totalSkillsUpgraded++;
+            totalResourcesGathered += miningLevel;
             break;
     }
     saveGameData();
@@ -228,10 +236,8 @@ function earnPassiveIncome() {
     const currentTime = Date.now();
     const timeDifference = currentTime - lastSaveTime;
     const offlinePassiveIncome = Math.floor(passiveIncome * (timeDifference / 1000));
-
     coins += offlinePassiveIncome;
     lastSaveTime = currentTime;
-
     saveGameData();
     updateUI();
 }
