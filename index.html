@@ -149,22 +149,30 @@
           </audio>
         </div>
       </div>
-     <div class="tab-pane fade" id="stats-tab">
-  <div class="text-center">
-    <h2>Stats</h2>
-    <div id="total-clicks">Total Castle Clicks: 0</div>
-    <div id="total-coins-earned">Total Coins Earned: 0</div>
-    <div id="highest-coins-held">Highest Gold Coins Held: 0</div>
-    <div id="total-upgrades-purchased">Total Upgrades Purchased: 0</div>
-    <div id="total-knights-recruited">Total Knights Recruited: 0</div>
-    <div id="total-archers-recruited">Total Archers Recruited: 0</div>
-    <div id="total-wizards-recruited">Total Wizards Recruited: 0</div>
-    <div id="total-paladins-recruited">Total Paladins Recruited: 0</div>
-    <div id="total-mercenaries-recruited">Total Mercenaries Recruited: 0</div>
-    <div id="total-resources-gathered">Total Resources Gathered: 0</div>
-    <div id="total-skills-upgraded">Total Skills Upgraded: 0</div>
-    <div id="clicks-per-minute">Clicks per Minute: 0</div>
-    </div>
+      <div class="tab-pane fade" id="resource-gathering-tab">
+        <div class="text-center">
+          <h2>Resource Gathering</h2>
+          <p>Click the button below to gather resources:</p>
+          <button id="gather-resources-button" class="upgrade" onclick="gatherResources()">Gather Resources</button>
+          <div id="resource-count" class="mt-3">Resources Gathered: 0</div>
+        </div>
+      </div>
+      <div class="tab-pane fade" id="stats-tab">
+        <div class="text-center">
+          <h2>Stats</h2>
+          <div id="total-clicks">Total Castle Clicks: 0</div>
+          <div id="total-coins-earned">Total Coins Earned: 0</div>
+          <div id="highest-coins-held">Highest Gold Coins Held: 0</div>
+          <div id="total-upgrades-purchased">Total Upgrades Purchased: 0</div>
+          <div id="total-knights-recruited">Total Knights Recruited: 0</div>
+          <div id="total-archers-recruited">Total Archers Recruited: 0</div>
+          <div id="total-wizards-recruited">Total Wizards Recruited: 0</div>
+          <div id="total-paladins-recruited">Total Paladins Recruited: 0</div>
+          <div id="total-mercenaries-recruited">Total Mercenaries Recruited: 0</div>
+          <div id="total-resources-gathered">Total Resources Gathered: 0</div>
+          <div id="total-skills-upgraded">Total Skills Upgraded: 0</div>
+          <div id="clicks-per-minute">Clicks per Minute: 0</div>
+        </div>
       </div>
       <div class="tab-pane fade" id="settings-tab">
         <div class="text-center">
@@ -182,6 +190,7 @@
       <a class="nav-link active" data-toggle="pill" href="#castle-tab">Castle</a>
       <a class="nav-link" data-toggle="pill" href="#skilling-tab">Skilling</a>
       <a class="nav-link" data-toggle="pill" href="#shop-tab">Shop</a>
+      <a class="nav-link" data-toggle="pill" href="#resource-gathering-tab">Resource Gathering</a>
       <a class="nav-link" data-toggle="pill" href="#stats-tab">Stats</a>
       <a class="nav-link" data-toggle="pill" href="#settings-tab">Settings</a>
     </div>
@@ -196,6 +205,15 @@
     <source src="medievaltheme.mp3" type="audio/mp3">
   </audio>
   <audio id="click-sound" src="click-sound.mp3" type="audio/mp3"></audio>
-</body>
 
+  <script>
+    let resourceCount = 0;
+
+    function gatherResources() {
+      // Increase the resource count when the button is clicked
+      resourceCount++;
+      document.getElementById('resource-count').innerText = 'Resources Gathered: ' + resourceCount;
+    }
+  </script>
+</body>
 </html>
