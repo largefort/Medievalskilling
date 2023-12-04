@@ -16,14 +16,13 @@ let totalArchersRecruited = 0;
 let totalWizardsRecruited = 0;
 let totalPaladinsRecruited = 0;
 let totalMercenariesRecruited = 0;
-let totalResourcesGathered = 0;
+let totalResourcesGathered = 0; // Resource gathering count
 let totalSkillsUpgraded = 0;
 let db;
 let lastSaveTime = Date.now();
 
 const clickSound = new Audio("click-sound.mp3");
 
-// Function to initialize the IndexedDB
 function initializeDB() {
     const request = indexedDB.open("MedievalClickerDB", 1);
     request.onupgradeneeded = function (event) {
@@ -41,7 +40,6 @@ function initializeDB() {
     };
 }
 
-// Function to save game data to IndexedDB
 function saveGameData() {
     const gameState = {
         coins, knightCount, archerCount, wizardCount, woodcuttingLevel, miningLevel,
@@ -55,7 +53,6 @@ function saveGameData() {
     store.put(gameState, "currentGameState");
 }
 
-// Function to load game data from IndexedDB
 function loadGameData() {
     const transaction = db.transaction(["gameState"], "readonly");
     const store = transaction.objectStore("gameState");
@@ -63,7 +60,6 @@ function loadGameData() {
     request.onsuccess = function (event) {
         if (request.result) {
             const savedState = request.result;
-            // Update game variables from the loaded state
             coins = savedState.coins;
             knightCount = savedState.knightCount;
             archerCount = savedState.archerCount;
@@ -84,33 +80,29 @@ function loadGameData() {
             totalResourcesGathered = savedState.totalResourcesGathered;
             totalSkillsUpgraded = savedState.totalSkillsUpgraded;
             lastSaveTime = savedState.lastSaveTime;
-            // Update the game UI
             updateUI();
             updatePassiveIncome();
         }
     };
 }
 
-// Initialize the IndexedDB
 initializeDB();
 
-// Function to toggle background music
 function toggleMusic() {
     const medievalThemeAudio = document.getElementById("medievaltheme");
     medievalThemeAudio.paused ? medievalThemeAudio.play() : medievalThemeAudio.pause();
 }
 
-// Function to toggle sound effects
 function toggleSoundEffects() {
     const clickSoundAudio = document.getElementById("click-sound");
+    const upgradeSoundAudio = document.getElementById("upgradesound");
     clickSoundAudio.muted = !clickSoundAudio.muted;
+    upgradeSoundAudio.muted = !upgradeSoundAudio.muted;
 }
 
-// Event listeners for music and sound effects toggles
 document.getElementById("toggle-music").addEventListener("change", toggleMusic);
 document.getElementById("toggle-sfx").addEventListener("change", toggleSoundEffects);
 
-// Function to format numbers in a compact format (e.g., 1K, 1M, 1B, 1T)
 function compactNumberFormat(num) {
     if (num < 1000) return num;
     if (num >= 1000 && num < 1000000) return (num / 1000).toFixed(1) + "K";
@@ -119,7 +111,6 @@ function compactNumberFormat(num) {
     return (num / 1000000000000).toFixed(1) + "T";
 }
 
-// Function to update the game UI
 function updateUI() {
     document.getElementById("counter").textContent = `Gold coins: ${compactNumberFormat(coins)}`;
     document.getElementById("knight-count").textContent = knightCount;
@@ -132,7 +123,6 @@ function updateUI() {
     updateStatsUI();
 }
 
-// Function to update the statistics in the UI
 function updateStatsUI() {
     document.getElementById("total-clicks").textContent = `Total Castle Clicks: ${totalClicks}`;
     document.getElementById("total-coins-earned").textContent = `Total Coins Earned: ${compactNumberFormat(totalCoinsEarned)}`;
@@ -147,7 +137,6 @@ function updateStatsUI() {
     document.getElementById("total-skills-upgraded").textContent = `Total Skills Upgraded: ${totalSkillsUpgraded}`;
 }
 
-// Function to handle clicking the castle
 function clickCastle() {
     coins++;
     totalClicks++;
@@ -160,7 +149,6 @@ function clickCastle() {
     clickSound.play();
 }
 
-// Function to buy upgrades (knights, archers, wizards, etc.)
 function buyUpgrade(type) {
     let cost = 0;
     let purchased = false;
@@ -219,7 +207,6 @@ function buyUpgrade(type) {
     }
 }
 
-// Function to handle skilling upgrades (woodcutting, mining, etc.)
 function handleSkillingClick(skill) {
     switch (skill) {
         case "woodcutting":
@@ -233,11 +220,11 @@ function handleSkillingClick(skill) {
             totalResourcesGathered += miningLevel;
             break;
     }
+    document.getElementById("resource-gathering-count").textContent = `Total Resources Gathered: ${compactNumberFormat(totalResourcesGathered)}`;
     saveGameData();
     updateUI();
 }
 
-// Function to update passive income based on recruited units
 function updatePassiveIncome() {
     const knightIncomeRate = 1;
     const archerIncomeRate = 2;
@@ -255,7 +242,6 @@ function updatePassiveIncome() {
     passiveIncome = totalPassiveIncome;
 }
 
-// Function to earn passive income when offline
 function earnPassiveIncome() {
     const currentTime = Date.now();
     const timeDifference = currentTime - lastSaveTime;
@@ -268,5 +254,4 @@ function earnPassiveIncome() {
     updateUI();
 }
 
-// Set up a timer to earn passive income when the game is closed
 setInterval(earnPassiveIncome, 1000);
