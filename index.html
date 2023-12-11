@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
-<head><meta name="purpleads-verification" content="818dc999c021e0f98569f1b2"/>
+
+<head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Medieval Clicker</title>
@@ -16,6 +17,7 @@
       margin: 0;
       padding: 0;
     }
+
     .container {
       background-color: rgba(0, 0, 0, 0.6);
       border: 5px solid #8A5C2E;
@@ -24,6 +26,7 @@
       box-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
       margin-top: 50px;
     }
+
     .nav-pills .nav-link {
       font-size: 18px;
       padding: 10px 10px;
@@ -33,11 +36,13 @@
       color: #FFD700;
       margin: 5px;
     }
+
     .nav-pills .nav-link.active {
       background-color: rgba(75, 37, 19, 0.8);
       color: #8A5C2E;
       font-weight: bold;
     }
+
     .upgrade {
       font-size: 18px;
       color: #f7dfc4;
@@ -49,10 +54,12 @@
       transition: background-color 0.3s, color 0.3s;
       border-radius: 10px;
     }
+
     .upgrade:hover {
       background-color: #5a3921;
       color: #ffcc00;
     }
+
     .modal {
       display: none;
       position: fixed;
@@ -65,6 +72,7 @@
       align-items: center;
       justify-content: center;
     }
+
     .modal-content {
       background-color: #251c12;
       color: #f7dfc4;
@@ -73,6 +81,7 @@
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
       text-align: center;
     }
+
     .close {
       position: absolute;
       top: 10px;
@@ -81,22 +90,27 @@
       color: #f7dfc4;
       cursor: pointer;
     }
+
     .castle-image {
       border: 5px solid #532c08;
       border-radius: 10px;
       max-width: 100%;
       height: auto;
     }
+
     @font-face {
       font-family: 'MedievalFont';
-      src: url('medievalfont.woff') format('woff');
+      src: url('your-medieval-font.woff') format('woff');
     }
   </style>
-<!-- Largefort's Ad Server / Banner / 320x50 / Mobile Banner --><ins class="aso-zone" data-redirector="%%CLICK_URL_UNESC%%" data-zone="108080"></ins><script data-cfasync="false" async src="https://media.aso1.net/js/code.min.js"></script><!-- /Largefort's Ad Server -->
+  <meta name="google-adsense-account" content="your-google-adsense-account">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js?client=your-google-adsense-account" crossorigin="anonymous"></script>
 </head>
+
 <body>
   <div class="container">
     <div class="tab-content">
+      <!-- Castle Tab -->
       <div class="tab-pane fade show active" id="castle-tab">
         <div class="text-center">
           <img id="castle" src="https://raw.githubusercontent.com/largefort/Medievalskilling/main/castle.png" alt="Castle" class="castle-image" onclick="clickCastle()">
@@ -108,10 +122,11 @@
             <div>Archer: <span id="archer-count">0</span></div>
             <div>Wizard: <span id="wizard-count">0</span></div>
             <div>Paladin: <span id="paladin-count">0</span></div>
-            <div>Mercenary: <span id="mercenary-count">0</span></div>
           </div>
         </div>
       </div>
+
+      <!-- Skilling Tab -->
       <div class="tab-pane fade" id="skilling-tab">
         <div class="text-center">
           <h2>Skilling</h2>
@@ -123,152 +138,74 @@
           </div>
         </div>
       </div>
+
+      <!-- Shop Tab -->
       <div class="tab-pane fade" id="shop-tab">
         <div class="text-center">
           <h2>Shop</h2>
           <div class="upgrade" onclick="buyUpgrade('knight')">Knight (<span id="knight-cost">10</span> coins)</div>
           <audio id="knight-upgrade-sound">
             <source src="upgradesound.mp3" type="audio/mp3">
+            Your browser does not support the audio element.
           </audio>
           <div class="upgrade" onclick="buyUpgrade('archer')">Archer (<span id="archer-cost">25</span> coins)</div>
           <audio id="archer-upgrade-sound">
             <source src="upgradesound.mp3" type="audio/mp3">
+            Your browser does not support the audio element.
           </audio>
           <div class="upgrade" onclick="buyUpgrade('wizard')">Wizard (<span id="wizard-cost">50</span> coins)</div>
           <audio id="wizard-upgrade-sound">
             <source src="upgradesound.mp3" type="audio/mp3">
+            Your browser does not support the audio element.
           </audio>
           <div class="upgrade" onclick="buyUpgrade('paladin')">Paladin (<span id="paladin-cost">100</span> coins)</div>
           <audio id="paladin-upgrade-sound">
             <source src="upgradesound.mp3" type="audio/mp3">
-          </audio>
-          <div class="upgrade" onclick="buyUpgrade('mercenary')">Mercenary (<span id="mercenary-cost">200</span> coins)</div>
-          <audio id="mercenary-upgrade-sound">
-            <source src="mercenary-sound.mp3" type="audio/mp3">
+            Your browser does not support the audio element.
           </audio>
         </div>
       </div>
-      <div class="tab-pane fade" id="resource-gathering-tab">
-        <div class="text-center">
-          <h2>Resource Gathering</h2>
-          <p>Click the button below to gather resources:</p>
-          <button id="gather-resources-button" class="upgrade" onclick="gatherResources()">Gather Resources</button>
-          <div id="resource-count" class="mt-3">Resources Gathered: 0</div>
-        </div>
-      </div>
-      <div class="tab-pane fade" id="stats-tab">
-        <div class="text-center">
-          <h2>Stats</h2>
-          <div id="total-clicks">Total Castle Clicks: 0</div>
-          <div id="total-coins-earned">Total Coins Earned: 0</div>
-          <div id="highest-coins-held">Highest Gold Coins Held: 0</div>
-          <div id="total-upgrades-purchased">Total Upgrades Purchased: 0</div>
-          <div id="total-knights-recruited">Total Knights Recruited: 0</div>
-          <div id="total-archers-recruited">Total Archers Recruited: 0</div>
-          <div id="total-wizards-recruited">Total Wizards Recruited: 0</div>
-          <div id="total-paladins-recruited">Total Paladins Recruited: 0</div>
-          <div id="total-mercenaries-recruited">Total Mercenaries Recruited: 0</div>
-          <div id="total-resources-gathered">Total Resources Gathered: 0</div>
-          <div id="total-skills-upgraded">Total Skills Upgraded: 0</div>
-          <div id="clicks-per-minute">Clicks per Minute: 0</div>
-        </div>
-      </div>
+
+      <!-- Settings Tab -->
       <div class="tab-pane fade" id="settings-tab">
         <div class="text-center">
           <h2>Settings</h2>
           <div class="form-check">
-            <input type="checkbox" id="toggle-music"> <label class="form-check-label">Toggle Music</label>
+            <label class="form-check-label">
+              <input type="checkbox" id="toggle-music"> Toggle Music
+            </label>
           </div>
           <div class="form-check">
-            <input type="checkbox" id="toggle-sfx"> <label class="form-check-label">Toggle Sound Effects</label>
+            <label class="form-check-label">
+              <input type="checkbox" id="toggle-sfx"> Toggle Sound Effects
+            </label>
           </div>
         </div>
       </div>
     </div>
+
+    <!-- Navigation -->
     <div class="nav nav-pills nav-fill fixed-bottom">
       <a class="nav-link active" data-toggle="pill" href="#castle-tab">Castle</a>
       <a class="nav-link" data-toggle="pill" href="#skilling-tab">Skilling</a>
       <a class="nav-link" data-toggle="pill" href="#shop-tab">Shop</a>
-      <a class="nav-link" data-toggle="pill" href="#resource-gathering-tab">Resource Gathering</a>
-      <a class="nav-link" data-toggle="pill" href="#stats-tab">Stats</a>
       <a class="nav-link" data-toggle="pill" href="#settings-tab">Settings</a>
     </div>
   </div>
+
+  <!-- Fullscreen Button -->
   <button id="fullscreen-button" style="display: none;" onclick="autoEnterFullscreen()">Enter Fullscreen</button>
 
+  <!-- Scripts and Audio -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   <script src="script.js"></script>
   <audio id="medievaltheme" loop autoplay>
     <source src="medievaltheme.mp3" type="audio/mp3">
+    Your browser does not support the audio element.
   </audio>
   <audio id="click-sound" src="click-sound.mp3" type="audio/mp3"></audio>
-
-  <script>
-    let resourceCount = 0;
-
-    function gatherResources() {
-      // Increase the resource count when the button is clicked
-      resourceCount++;
-      document.getElementById('resource-count').innerText = 'Resources Gathered: ' + resourceCount;
-    }
-  </script>
 </body>
-</html>
-<script>
 
-(function(dmgrxx){
-var d = document,
-    s = d.createElement('script'),
-    l = d.scripts[d.scripts.length - 1];
-s.settings = dmgrxx || {};
-s.src = "\/\/descriptive-monitor.com\/b.XcVksVd\/Gxlq0BYkWBd\/iIY\/WF5Mu\/Z\/XoIo\/teaml9yu_ZuU\/lnkRPTTBQN5dOpDCMM5-M\/jDA\/tZNgDIkF4FMBznkiynMOQs";
-s.async = true;
-l.parentNode.insertBefore(s, l);
-})({})
-</script>
-<script>
-(function(ybtm){
-var d = document,
-    s = d.createElement('script'),
-    l = d.scripts[d.scripts.length - 1];
-s.settings = ybtm || {};
-s.src = "\/\/descriptive-monitor.com\/bFXjVZsad.G-lT0cY_WEco\/ceAmV9RuMZTUul\/kdPCTaQu5wOuD\/Mb5sMyzwAotBNRDRkz4VMHzMk\/zYMyQs";
-s.async = true;
-l.parentNode.insertBefore(s, l);
-})({})
-</script>
-<script>
-(function(rncavm){
-var d = document,
-    s = d.createElement('script'),
-    l = d.scripts[d.scripts.length - 1];
-s.settings = rncavm || {};
-s.src = "\/\/descriptive-monitor.com\/bBXyVAsMd.G\/lv0WYwWTdNiuYOWq5nuOZlXKIU\/_e-mD9JuvZRUDlDkBPnTzQP5NO_D\/MO5FNxT\/AWtGNUD\/kf4hMjzFko1fM\/QI";
-s.async = true;
-l.parentNode.insertBefore(s, l);
-})({})
-</script>
-<script>
-(function(mqbsq){
-var d = document,
-    s = d.createElement('script'),
-    l = d.scripts[d.scripts.length - 1];
-s.settings = mqbsq || {};
-s.src = "\/\/descriptive-monitor.com\/a.W_5\/w\/YFWkdlliQz2n9Ak\/Z\/TA9n6\/b\/2a5DlLSWWpQv9ZNCD-k\/4zMpzYkL4rMCCH0b0eOHTEg\/zLO\/TdgLxP";
-s.async = true;
-l.parentNode.insertBefore(s, l);
-})({})
-</script>
-<script>
-(function(qhzrdr){
-var d = document,
-    s = d.createElement('script'),
-    l = d.scripts[d.scripts.length - 1];
-s.settings = qhzrdr || {};
-s.src = "\/\/descriptive-monitor.com\/aXW.5Cw\/YNWzdal\/QI2B9ZkTZoT_9c6cbE2F5QloS\/WyQe9YNYDpkn4ZN\/TyAG0vMLi\/0C0DOaTPgq1AMdDrQ_zA";
-s.async = true;
-l.parentNode.insertBefore(s, l);
-})({})
-</script>
+</html>
