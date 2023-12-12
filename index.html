@@ -167,23 +167,56 @@
         </div>
       </div>
 
-      <!-- Settings Tab -->
-      <div class="tab-pane fade" id="settings-tab">
-        <div class="text-center">
-          <h2>Settings</h2>
-          <div class="form-check">
-            <label class="form-check-label">
-              <input type="checkbox" id="toggle-music"> Toggle Music
-            </label>
-          </div>
-          <div class="form-check">
-            <label class="form-check-label">
-              <input type="checkbox" id="toggle-sfx"> Toggle Sound Effects
-            </label>
-          </div>
-        </div>
-      </div>
+     <!-- Settings Tab -->
+<div class="tab-pane fade" id="settings-tab">
+  <div class="text-center">
+    <h2>Settings</h2>
+    <div class="form-check">
+      <label class="form-check-label">
+        <input type="checkbox" id="toggle-music"> Toggle Music
+      </label>
     </div>
+    <div class="form-check">
+      <label class="form-check-label">
+        <input type="checkbox" id="toggle-sfx"> Toggle Sound Effects
+      </label>
+    </div>
+
+    <!-- Graphics Settings -->
+    <h3>Graphics</h3>
+    <div class="form-group">
+      <label for="resolution">Resolution:</label>
+      <select class="form-control" id="resolution">
+        <option value="1920x1080">1920x1080</option>
+        <option value="1280x720">1280x720</option>
+        <!-- Add more resolution options here -->
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="quality">Quality:</label>
+      <select class="form-control" id="quality">
+        <option value="high">High</option>
+        <option value="medium">Medium</option>
+        <option value="low">Low</option>
+        <!-- Add more quality options here -->
+      </select>
+    </div>
+    <div class="form-check">
+      <label class="form-check-label">
+        <input type="checkbox" id="shadowsEnabled"> Enable Shadows
+      </label>
+    </div>
+    <div class="form-group">
+      <label for="antiAliasing">Anti-Aliasing:</label>
+      <select class="form-control" id="antiAliasing">
+        <option value="high">High</option>
+        <option value="medium">Medium</option>
+        <option value="low">Low</option>
+        <!-- Add more anti-aliasing options here -->
+      </select>
+    </div>
+  </div>
+</div>
 
     <!-- Navigation -->
     <div class="nav nav-pills nav-fill fixed-bottom">
