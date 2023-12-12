@@ -18,6 +18,7 @@
     cursor: pointer; /* Change cursor on hover */
     transition: background-color 0.3s; /* Smooth background color transition on hover */
     font-family: 'Times New Roman', serif; /* Medieval-style font */
+    outline: none; /* Remove outline on focus */
 }
 
 /* Change button color on hover */
@@ -33,4 +34,19 @@
     border-radius: 10px; /* Slightly rounded corners */
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Drop shadow for a 3D effect */
     font-family: 'Times New Roman', serif; /* Medieval-style font */
+}
+
+/* Add a subtle box shadow on container hover */
+.container:hover {
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2); /* Slight box shadow on hover */
+}
+
+/* Apply a transition to the container's box shadow */
+.container:hover {
+    transition: box-shadow 0.3s ease-in-out;
+}
+
+/* Add a shadow filter class to elements */
+.shadow-filter {
+    filter: drop-shadow(5px 5px 5px rgba(0, 0, 0, 0.5)); /* Add shadow filter */
 }
