@@ -1,0 +1,54 @@
+{
+  "gold": 100,
+  "soundEnabled": true,
+  "musicEnabled": true,
+  "sfxEnabled": true,
+  "knightCount": 0,
+  "archerCount": 0,
+  "wizardCount": 0,
+  "paladinCount": 0,
+  "woodcuttingLevel": 1,
+  "miningLevel": 1,
+  "theme": "medieval",
+  "fontSize": "16px",
+  "fullscreenEnabled": false,
+  "adsEnabled": true,
+  "autoSave": true,
+  "language": "en",
+  "volumeLevel": 0.7,
+  "notificationsEnabled": true,
+  "difficultyLevel": "medium",
+  "tutorialCompleted": false,
+  "achievements": {
+    "totalGoldEarned": 0,
+    "totalUpgradesBought": 0,
+    "totalClicks": 0,
+    "totalQuestsCompleted": 0
+  },
+  "quests": {
+    "currentQuest": null,
+    "questLog": []
+  },
+  "inventory": {
+    "items": [
+      {
+        "name": "Health Potion",
+        "quantity": 5
+      },
+      {
+        "name": "Mana Elixir",
+        "quantity": 3
+      }
+    ],
+    "equipment": {
+      "weapon": null,
+      "armor": null
+    }
+  },
+  "graphics": {
+    "resolution": "1920x1080",
+    "quality": "high",
+    "shadowsEnabled": true,
+    "antiAliasing": "medium"
+  }
+}
