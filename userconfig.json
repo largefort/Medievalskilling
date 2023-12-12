@@ -1,8 +1,8 @@
 {
-  "gold": 100,
-  "soundEnabled": true,
-  "musicEnabled": true,
-  "sfxEnabled": true,
+  "gold":100,
+  "soundEnabled":true,
+  "musicEnabled":true,
+  "sfxEnabled":true,
   "knightCount": 0,
   "archerCount": 0,
   "wizardCount": 0,
