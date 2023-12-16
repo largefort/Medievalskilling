@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
-<head><meta Access-Control-Allow-Origin: *
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4695170235902689"
+<head>
+  <meta Access-Control-Allow-Origin: "*">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4695170235902689"
      crossorigin="anonymous"></script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -20,7 +21,6 @@
       margin: 0;
       padding: 0;
     }
-
     .container {
       background-color: rgba(0, 0, 0, 0.6);
       border: 5px solid #8A5C2E;
@@ -29,7 +29,6 @@
       box-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
       margin-top: 50px;
     }
-
     .nav-pills .nav-link {
       font-size: 18px;
       padding: 10px 10px;
@@ -39,13 +38,11 @@
       color: #FFD700;
       margin: 5px;
     }
-
     .nav-pills .nav-link.active {
       background-color: rgba(75, 37, 19, 0.8);
       color: #8A5C2E;
       font-weight: bold;
     }
-
     .upgrade {
       font-size: 18px;
       color: #f7dfc4;
@@ -57,12 +54,10 @@
       transition: background-color 0.3s, color 0.3s;
       border-radius: 10px;
     }
-
     .upgrade:hover {
       background-color: #5a3921;
       color: #ffcc00;
     }
-
     .modal {
       display: none;
       position: fixed;
@@ -75,7 +70,6 @@
       align-items: center;
       justify-content: center;
     }
-
     .modal-content {
       background-color: #251c12;
       color: #f7dfc4;
@@ -84,7 +78,6 @@
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
       text-align: center;
     }
-
     .close {
       position: absolute;
       top: 10px;
@@ -93,26 +86,29 @@
       color: #f7dfc4;
       cursor: pointer;
     }
-
     .castle-image {
       border: 5px solid #532c08;
       border-radius: 10px;
       max-width: 100%;
       height: auto;
     }
-
     @font-face {
       font-family: 'MedievalFont';
       src: url('medievalfont.woff') format('woff');
     }
+    .antialiased {
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    .shadowed {
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+      filter: drop-shadow(5px 5px 5px rgba(0, 0, 0, 0.5));
+    }
   </style>
-  <meta name="google-adsense-account" content="your-google-adsense-account">
-  <script async src="https://pagead2.googlesyndication.com/pagead/js?client=your-google-adsense-account" crossorigin="anonymous"></script>
 </head>
-
 <body>
   <div class="container">
-    <div class="tab-content">
+     <div class="tab-content">
       <!-- Castle Tab -->
       <div class="tab-pane fade show active" id="castle-tab">
         <div class="text-center">
@@ -228,16 +224,29 @@
   </audio>
   <audio id="click-sound" src="click-sound.mp3" type="audio/mp3"></audio>
 </body>
-</html>
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4695170235902689"
-     crossorigin="anonymous"></script>
-<!-- lol -->
-<ins class="adsbygoogle"
-     style="display:block"
-     data-ad-client="ca-pub-4695170235902689"
-     data-ad-slot="4352292487"
-     data-ad-format="auto"
-     data-full-width-responsive="true"></ins>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
+</html> 
+<div>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const antialiasingToggle = document.getElementById('antialiasing-toggle');
+      const shadowsToggle = document.getElementById('shadows-toggle');
+
+      antialiasingToggle.addEventListener('change', function () {
+        if (this.checked) {
+          document.body.classList.add('antialiased');
+        } else {
+          document.body.classList.remove('antialiased');
+        }
+      });
+
+      shadowsToggle.addEventListener('change', function () {
+        if (this.checked) {
+          document.body.classList.add('shadowed');
+        } else {
+          document.body.classList.remove('shadowed');
+        }
+      });
+    });
+  </script>
+<body>
+<html>
