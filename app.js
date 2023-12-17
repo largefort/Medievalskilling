@@ -6,9 +6,14 @@ const app = express();
 // Enable CORS for all routes
 app.use(cors());
 
-// Example route
+// A simple test route
 app.get('/', (req, res) => {
-  res.send('CORS enabled for all origins!');
+  res.send('Hello, world! CORS is enabled for all origins.');
+});
+
+// Another example route
+app.get('/data', (req, res) => {
+  res.json({ message: 'This is a JSON response from your CORS-enabled server.' });
 });
 
 // Start the server
