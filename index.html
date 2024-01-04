@@ -171,9 +171,50 @@
     }
 
     function buyUpgrade(type) {
-      // Add your existing buyUpgrade logic here
-      // ...
+      // Update buyUpgrade function to increment counters
+function buyUpgrade(type) {
+    let cost = 0;
+    let upgradeCount;
+    let counterElementId;
 
+    switch (type) {
+        case "knight":
+            cost = 10;
+            upgradeCount = knightCount;
+            counterElementId = "knight-counter";
+            if (coins >= cost) {
+                coins -= cost;
+                knightCount++;
+            }
+            break;
+        case "archer":
+            cost = 25;
+            upgradeCount = archerCount;
+            counterElementId = "archer-counter";
+            if (coins >= cost) {
+                coins -= cost;
+                archerCount++;
+            }
+            break;
+        case "wizard":
+            cost = 50;
+            upgradeCount = wizardCount;
+            counterElementId = "wizard-counter";
+            if (coins >= cost) {
+                coins -= cost;
+                wizardCount++;
+            }
+            break;
+        case "paladin":
+            cost = 100;
+            upgradeCount = paladinCount;
+            counterElementId = "paladin-counter";
+            if (coins >= cost) {
+                coins -= cost;
+                paladinCount++;
+            }
+            break;
+    }
       // Increment the respective counter
       incrementCounter(type);
     }
