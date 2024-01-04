@@ -143,7 +143,51 @@
         </div>
       </div>
 
-     <script>
+   <!-- Shop Tab -->
+  <div class="tab-pane fade" id="shop-tab">
+    <div class="text-center">
+      <h2>Shop</h2>
+      
+      <div class="upgrade" onclick="buyUpgrade('knight')">
+        Knight (<span id="knight-cost">10</span> coins)
+        <span id="knight-counter">0</span>
+      </div>
+      <audio id="knight-upgrade-sound">
+        <source src="upgradesound.mp3" type="audio/mp3">
+        Your browser does not support the audio element.
+      </audio>
+
+      <div class="upgrade" onclick="buyUpgrade('archer')">
+        Archer (<span id="archer-cost">25</span> coins)
+        <span id="archer-counter">0</span>
+      </div>
+      <audio id="archer-upgrade-sound">
+        <source src="upgradesound.mp3" type="audio/mp3">
+        Your browser does not support the audio element.
+      </audio>
+
+      <div class="upgrade" onclick="buyUpgrade('wizard')">
+        Wizard (<span id="wizard-cost">50</span> coins)
+        <span id="wizard-counter">0</span>
+      </div>
+      <audio id="wizard-upgrade-sound">
+        <source src="upgradesound.mp3" type="audio/mp3">
+        Your browser does not support the audio element.
+      </audio>
+
+      <div class="upgrade" onclick="buyUpgrade('paladin')">
+        Paladin (<span id="paladin-cost">100</span> coins)
+        <span id="paladin-counter">0</span>
+      </div>
+      <audio id="paladin-upgrade-sound">
+        <source src="upgradesound.mp3" type="audio/mp3">
+        Your browser does not support the audio element.
+      </audio>
+
+    </div>
+  </div>
+
+  <script>
     var knightCounter = 0;
     var archerCounter = 0;
     var wizardCounter = 0;
