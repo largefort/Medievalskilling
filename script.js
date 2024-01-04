@@ -21,6 +21,12 @@ document.write(`
 
 const clickSound = new Audio("click-sound.mp3");
 
+// Add upgrade counters
+let knightCounter = 0;
+let archerCounter = 0;
+let wizardCounter = 0;
+let paladinCounter = 0;
+
 function disableFingerZooming() {
     document.addEventListener('touchmove', function (event) {
         if (event.scale !== 1) { event.preventDefault(); }
@@ -149,14 +155,17 @@ function clickCastle() {
     clickSound.play();
 }
 
+// Update buyUpgrade function to increment counters
 function buyUpgrade(type) {
     let cost = 0;
     let upgradeCount;
+    let counterElementId;
 
     switch (type) {
         case "knight":
             cost = 10;
             upgradeCount = knightCount;
+            counterElementId = "knight-counter";
             if (coins >= cost) {
                 coins -= cost;
                 knightCount++;
@@ -165,6 +174,7 @@ function buyUpgrade(type) {
         case "archer":
             cost = 25;
             upgradeCount = archerCount;
+            counterElementId = "archer-counter";
             if (coins >= cost) {
                 coins -= cost;
                 archerCount++;
@@ -173,6 +183,7 @@ function buyUpgrade(type) {
         case "wizard":
             cost = 50;
             upgradeCount = wizardCount;
+            counterElementId = "wizard-counter";
             if (coins >= cost) {
                 coins -= cost;
                 wizardCount++;
@@ -181,6 +192,7 @@ function buyUpgrade(type) {
         case "paladin":
             cost = 100;
             upgradeCount = paladinCount;
+            counterElementId = "paladin-counter";
             if (coins >= cost) {
                 coins -= cost;
                 paladinCount++;
@@ -195,6 +207,9 @@ function buyUpgrade(type) {
 
     saveGameData();
     updateUI();
+
+    // Update the counter display
+    document.getElementById(counterElementId).textContent = ` (${upgradeCount})`;
 }
 
 function compactNumberFormat(num) {
@@ -204,6 +219,8 @@ function compactNumberFormat(num) {
     if (num >= 1e9 && num < 1e12) return +(num / 1e9).toFixed(1) + "B";
     return +(num / 1e12).toFixed(1) + "T";
 }
+
+// ... (rest of the code remains the same)
 
 function handleSkillingClick(skill) {
     switch (skill) {
