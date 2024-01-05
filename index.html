@@ -2,7 +2,6 @@
 <html lang="en">
 <head><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4695170235902689"
      crossorigin="anonymous"></script>
-  <meta Access-Control-Allow-Origin: "*">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="google-adsense-account" content="ca-pub-5816082932921993">
@@ -11,14 +10,16 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
   <link rel="stylesheet" href="styles.css">
+  <script src="userconfig.json"></script>
   <style>
     body {
-    font-family: 'MedievalFont', serif;
-      background-color: #20100f; /* Slightly darker background */
-      color: #ffffff; /* Lighter text for better contrast */
+      font-family: 'MedievalFont', serif;
+      background-color: #251c12;
+      color: #f7dfc4;
       margin: 0;
       padding: 0;
     }
+
     .container {
       background-color: rgba(0, 0, 0, 0.6);
       border: 5px solid #8A5C2E;
@@ -27,24 +28,27 @@
       box-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
       margin-top: 50px;
     }
+
     .nav-pills .nav-link {
       font-size: 18px;
       padding: 10px 10px;
-      background-color: rgba(112, 67, 38, 0.8); /* Adjust the background color for better contrast */
-      color: #ffffff; /* Lighter text color */
+      background-color: rgba(112, 67, 38, 0.8);
       border-radius: 10px;
       border: none;
+      color: #FFD700;
       margin: 5px;
     }
+
     .nav-pills .nav-link.active {
       background-color: rgba(75, 37, 19, 0.8);
-      color: #ffffff;
+      color: #8A5C2E;
       font-weight: bold;
     }
+
     .upgrade {
       font-size: 18px;
-      color: #000000; /* Darker text for better contrast */
-      background-color: #9c6f41; /* Lighter background */
+      color: #f7dfc4;
+      background-color: #8a5c2e;
       border: 2px solid #5a3921;
       padding: 15px;
       margin-bottom: 10px;
@@ -52,10 +56,12 @@
       transition: background-color 0.3s, color 0.3s;
       border-radius: 10px;
     }
+
     .upgrade:hover {
       background-color: #5a3921;
       color: #ffcc00;
     }
+
     .modal {
       display: none;
       position: fixed;
@@ -68,6 +74,7 @@
       align-items: center;
       justify-content: center;
     }
+
     .modal-content {
       background-color: #251c12;
       color: #f7dfc4;
@@ -76,6 +83,7 @@
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
       text-align: center;
     }
+
     .close {
       position: absolute;
       top: 10px;
@@ -84,36 +92,26 @@
       color: #f7dfc4;
       cursor: pointer;
     }
+
     .castle-image {
       border: 5px solid #532c08;
       border-radius: 10px;
       max-width: 100%;
       height: auto;
     }
+
     @font-face {
       font-family: 'MedievalFont';
       src: url('medievalfont.woff') format('woff');
     }
-    .antialiased {
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-    }
-    .shadowed {
-      box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
-      filter: drop-shadow(5px 5px 5px rgba(0, 0, 0, 0.5));
-    }.medieval-border {
-            border: 4px solid #805a3b; /* Brown color for a wooden look */
-            border-radius: 10px; /* Rounded corners */
-            padding: 10px;
-            background-color: #f4e9d8; /* Light beige background for a parchment look */
-            font-family: 'Times New Roman', serif; /* Font for a medieval feel */
-            box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5); /* Adds depth with a shadow */
-        }
   </style>
+  <meta name="google-adsense-account" content="your-google-adsense-account">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js?client=your-google-adsense-account" crossorigin="anonymous"></script>
 </head>
+
 <body>
   <div class="container">
-     <div class="tab-content">
+    <div class="tab-content">
       <!-- Castle Tab -->
       <div class="tab-pane fade show active" id="castle-tab">
         <div class="text-center">
@@ -143,85 +141,32 @@
         </div>
       </div>
 
-   <!-- Shop Tab -->
-  <div class="tab-pane fade" id="shop-tab">
-    <div class="text-center">
-      <h2>Shop</h2>
-      
-      <div class="upgrade" onclick="buyUpgrade('knight')">
-        Knight (<span id="knight-cost">10</span> coins)
-        <span id="knight-counter">0</span>
+      <!-- Shop Tab -->
+      <div class="tab-pane fade" id="shop-tab">
+        <div class="text-center">
+          <h2>Shop</h2>
+          <div class="upgrade" onclick="buyUpgrade('knight')">Knight (<span id="knight-cost">10</span> coins)</div>
+          <audio id="knight-upgrade-sound">
+            <source src="upgradesound.mp3" type="audio/mp3">
+            Your browser does not support the audio element.
+          </audio>
+          <div class="upgrade" onclick="buyUpgrade('archer')">Archer (<span id="archer-cost">25</span> coins)</div>
+          <audio id="archer-upgrade-sound">
+            <source src="upgradesound.mp3" type="audio/mp3">
+            Your browser does not support the audio element.
+          </audio>
+          <div class="upgrade" onclick="buyUpgrade('wizard')">Wizard (<span id="wizard-cost">50</span> coins)</div>
+          <audio id="wizard-upgrade-sound">
+            <source src="upgradesound.mp3" type="audio/mp3">
+            Your browser does not support the audio element.
+          </audio>
+          <div class="upgrade" onclick="buyUpgrade('paladin')">Paladin (<span id="paladin-cost">100</span> coins)</div>
+          <audio id="paladin-upgrade-sound">
+            <source src="upgradesound.mp3" type="audio/mp3">
+            Your browser does not support the audio element.
+          </audio>
+        </div>
       </div>
-      <audio id="knight-upgrade-sound">
-        <source src="upgradesound.mp3" type="audio/mp3">
-        Your browser does not support the audio element.
-      </audio>
-
-      <div class="upgrade" onclick="buyUpgrade('archer')">
-        Archer (<span id="archer-cost">25</span> coins)
-        <span id="archer-counter">0</span>
-      </div>
-      <audio id="archer-upgrade-sound">
-        <source src="upgradesound.mp3" type="audio/mp3">
-        Your browser does not support the audio element.
-      </audio>
-
-      <div class="upgrade" onclick="buyUpgrade('wizard')">
-        Wizard (<span id="wizard-cost">50</span> coins)
-        <span id="wizard-counter">0</span>
-      </div>
-      <audio id="wizard-upgrade-sound">
-        <source src="upgradesound.mp3" type="audio/mp3">
-        Your browser does not support the audio element.
-      </audio>
-
-      <div class="upgrade" onclick="buyUpgrade('paladin')">
-        Paladin (<span id="paladin-cost">100</span> coins)
-        <span id="paladin-counter">0</span>
-      </div>
-      <audio id="paladin-upgrade-sound">
-        <source src="upgradesound.mp3" type="audio/mp3">
-        Your browser does not support the audio element.
-      </audio>
-
-    </div>
-  </div>
-
-  <script>
-    var knightCounter = 0;
-    var archerCounter = 0;
-    var wizardCounter = 0;
-    var paladinCounter = 0;
-
-    function incrementCounter(type) {
-      switch (type) {
-        case 'knight':
-          knightCounter++;
-          document.getElementById('knight-counter').innerText = ' (' + knightCounter + ')';
-          break;
-        case 'archer':
-          archerCounter++;
-          document.getElementById('archer-counter').innerText = ' (' + archerCounter + ')';
-          break;
-        case 'wizard':
-          wizardCounter++;
-          document.getElementById('wizard-counter').innerText = ' (' + wizardCounter + ')';
-          break;
-        case 'paladin':
-          paladinCounter++;
-          document.getElementById('paladin-counter').innerText = ' (' + paladinCounter + ')';
-          break;
-      }
-    }
-
-    function buyUpgrade(type) {
-      // Add your existing buyUpgrade logic here
-      // ...
-
-      // Increment the respective counter
-      incrementCounter(type);
-    }
-  </script>
 
       <!-- Settings Tab -->
       <div class="tab-pane fade" id="settings-tab">
@@ -276,52 +221,22 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   <script src="script.js"></script>
-  <script async src="https://fundingchoicesmessages.google.com/i/pub-4695170235902689?ers=1" nonce="K3bkXKfzD5hh_1lhYfKYyw"></script><script nonce="K3bkXKfzD5hh_1lhYfKYyw">(function() {function signalGooglefcPresent() {if (!window.frames['googlefcPresent']) {if (document.body) {const iframe = document.createElement('iframe'); iframe.style = 'width: 0; height: 0; border: none; z-index: -1000; left: -1000px; top: -1000px;'; iframe.style.display = 'none'; iframe.name = 'googlefcPresent'; document.body.appendChild(iframe);} else {setTimeout(signalGooglefcPresent, 0);}}}signalGooglefcPresent();})();</script>
-  <script type="text/javascript" src="https://lagged.com/api/rev-share/lagged.js"></script>
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4695170235902689"
-     crossorigin="anonymous"></script>
   <audio id="medievaltheme" loop autoplay>
     <source src="medievaltheme.mp3" type="audio/mp3">
     Your browser does not support the audio element.
   </audio>
   <audio id="click-sound" src="click-sound.mp3" type="audio/mp3"></audio>
-</body><<!-- Ad Container -->
- <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4695170235902689"
+</body>
+</html>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4695170235902689"
      crossorigin="anonymous"></script>
+<!-- lol -->
 <ins class="adsbygoogle"
      style="display:block"
-     data-ad-format="autorelaxed"
      data-ad-client="ca-pub-4695170235902689"
-     data-ad-slot="1144065822"></ins>
+     data-ad-slot="4352292487"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
-</script>    
-  </script>
-</div>
 </script>
-</html> 
-<div>
-  <script>
-    document.addEventListener('DOMContentLoaded', function () {
-      const antialiasingToggle = document.getElementById('antialiasing-toggle');
-      const shadowsToggle = document.getElementById('shadows-toggle');
-
-      antialiasingToggle.addEventListener('change', function () {
-        if (this.checked) {
-          document.body.classList.add('antialiased');
-        } else {
-          document.body.classList.remove('antialiased');
-        }
-      });
-
-      shadowsToggle.addEventListener('change', function () {
-        if (this.checked) {
-          document.body.classList.add('shadowed');
-        } else {
-          document.body.classList.remove('shadowed');
-        }
-      });
-    });
-  </script>
-<body>
-<html>
