@@ -6,12 +6,6 @@
     user-select: none; /* Standard */
 }
 
-/* Antialiasing for smoother text rendering */
-html {
-    -webkit-font-smoothing: antialiased; /* for WebKit browsers */
-    -moz-osx-font-smoothing: grayscale; /* for Firefox */
-}
-
 /* User Interface Upgrade for Medieval Clicker Game */
 
 /* Style the button with a medieval theme */
@@ -22,18 +16,13 @@ html {
     border: 2px solid #4A2504; /* Dark brown border for a wooden frame */
     border-radius: 5px; /* Slightly rounded corners */
     cursor: pointer; /* Change cursor on hover */
-    transition: background-color 0.3s, box-shadow 0.3s; /* Smooth transition on hover */
+    transition: background-color 0.3s; /* Smooth background color transition on hover */
     font-family: 'Times New Roman', serif; /* Medieval-style font */
-    outline: none; /* Remove outline on focus */
-    box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3); /* Adding shadow to the button */
-    -webkit-font-smoothing: antialiased; /* Smoother text for WebKit browsers */
-    -moz-osx-font-smoothing: grayscale; /* Smoother text for Firefox */
 }
 
-/* Change button color and shadow on hover */
+/* Change button color on hover */
 .button:hover {
     background-color: #A0522D; /* Darker brown on hover */
-    box-shadow: 5px 5px 8px rgba(0, 0, 0, 0.5); /* Enhanced shadow on hover */
 }
 
 /* Style a medieval-themed container */
@@ -42,19 +31,6 @@ html {
     border: 2px solid #8B4513; /* Brown border for parchment frame */
     padding: 20px; /* Padding inside the container */
     border-radius: 10px; /* Slightly rounded corners */
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.15); /* Enhanced drop shadow for a 3D effect */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Drop shadow for a 3D effect */
     font-family: 'Times New Roman', serif; /* Medieval-style font */
-    -webkit-font-smoothing: antialiased; /* Smoother text for WebKit browsers */
-    -moz-osx-font-smoothing: grayscale; /* Smoother text for Firefox */
-}
-
-/* Add a more pronounced box shadow on container hover */
-.container:hover {
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3); /* More pronounced box shadow on hover */
-    transition: box-shadow 0.3s ease-in-out; /* Smooth transition for the shadow */
-}
-
-/* Add a shadow filter class to elements */
-.shadow-filter {
-    filter: drop-shadow(8px 8px 8px rgba(0, 0, 0, 0.6)); /* More pronounced shadow filter */
 }
