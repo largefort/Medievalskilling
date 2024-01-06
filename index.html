@@ -262,25 +262,33 @@
     <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-4695170235902689" data-ad-slot="4352292487" data-ad-format="auto" data-full-width-responsive="true"></ins>
     <script>
         (adsbygoogle = window.adsbygoogle || []).push({});
-        function clickCastle() {
-            let goldCoinsCount = parseInt(document.getElementById('counter').innerText.split(' ')[2]);
-            goldCoinsCount += 1;
-            document.getElementById('counter').innerText = 'Gold coins: ' + goldCoinsCount;
+       function clickCastle() {
+    // Get the gold coins count
+    let goldCoinsCount = parseInt(document.getElementById('counter').innerText.split(' ')[2]);
 
-            const touchNumber = document.createElement('div');
-            touchNumber.className = 'touch-number';
-            touchNumber.innerText = '+1';
-            document.body.appendChild(touchNumber);
+    // Increment the gold coins count
+    goldCoinsCount += 1;
 
-            const castleImage = document.getElementById('castle');
-            const rect = castleImage.getBoundingClientRect();
-            touchNumber.style.left = (rect.left + rect.width / 2 - 10) + 'px';
-            touchNumber.style.top = (rect.top - 20) + 'px';
+    // Update the gold coins counter
+    document.getElementById('counter').innerText = 'Gold coins: ' + goldCoinsCount;
 
-            setTimeout(() => {
-                document.body.removeChild(touchNumber);
-            }, 1000);
-        }
+    // Create and display the touch number text effect
+    const touchNumber = document.createElement('div');
+    touchNumber.className = 'touch-number';
+    touchNumber.innerText = '+1';
+    document.body.appendChild(touchNumber);
+
+    // Position the touch number at the click location
+    const castleImage = document.getElementById('castle');
+    const rect = castleImage.getBoundingClientRect();
+    touchNumber.style.left = (rect.left + rect.width / 2 - 10) + 'px';
+    touchNumber.style.top = (rect.top - 20) + 'px';
+
+    // Remove the touch number after the animation completes
+    setTimeout(() => {
+        document.body.removeChild(touchNumber);
+    }, 1000);
+}
     </script>
 </body>
 
