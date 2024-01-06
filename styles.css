@@ -73,31 +73,3 @@ img {
     max-width: 100%;
     height: auto;
 }
-/* User Interface Upgrade for Medieval Clicker Game */
-
-/* Style the button with a medieval theme */
-.button {
-    background-color: #8B4513; /* Brown color for a wooden look */
-    color: #fff; /* Text color */
-    padding: 10px 20px; /* Padding for the button */
-    border: 2px solid #4A2504; /* Dark brown border for a wooden frame */
-    border-radius: 5px; /* Slightly rounded corners */
-    cursor: pointer; /* Change cursor on hover */
-    transition: background-color 0.3s; /* Smooth background color transition on hover */
-    font-family: 'Times New Roman', serif; /* Medieval-style font */
-}
-
-/* Change button color on hover */
-.button:hover {
-    background-color: #A0522D; /* Darker brown on hover */
-}
-
-/* Style a medieval-themed container */
-.container {
-    background-color: #D2B48C; /* Light brown background for a parchment look */
-    border: 2px solid #8B4513; /* Brown border for parchment frame */
-    padding: 20px; /* Padding inside the container */
-    border-radius: 10px; /* Slightly rounded corners */
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Drop shadow for a 3D effect */
-    font-family: 'Times New Roman', serif; /* Medieval-style font */
-}
