@@ -1,295 +1,32 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html>
 <head>
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4695170235902689" crossorigin="anonymous"></script>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="google-adsense-account" content="ca-pub-5816082932921993">
     <title>Medieval Clicker</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
     <link rel="stylesheet" href="styles.css">
-    <script src="userconfig.json"></script>
-    <style>
-        body {
-            font-family: 'MedievalFont', serif;
-            background-color: #251c12;
-            color: #FFC300;
-            margin: 0;
-            padding: 0;
-        }
-
-        .container {
-            background-color: #8A5C2E;
-            border: 2px solid #8b4513;
-            padding: 20px;
-            border-radius: 15px;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
-            margin-top: 50px;
-        }
-
-        .nav-pills .nav-link {
-            font-size: 18px;
-            padding: 10px 10px;
-            background-color: #8b4513;
-            border-radius: 10px;
-            border: none;
-            color: #fff;
-            margin: 5px;
-        }
-
-        .nav-pills .nav-link.active {
-            background-color: #5a3921;
-            color: #ffd700;
-            font-weight: bold;
-        }
-
-        .upgrade {
-            font-size: 18px;
-            color: #f7dfc4;
-            background-color: #8a5c2e;
-            border: 2px solid #5a3921;
-            padding: 15px;
-            margin-bottom: 10px;
-            cursor: pointer;
-            transition: background-color 0.3s, color 0.3s;
-            border-radius: 10px;
-        }
-
-        .upgrade:hover {
-            background-color: #5a3921;
-            color: #ffcc00;
-        }
-
-        .modal-content {
-            background-color: #251c12;
-            color: #f7dfc4;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-            text-align: center;
-        }
-
-        .castle-image {
-            border: 5px solid #532c08;
-            border-radius: 10px;
-            max-width: 100%;
-            height: auto;
-        }
-
-        @font-face {
-            font-family: 'MedievalFont';
-            src: url('medievalfont.woff') format('woff');
-        }
-
-        /* Additional medieval-inspired styling */
-        h2 {
-            color: #ffd700;
-            font-family: 'MedievalFont', serif;
-            text-shadow: 2px 2px 4px #000000;
-        }
-
-        .text-center {
-            text-align: center;
-        }
-
-        .nav-pills {
-            background-color: #5a3921;
-            border-radius: 10px;
-            margin-top: 10px;
-        }
-
-        .nav-link {
-            color: #ffd700;
-        }
-
-        #fullscreen-button {
-            background-color: #5a3921;
-            color: #ffd700;
-            border: none;
-            padding: 10px;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        #fullscreen-button:hover {
-            background-color: #ffd700;
-            color: #5a3921;
-        }
-        .touch-number {
-            position: absolute;
-            color: #ffd700;
-            font-size: 24px;
-            animation: touchAnimation 1s ease-out;
-        }
-
-        @keyframes touchAnimation {
-            0% {
-                opacity: 1;
-                transform: translateY(0);
-            }
-            100% {
-                opacity: 0;
-                transform: translateY(-50px);
-            }
-        }
-    </style>
-    <meta name="google-adsense-account" content="your-google-adsense-account">
-    <script async src="https://pagead2.googlesyndication.com/pagead/js?client=your-google-adsense-account" crossorigin="anonymous"></script>
 </head>
-
 <body>
     <div class="container">
-        <div class="tab-content">
-            <!-- Castle Tab -->
-            <div class="tab-pane fade show active" id="castle-tab">
-                <div class="text-center">
-                    <img id="castle" src="https://raw.githubusercontent.com/largefort/Medievalskilling/main/castle.png" alt="Castle" class="castle-image" onclick="clickCastle()">
-                    <div id="counter" class="mt-3">
-                        Gold coins: 0
-                    </div>
-                    <div id="owned-upgrades" class="mt-3">
-                        <div>Knight: <span id="knight-count">0</span></div>
-                        <div>Archer: <span id="archer-count">0</span></div>
-                        <div>Wizard: <span id="wizard-count">0</span></div>
-                        <div>Paladin: <span id="paladin-count">0</span></div>
-                    </div>
+        <div class="row">
+            <div class="col-12 text-center">
+                <div id="counter">Gold coins: 0</div>
+                <div style="position: relative;">
+                    <img id="castle" src="https://raw.githubusercontent.com/largefort/Medievalskilling/main/castle.png" alt="Castle" onclick="clickCastle()"/>
+                    <span id="touch-number" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -60%); font-size: 20px; color: #ffcc00; opacity: 0; transition: transform 0.3s, opacity 0.3s;">+1</span>
                 </div>
-            </div>
-
-            <!-- Skilling Tab -->
-            <div class="tab-pane fade" id="skilling-tab">
-                <div class="text-center">
-                    <h2>Skilling</h2>
-                    <div class="upgrade" onclick="handleSkillingClick('woodcutting')">Woodcutting</div>
-                    <div class="upgrade" onclick="handleSkillingClick('mining')">Mining</div>
-                    <div class="mt-3">
-                        <div>Woodcutting Level: <span id="woodcutting-level">1</span></div>
-                        <div>Mining Level: <span id="mining-level">1</span></div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Shop Tab -->
-            <div class="tab-pane fade" id="shop-tab">
-                <div class="text-center">
-                    <h2>Shop</h2>
+                <div id="upgrades-container" class="mt-3">
                     <div class="upgrade" onclick="buyUpgrade('knight')">Knight (<span id="knight-cost">10</span> coins)</div>
-                    <audio id="knight-upgrade-sound">
-                        <source src="upgradesound.mp3" type="audio/mp3">
-                        Your browser does not support the audio element.
-                    </audio>
                     <div class="upgrade" onclick="buyUpgrade('archer')">Archer (<span id="archer-cost">25</span> coins)</div>
-                    <audio id="archer-upgrade-sound">
-                        <source src="upgradesound.mp3" type="audio/mp3">
-                        Your browser does not support the audio element.
-                    </audio>
                     <div class="upgrade" onclick="buyUpgrade('wizard')">Wizard (<span id="wizard-cost">50</span> coins)</div>
-                    <audio id="wizard-upgrade-sound">
-                        <source src="upgradesound.mp3" type="audio/mp3">
-                        Your browser does not support the audio element.
-                    </audio>
-                    <div class="upgrade" onclick="buyUpgrade('paladin')">Paladin (<span id="paladin-cost">100</span> coins)</div>
-                    <audio id="paladin-upgrade-sound">
-                        <source src="upgradesound.mp3" type="audio/mp3">
-                        Your browser does not support the audio element.
-                    </audio>
+                </div>
+                <div id="owned-upgrades" class="mt-3">
+                    <div>Knights: <span id="knight-count">0</span></div>
+                    <div>Archers: <span id="archer-count">0</span></div>
+                    <div>Wizards: <span id="wizard-count">0</span></div>
                 </div>
             </div>
-
-            <!-- Settings Tab -->
-            <div class="tab-pane fade" id="settings-tab">
-                <div class="text-center">
-                    <h2>Settings</h2>
-                    <div class="form-check">
-                        <label class="form-check-label">
-                            <input type="checkbox" id="toggle-music"> Toggle Music
-                        </label>
-                    </div>
-                    <div class="form-check">
-                        <label class="form-check-label">
-                            <input type="checkbox" id="toggle-sfx"> Toggle Sound Effects
-                        </label>
-                    </div>
-                    <div class="form-check">
-                        <label class="form-check-label">
-                            <input type="checkbox" id="antialiasing-toggle"> Enable Antialiasing
-                        </label>
-                    </div>
-                    <div class="form-check">
-                        <label class="form-check-label">
-                            <input type="checkbox" id="shadows-toggle"> Enable Shadows
-                        </label>
-                    </div>
-                    <div>
-                        <label for="graphics-quality-select">Graphics Quality:</label>
-                        <select id="graphics-quality-select">
-                            <option value="low">Low</option>
-                            <option value="medium">Medium</option>
-                            <option value="high">High</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Navigation -->
-        <div class="nav nav-pills nav-fill fixed-bottom">
-            <a class="nav-link active" data-toggle="pill" href="#castle-tab">Castle</a>
-            <a class="nav-link" data-toggle="pill" href="#skilling-tab">Skilling</a>
-            <a class="nav-link" data-toggle="pill" href="#shop-tab">Shop</a>
-            <a class="nav-link" data-toggle="pill" href="#settings-tab">Settings</a>
         </div>
     </div>
-
-    <!-- Fullscreen Button -->
-    <button id="fullscreen-button" style="display: none;" onclick="autoEnterFullscreen()">Enter Fullscreen</button>
-
-    <!-- Scripts and Audio -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="script.js"></script>
-    <audio id="medievaltheme" loop autoplay>
-        <source src="medievaltheme.mp3" type="audio/mp3">
-        Your browser does not support the audio element.
-    </audio>
-    <audio id="click-sound" src="click-sound.mp3" type="audio/mp3"></audio>
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4695170235902689" crossorigin="anonymous"></script>
-    <!-- lol -->
-    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-4695170235902689" data-ad-slot="4352292487" data-ad-format="auto" data-full-width-responsive="true"></ins>
-    <script>
-        (adsbygoogle = window.adsbygoogle || []).push({});
-       function clickCastle() {
-    // Get the gold coins count
-    let goldCoinsCount = parseInt(document.getElementById('counter').innerText.split(' ')[2]);
-
-    // Increment the gold coins count
-    goldCoinsCount += 1;
-
-    // Update the gold coins counter
-    document.getElementById('counter').innerText = 'Gold coins: ' + goldCoinsCount;
-
-    // Create and display the touch number text effect
-    const touchNumber = document.createElement('div');
-    touchNumber.className = 'touch-number';
-    touchNumber.innerText = '+1';
-    document.body.appendChild(touchNumber);
-
-    // Position the touch number at the click location
-    const castleImage = document.getElementById('castle');
-    const rect = castleImage.getBoundingClientRect();
-    touchNumber.style.left = (rect.left + rect.width / 2 - 10) + 'px';
-    touchNumber.style.top = (rect.top - 20) + 'px';
-
-    // Remove the touch number after the animation completes
-    setTimeout(() => {
-        document.body.removeChild(touchNumber);
-    }, 1000);
-}
-    </script>
 </body>
-
 </html>
