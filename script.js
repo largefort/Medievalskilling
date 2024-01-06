@@ -1,124 +1,69 @@
-let coins = 0;
-let knightCount = 0;
-let archerCount = 0;
-let wizardCount = 0;
-let woodcuttingLevel = 1;
-let miningLevel = 1;
-
-const counter = document.getElementById("counter");
-
-let db;
-const request = indexedDB.open("gameDB", 1);
-
-request.onerror = function(event) {
-    console.error("Error opening IndexedDB:", event);
-};
-
-request.onsuccess = function(event) {
-    db = event.target.result;
-    loadGameData();
-};
-
-request.onupgradeneeded = function(event) {
-    db = event.target.result;
-    const objectStore = db.createObjectStore("gameData", { keyPath: "id" });
-    objectStore.createIndex("coins", "coins", { unique: false });
-    objectStore.createIndex("knightCount", "knightCount", { unique: false });
-    objectStore.createIndex("archerCount", "archerCount", { unique: false });
-    objectStore.createIndex("wizardCount", "wizardCount", { unique: false });
-    objectStore.createIndex("woodcuttingLevel", "woodcuttingLevel", { unique: false });
-    objectStore.createIndex("miningLevel", "miningLevel", { unique: false });
-};
-
-function saveGameData() {
-    const gameData = {
-        id: 1,
-        coins: coins,
-        knightCount: knightCount,
-        archerCount: archerCount,
-        wizardCount: wizardCount,
-        woodcuttingLevel: woodcuttingLevel,
-        miningLevel: miningLevel
-    };
-    const transaction = db.transaction(["gameData"], "readwrite");
-    const objectStore = transaction.objectStore("gameData");
-    const request = objectStore.put(gameData);
-    request.onerror = function(event) {
-        console.error("Error saving game data:", event);
-    };
+body {
+    font-family: "Times New Roman", Times, serif;
+    background-color: #2a1d0e;
+    color: #e2c293;
+    line-height: 1.5; /* Improve readability by adding some space between lines */
+    margin: 0;
+    padding: 0;
 }
 
-function loadGameData() {
-    const transaction = db.transaction(["gameData"]);
-    const objectStore = transaction.objectStore("gameData");
-    const request = objectStore.get(1);
-    request.onerror = function(event) {
-        console.error("Error loading game data:", event);
-    };
-    request.onsuccess = function(event) {
-        if (request.result) {
-            coins = request.result.coins;
-            knightCount = request.result.knightCount;
-            archerCount = request.result.archerCount;
-            wizardCount = request.result.wizardCount;
-            woodcuttingLevel = request.result.woodcuttingLevel;
-            miningLevel = request.result.miningLevel;
-            updateUI();
-        }
-    };
+.container {
+    margin: 50px auto 0 auto;
+    position: relative;
+    width: 80%; /* Control the maximum width of the container */
+    max-width: 1200px; /* Set a max width for very large screens */
 }
 
-function clickCastle() {
-    coins++;
-    counter.textContent = `Gold coins: ${coins}`;
-    saveGameData();
+#counter {
+    font-size: 24px;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 2px #532c08;
 }
 
-function buyUpgrade(type) {
-    switch (type) {
-        case "knight":
-            if (coins >= 10) {
-                coins -= 10;
-                knightCount++;
-            }
-            break;
-        case "archer":
-            if (coins >= 25) {
-                coins -= 25;
-                archerCount++;
-            }
-            break;
-        case "wizard":
-            if (coins >= 50) {
-                coins -= 50;
-                wizardCount++;
-            }
-            break;
+#castle {
+    border: 5px solid #532c08;
+    box-shadow: 10px 10px 10px #532c08;
+    cursor: pointer;
+    transition: box-shadow 0.3s; /* Adding transitions for smooth effects */
+}
+
+#castle:hover {
+    box-shadow: 6px 6px 6px #532c08; /* Reduce shadow on hover for a subtle effect */
+}
+
+#upgrades-container, #owned-upgrades, #skilling-tab {
+    display: flex;
+    flex-wrap: wrap; /* Allows items to wrap in smaller screens */
+    justify-content: space-around;
+    margin-top: 20px;
+}
+
+.upgrade, .skilling-btn {
+    font-size: 20px;
+    font-weight: bold;
+    border: 2px solid #532c08;
+    padding: 10px 20px; /* Increased horizontal padding for a balanced look */
+    background-color: #5a3d23;
+    cursor: pointer;
+    text-shadow: 1px 1px 1px #532c08;
+    transition: background-color 0.3s, transform 0.3s, color 0.3s;
+    margin: 10px; /* Add some margin for breathing space */
+}
+
+.upgrade:hover, .skilling-btn:hover {
+    background-color: #e2c293;
+    color: #2a1d0e;
+    transform: scale(1.1);
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Responsive design for smaller screens */
+@media (max-width: 768px) {
+    .container {
+        width: 95%; /* Increase width for smaller screens */
     }
-    updateUI();
-    saveGameData();
 }
-
-function updateUI() {
-    counter.textContent = `Gold coins: ${coins}`;
-    document.getElementById("knight-count").textContent = knightCount;
-    document.getElementById("archer-count").textContent = archerCount;
-    document.getElementById("wizard-count").textContent = wizardCount;
-    document.getElementById("woodcutting-level").textContent = woodcuttingLevel;
-    document.getElementById("mining-level").textContent = miningLevel;
-}
-
-function handleSkillingClick(skill) {
-    switch (skill) {
-        case "woodcutting":
-            woodcuttingLevel++;
-            break;
-        case "mining":
-            miningLevel++;
-            break;
-    }
-    updateUI();
-    saveGameData();
-}
-
-window.addEventListener("beforeunload", saveGameData);
