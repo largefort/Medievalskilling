@@ -6,31 +6,70 @@
     user-select: none; /* Standard */
 }
 
-/* User Interface Upgrade for Medieval Clicker Game */
-
-/* Style the button with a medieval theme */
-.button {
-    background-color: #8B4513; /* Brown color for a wooden look */
-    color: #fff; /* Text color */
-    padding: 10px 20px; /* Padding for the button */
-    border: 2px solid #4A2504; /* Dark brown border for a wooden frame */
-    border-radius: 5px; /* Slightly rounded corners */
-    cursor: pointer; /* Change cursor on hover */
-    transition: background-color 0.3s; /* Smooth background color transition on hover */
-    font-family: 'Times New Roman', serif; /* Medieval-style font */
+body {
+    font-family: "Times New Roman", Times, serif;
+    background-color: #2a1d0e;
+    color: #e2c293;
 }
 
-/* Change button color on hover */
-.button:hover {
-    background-color: #A0522D; /* Darker brown on hover */
-}
-
-/* Style a medieval-themed container */
 .container {
-    background-color: #D2B48C; /* Light brown background for a parchment look */
-    border: 2px solid #8B4513; /* Brown border for parchment frame */
-    padding: 20px; /* Padding inside the container */
-    border-radius: 10px; /* Slightly rounded corners */
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Drop shadow for a 3D effect */
-    font-family: 'Times New Roman', serif; /* Medieval-style font */
+    margin-top: 50px;
+    position: relative;
+}
+
+#counter {
+    font-size: 24px;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 2px #532c08;
+}
+
+#touch-number {
+  position: absolute;
+  font-size: 20px;
+  color: #fff;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 5px;
+  padding: 5px;
+  pointer-events: none; /* makes it unclickable */
+  transition: transform 0.5s ease, opacity 0.5s ease;
+  transform: translateY(-60%);
+  opacity: 0;
+}
+
+#castle {
+    border: 5px solid #532c08;
+    box-shadow: 10px 10px 10px #532c08;
+    cursor: pointer;
+}
+
+#upgrades-container {
+    display: flex;
+    justify-content: space-around;
+}
+
+#owned-upgrades {
+    display: flex;
+    justify-content: space-around;
+}
+
+.upgrade {
+    font-size: 20px;
+    font-weight: bold;
+    border: 2px solid #532c08;
+    padding: 10px;
+    background-color: #5a3d23;
+    cursor: pointer;
+    text-shadow: 1px 1px 1px #532c08;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.upgrade:hover {
+    background-color: #e2c293;
+    color: #2a1d0e;
+    transform: scale(1.1);
+}
+
+img {
+    max-width: 100%;
+    height: auto;
 }
