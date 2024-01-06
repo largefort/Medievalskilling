@@ -2,149 +2,123 @@ let coins = 0;
 let knightCount = 0;
 let archerCount = 0;
 let wizardCount = 0;
+let woodcuttingLevel = 1;
+let miningLevel = 1;
+
 const counter = document.getElementById("counter");
-const touchNumber = document.createElement("div");
-touchNumber.setAttribute("id", "touch-number");
-touchNumber.style.position = "absolute";
-touchNumber.style.fontSize = "18px";
-touchNumber.style.fontWeight = "bold";
-touchNumber.style.color = "#FFD700";
-document.body.appendChild(touchNumber);
 
-var db;
-var request = indexedDB.open("MedievalClickerDB", 1);
+let db;
+const request = indexedDB.open("gameDB", 1);
 
-request.onupgradeneeded = function(event) {
-  db = event.target.result;
-  const store = db.createObjectStore("gameState", { keyPath: "id" });
-  store.createIndex("value", "value", { unique: false });
+request.onerror = function(event) {
+    console.error("Error opening IndexedDB:", event);
 };
 
 request.onsuccess = function(event) {
-  db = event.target.result;
-  loadGame();
+    db = event.target.result;
+    loadGameData();
 };
 
-request.onerror = function(event) {
-  console.error("Error opening database:", event);
+request.onupgradeneeded = function(event) {
+    db = event.target.result;
+    const objectStore = db.createObjectStore("gameData", { keyPath: "id" });
+    objectStore.createIndex("coins", "coins", { unique: false });
+    objectStore.createIndex("knightCount", "knightCount", { unique: false });
+    objectStore.createIndex("archerCount", "archerCount", { unique: false });
+    objectStore.createIndex("wizardCount", "wizardCount", { unique: false });
+    objectStore.createIndex("woodcuttingLevel", "woodcuttingLevel", { unique: false });
+    objectStore.createIndex("miningLevel", "miningLevel", { unique: false });
 };
 
-function clickCastle(event) {
-  coins += 1;
-  updateCounter();
-  showTouchNumber(event);
+function saveGameData() {
+    const gameData = {
+        id: 1,
+        coins: coins,
+        knightCount: knightCount,
+        archerCount: archerCount,
+        wizardCount: wizardCount,
+        woodcuttingLevel: woodcuttingLevel,
+        miningLevel: miningLevel
+    };
+    const transaction = db.transaction(["gameData"], "readwrite");
+    const objectStore = transaction.objectStore("gameData");
+    const request = objectStore.put(gameData);
+    request.onerror = function(event) {
+        console.error("Error saving game data:", event);
+    };
 }
 
-function updateCounter() {
-  counter.textContent = `Gold coins: ${formatNumber(coins)}`;
+function loadGameData() {
+    const transaction = db.transaction(["gameData"]);
+    const objectStore = transaction.objectStore("gameData");
+    const request = objectStore.get(1);
+    request.onerror = function(event) {
+        console.error("Error loading game data:", event);
+    };
+    request.onsuccess = function(event) {
+        if (request.result) {
+            coins = request.result.coins;
+            knightCount = request.result.knightCount;
+            archerCount = request.result.archerCount;
+            wizardCount = request.result.wizardCount;
+            woodcuttingLevel = request.result.woodcuttingLevel;
+            miningLevel = request.result.miningLevel;
+            updateUI();
+        }
+    };
 }
 
-function formatNumber(num) {
-  if (num < 1e3) return num;
-  if (num >= 1e3 && num < 1e6) return +(num / 1e3).toFixed(1) + "K";
-  if (num >= 1e6 && num < 1e9) return +(num / 1e6).toFixed(1) + "M";
-  if (num >= 1e9 && num < 1e12) return +(num / 1e9).toFixed(1) + "B";
-  if (num >= 1e12) return +(num / 1e12).toFixed(1) + "T";
+function clickCastle() {
+    coins++;
+    counter.textContent = `Gold coins: ${coins}`;
+    saveGameData();
 }
-
-function showTouchNumber(event) {
-  touchNumber.textContent = "+1";
-  touchNumber.style.opacity = "1";
-  touchNumber.style.transform = "translateY(0%)";
-
-  if (event && event.touches) {
-    touchNumber.style.left = `${event.touches[0].clientX - touchNumber.clientWidth / 2}px`;
-    touchNumber.style.top = `${event.touches[0].clientY - touchNumber.clientHeight}px`;
-  }
-
-  setTimeout(function() {
-    touchNumber.style.opacity = "0";
-    touchNumber.style.transform = "translateY(-10%)";
-  }, 500);
-}
-
-function startAutoIncome(type, income) {
-  setInterval(function() {
-    coins += income;
-    updateCounter();
-  }, 1000);
-}
-
-function saveGame() {
-  const tx = db.transaction("gameState", "readwrite");
-  const store = tx.objectStore("gameState");
-  store.put({ id: "coins", value: coins });
-  store.put({ id: "knightCount", value: knightCount });
-  store.put({ id: "archerCount", value: archerCount });
-  store.put({ id: "wizardCount", value: wizardCount });
-}
-
-function loadGame() {
-  const tx = db.transaction("gameState", "readonly");
-  const store = tx.objectStore("gameState");
-  store.get("coins").onsuccess = function(event) {
-    coins = event.target.result?.value || 0;
-    updateCounter();
-  };
-  store.get("knightCount").onsuccess = function(event) {
-    knightCount = event.target.result?.value || 0;
-    document.getElementById("knight-count").textContent = knightCount;
-    startAutoIncome('knight', knightCount);
-  };
-  store.get("archerCount").onsuccess = function(event) {
-    archerCount = event.target.result?.value || 0;
-    document.getElementById("archer-count").textContent = archerCount;
-    startAutoIncome('archer', archerCount * 2);
-  };
-  store.get("wizardCount").onsuccess = function(event) {
-    wizardCount = event.target.result?.value || 0;
-    document.getElementById("wizard-count").textContent = wizardCount;
-    startAutoIncome('wizard', wizardCount * 5);
-  };
-  startAutoSave();
-}
-
-function startAutoSave() {
-  setInterval(function() {
-    saveGame();
-  }, 2000);
-}
-
-document.getElementById("castle").addEventListener("touchstart", (event) => {
-  clickCastle(event);
-  event.preventDefault();
-}, false);
 
 function buyUpgrade(type) {
-  let cost = 0;
-  switch (type) {
-    case 'knight':
-      cost = 10 * (knightCount + 1);
-      if (coins >= cost) {
-        coins -= cost;
-        knightCount++;
-        document.getElementById("knight-count").textContent = knightCount;
-        startAutoIncome('knight', 1);
-      }
-      break;
-    case 'archer':
-      cost = 20 * (archerCount + 1);
-      if (coins >= cost) {
-        coins -= cost;
-        archerCount++;
-        document.getElementById("archer-count").textContent = archerCount;
-        startAutoIncome('archer', 2);
-      }
-      break;
-    case 'wizard':
-      cost = 50 * (wizardCount + 1);
-      if (coins >= cost) {
-        coins -= cost;
-        wizardCount++;
-        document.getElementById("wizard-count").textContent = wizardCount;
-        startAutoIncome('wizard', 5);
-      }
-      break;
-  }
-  updateCounter();
+    switch (type) {
+        case "knight":
+            if (coins >= 10) {
+                coins -= 10;
+                knightCount++;
+            }
+            break;
+        case "archer":
+            if (coins >= 25) {
+                coins -= 25;
+                archerCount++;
+            }
+            break;
+        case "wizard":
+            if (coins >= 50) {
+                coins -= 50;
+                wizardCount++;
+            }
+            break;
+    }
+    updateUI();
+    saveGameData();
 }
+
+function updateUI() {
+    counter.textContent = `Gold coins: ${coins}`;
+    document.getElementById("knight-count").textContent = knightCount;
+    document.getElementById("archer-count").textContent = archerCount;
+    document.getElementById("wizard-count").textContent = wizardCount;
+    document.getElementById("woodcutting-level").textContent = woodcuttingLevel;
+    document.getElementById("mining-level").textContent = miningLevel;
+}
+
+function handleSkillingClick(skill) {
+    switch (skill) {
+        case "woodcutting":
+            woodcuttingLevel++;
+            break;
+        case "mining":
+            miningLevel++;
+            break;
+    }
+    updateUI();
+    saveGameData();
+}
+
+window.addEventListener("beforeunload", saveGameData);
