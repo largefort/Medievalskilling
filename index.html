@@ -1,52 +1,18 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Medieval Clicker</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
     <style>
-        /* Bottom Navigation Styles */
-        .nav-pills .nav-link {
-            background-color: #5a3921;
-            color: #f4e4b5;
-            border-radius: 0;
-            border-top: 3px solid #8a5c2e;
-            border-bottom: 3px solid #3c1e0f;
-        }
-
-        .nav-pills .nav-link.active {
-            background-color: #3c1e0f;
-            color: #ffcc00;
-            border-top: 3px solid #3c1e0f;
-            border-bottom: 3px solid #8a5c2e;
-        }
-
-        .nav-pills {
-            background-color: #452c16;
-            border-top: 5px ridge #8a5c2e;
-            border-bottom: 5px groove #3c1e0f;
-        }
-
-        /* Upgrade Buttons Styles */
-        .upgrade {
-            color: #f4e4b5;
-            background-color: #5a3921;
-            border: 2px solid #8a5c2e;
-            padding: 10px;
-            margin-bottom: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-
-        .upgrade:hover {
-            background-color: #3c1e0f;
-        }
-
         body {
             background-color: #8a5c2e;
             font-family: 'Old Standard TT', serif;
+            padding-bottom: 70px; /* Adjusted to accommodate the fixed-bottom navigation */
         }
 
         .container {
@@ -54,6 +20,82 @@
             border: 3px solid #8a5c2e;
             padding: 20px;
             border-radius: 10px;
+            margin-top: 50px; /* Adjusted for better spacing */
+        }
+
+        .tab-content {
+            margin-top: 20px; /* Adjusted for better spacing */
+        }
+
+        .tab-pane {
+            text-align: center;
+        }
+
+        #counter {
+            color: #f4e4b5;
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+
+        #castle {
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+
+        #owned-upgrades {
+            margin-bottom: 20px;
+        }
+
+        .owned-upgrade-item {
+            margin-bottom: 10px;
+        }
+
+        .upgrade {
+            color: #f4e4b5;
+            background-color: #5a3921;
+            border: 2px solid #8a5c2e;
+            padding: 10px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            border-radius: 5px;
+        }
+
+        .upgrade:hover {
+            background-color: #3c1e0f;
+        }
+
+        .nav-pills .nav-link {
+            background-color: #5a3921;
+            color: #f4e4b5;
+            border-radius: 0;
+            border: none;
+        }
+
+        .nav-pills .nav-link.active {
+            background-color: #3c1e0f;
+            color: #ffcc00;
+            border: none;
+        }
+
+        .nav-pills {
+            background-color: #452c16;
+            border: none;
+        }
+
+        .nav-pills .nav-link {
+            border-top: 3px solid #8a5c2e;
+            border-bottom: 3px solid #3c1e0f;
+        }
+
+        .nav-pills .nav-link.active {
+            border-top: 3px solid #3c1e0f;
+            border-bottom: 3px solid #8a5c2e;
+        }
+
+        .nav-pills {
+            border-top: 5px ridge #8a5c2e;
+            border-bottom: 5px groove #3c1e0f;
         }
     </style>
 </head>
@@ -68,9 +110,9 @@
                     <div id="counter">Gold coins: 0</div>
                     <img id="castle" src="https://raw.githubusercontent.com/largefort/Medievalskilling/main/castle.png" alt="Castle" onclick="clickCastle()" />
                     <div id="owned-upgrades" class="mt-3">
-                        <div>Knights: <span id="knight-count">0</span> <i class="fas fa-chess-knight"></i></div>
-                        <div>Archers: <span id="archer-count">0</span> <i class="fas fa-bullseye"></i></div>
-                        <div>Wizards: <span id="wizard-count">0</span> <i class="fas fa-hat-wizard"></i></div>
+                        <div class="owned-upgrade-item">Knights: <span id="knight-count">0</span> <i class="fas fa-chess-knight"></i></div>
+                        <div class="owned-upgrade-item">Archers: <span id="archer-count">0</span> <i class="fas fa-bullseye"></i></div>
+                        <div class="owned-upgrade-item">Wizards: <span id="wizard-count">0</span> <i class="fas fa-hat-wizard"></i></div>
                     </div>
                     <!-- Upgrades in Castle Tab -->
                     <h2>Upgrades</h2>
