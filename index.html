@@ -13,14 +13,17 @@
             background-color: #8a5c2e;
             font-family: 'Old Standard TT', serif;
             padding-bottom: 70px; /* Adjusted to accommodate the fixed-bottom navigation */
+            background-image: url('medieval_background.jpg'); /* Replace with the actual path to your medieval background image */
+            background-size: cover;
         }
 
         .container {
-            background-color: #5a3921;
+            background-color: #ffe8c1; /* Parchment-like background */
             border: 3px solid #8a5c2e;
             padding: 20px;
             border-radius: 10px;
             margin-top: 50px; /* Adjusted for better spacing */
+            box-shadow: 0 0 20px #8a5c2e;
         }
 
         .tab-content {
@@ -29,17 +32,25 @@
 
         .tab-pane {
             text-align: center;
+            padding: 20px;
+            border-radius: 10px;
+            background-color: #f5d5a0; /* Light yellow background */
+            box-shadow: 0 0 10px #8a5c2e;
+            color: #3c1e0f; /* Dark brown text */
         }
 
         #counter {
-            color: #f4e4b5;
-            font-size: 20px;
+            font-size: 24px;
             margin-bottom: 20px;
         }
 
         #castle {
             cursor: pointer;
             margin-bottom: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px #8a5c2e;
+            width: 200px;
+            height: 200px;
         }
 
         #owned-upgrades {
@@ -48,17 +59,18 @@
 
         .owned-upgrade-item {
             margin-bottom: 10px;
+            font-size: 16px;
         }
 
         .upgrade {
-            color: #f4e4b5;
             background-color: #5a3921;
+            color: #f4e4b5;
             border: 2px solid #8a5c2e;
-            padding: 10px;
-            margin-bottom: 10px;
+            padding: 15px; /* Larger padding for buttons */
+            margin-bottom: 15px; /* Larger margin for buttons */
             cursor: pointer;
             transition: background-color 0.3s;
-            border-radius: 5px;
+            border-radius: 10px; /* Rounder corners for buttons */
         }
 
         .upgrade:hover {
@@ -70,6 +82,7 @@
             color: #f4e4b5;
             border-radius: 0;
             border: none;
+            padding: 10px; /* Larger padding for navigation links */
         }
 
         .nav-pills .nav-link.active {
@@ -97,6 +110,44 @@
             border-top: 5px ridge #8a5c2e;
             border-bottom: 5px groove #3c1e0f;
         }
+
+        h2 {
+            font-size: 28px;
+            margin-bottom: 15px;
+            color: #3c1e0f; /* Dark brown text */
+            text-shadow: 2px 2px 4px #f4e4b5; /* Light yellow text shadow */
+        }
+
+        /* Additional Medieval Styles */
+        .medieval-text {
+            font-family: 'Uncial Antiqua', sans-serif;
+            font-size: 18px;
+            color: #3c1e0f; /* Dark brown text */
+        }
+
+        .medieval-button {
+            background-color: #3c1e0f;
+            color: #ffcc00;
+            border: 2px solid #8a5c2e;
+            padding: 15px; /* Larger padding for buttons */
+            margin-bottom: 15px; /* Larger margin for buttons */
+            cursor: pointer;
+            transition: background-color 0.3s;
+            border-radius: 10px; /* Rounder corners for buttons */
+        }
+
+        .medieval-button:hover {
+            background-color: #5a3921;
+        }
+
+        .medieval-background {
+            background-image: url('medieval_background_texture.jpg'); /* Replace with the actual path to your medieval background texture image */
+            background-size: cover;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 0 10px #8a5c2e;
+        }
     </style>
 </head>
 
@@ -105,29 +156,29 @@
         <!-- Tab Content -->
         <div class="tab-content">
             <!-- Castle Tab -->
-            <div class="tab-pane fade show active" id="castle-tab">
+            <div class="tab-pane fade show active medieval-background" id="castle-tab">
                 <div class="col-12 text-center">
-                    <div id="counter">Gold coins: 0</div>
+                    <div id="counter" class="medieval-text">Gold coins: 0</div>
                     <img id="castle" src="https://raw.githubusercontent.com/largefort/Medievalskilling/main/castle.png" alt="Castle" onclick="clickCastle()" />
                     <div id="owned-upgrades" class="mt-3">
-                        <div class="owned-upgrade-item">Knights: <span id="knight-count">0</span> <i class="fas fa-chess-knight"></i></div>
-                        <div class="owned-upgrade-item">Archers: <span id="archer-count">0</span> <i class="fas fa-bullseye"></i></div>
-                        <div class="owned-upgrade-item">Wizards: <span id="wizard-count">0</span> <i class="fas fa-hat-wizard"></i></div>
+                        <div class="owned-upgrade-item medieval-text">Knights: <span id="knight-count">0</span> <i class="fas fa-chess-knight"></i></div>
+                        <div class="owned-upgrade-item medieval-text">Archers: <span id="archer-count">0</span> <i class="fas fa-bullseye"></i></div>
+                        <div class="owned-upgrade-item medieval-text">Wizards: <span id="wizard-count">0</span> <i class="fas fa-hat-wizard"></i></div>
                     </div>
                     <!-- Upgrades in Castle Tab -->
-                    <h2>Upgrades</h2>
-                    <div class="upgrade" onclick="buyUpgrade('knight')"><i class="fas fa-chess-knight"></i> Knight (<span id="knight-cost">10</span> coins)</div>
-                    <div class="upgrade" onclick="buyUpgrade('archer')"><i class="fas fa-bullseye"></i> Archer (<span id="archer-cost">25</span> coins)</div>
-                    <div class="upgrade" onclick="buyUpgrade('wizard')"><i class="fas fa-hat-wizard"></i> Wizard (<span id="wizard-cost">50</span> coins)</div>
+                    <h2 class="medieval-text">Upgrades</h2>
+                    <div class="upgrade medieval-button" onclick="buyUpgrade('knight')"><i class="fas fa-chess-knight"></i> Knight (<span id="knight-cost">10</span> coins)</div>
+                    <div class="upgrade medieval-button" onclick="buyUpgrade('archer')"><i class="fas fa-bullseye"></i> Archer (<span id="archer-cost">25</span> coins)</div>
+                    <div class="upgrade medieval-button" onclick="buyUpgrade('wizard')"><i class="fas fa-hat-wizard"></i> Wizard (<span id="wizard-cost">50</span> coins)</div>
                 </div>
             </div>
             <!-- Skilling Tab -->
-            <div class="tab-pane fade" id="skilling-tab">
+            <div class="tab-pane fade medieval-background" id="skilling-tab">
                 <div class="col-12 text-center">
-                    <h2>Skilling</h2>
-                    <div class="upgrade" onclick="handleSkillingClick('woodcutting')">Woodcutting</div>
-                    <div class="upgrade" onclick="handleSkillingClick('mining')">Mining</div>
-                    <div class="mt-3">
+                    <h2 class="medieval-text">Skilling</h2>
+                    <div class="upgrade medieval-button" onclick="handleSkillingClick('woodcutting')">Woodcutting</div>
+                    <div class="upgrade medieval-button" onclick="handleSkillingClick('mining')">Mining</div>
+                    <div class="mt-3 medieval-text">
                         <div>Woodcutting Level: <span id="woodcutting-level">1</span></div>
                         <div>Mining Level: <span id="mining-level">1</span></div>
                     </div>
@@ -136,8 +187,8 @@
         </div>
         <!-- Bottom Tab Navigation -->
         <div class="nav nav-pills nav-fill fixed-bottom">
-            <a class="nav-link active" data-toggle="pill" href="#castle-tab"><i class="fas fa-castle"></i> Castle</a>
-            <a class="nav-link" data-toggle="pill" href="#skilling-tab"><i class="fas fa-tools"></i> Skilling</a>
+            <a class="nav-link active medieval-text" data-toggle="pill" href="#castle-tab"><i class="fas fa-castle"></i> Castle</a>
+            <a class="nav-link medieval-text" data-toggle="pill" href="#skilling-tab"><i class="fas fa-tools"></i> Skilling</a>
         </div>
     </div>
     <!-- Scripts -->
