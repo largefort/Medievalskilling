@@ -22,23 +22,26 @@
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
-            border: 3px solid #8a5c2e;
+            border: none; /* Removed border */
             padding: 20px;
             border-radius: 10px;
             margin-top: 50px; /* Adjusted for better spacing */
             box-shadow: 0 0 20px #8a5c2e;
+            position: relative;
+            z-index: 1; /* Set z-index to ensure it's above the transparent tab content */
         }
 
         .tab-content {
             margin-top: 20px; /* Adjusted for better spacing */
+            background-color: rgba(255, 255, 255, 0.5); /* Transparent white background for tab content */
+            border-radius: 10px;
+            padding: 20px;
         }
 
         .tab-pane {
             text-align: center;
             padding: 20px;
             border-radius: 10px;
-            background-color: #f5d5a0; /* Light yellow background */
-            box-shadow: 0 0 10px #8a5c2e;
             color: #3c1e0f; /* Dark brown text */
         }
 
