@@ -22,12 +22,25 @@
     }
 
     .container {
+      display: flex;
+      flex-direction: row;
+      height: 100vh;
+    }
+
+    .sidebar {
+      width: 200px;
       background-color: rgba(0, 0, 0, 0.6);
-      border: 5px solid #8A5C2E;
+      border-right: 5px solid #8A5C2E;
       padding: 20px;
       border-radius: 15px;
       box-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
-      margin-top: 50px;
+      position: fixed;
+      height: 100%;
+    }
+
+    .main-content {
+      flex: 1;
+      padding: 20px;
     }
 
     .nav-pills .nav-link {
@@ -44,6 +57,13 @@
       background-color: rgba(75, 37, 19, 0.8);
       color: #8A5C2E;
       font-weight: bold;
+    }
+
+    #counter {
+      text-align: center;
+      font-size: 24px;
+      margin-top: 20px;
+      color: #FFD700;
     }
 
     .upgrade {
@@ -106,92 +126,102 @@
       src: url('your-medieval-font.woff') format('woff');
     }
   </style>
-  
 </head>
 
 <body>
   <div class="container">
-    <div class="tab-content">
-      <!-- Castle Tab -->
-      <div class="tab-pane fade show active" id="castle-tab">
-        <div class="text-center">
-          <img id="castle" src="https://raw.githubusercontent.com/largefort/Medievalskilling/main/castle.png" alt="Castle" class="castle-image" onclick="clickCastle()">
-          <div id="counter" class="mt-3">
-            Gold coins: 0
-          </div>
-          <div id="owned-upgrades" class="mt-3">
-            <div>Knight: <span id="knight-count">0</span></div>
-            <div>Archer: <span id="archer-count">0</span></div>
-            <div>Wizard: <span id="wizard-count">0</span></div>
-            <div>Paladin: <span id="paladin-count">0</span></div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Skilling Tab -->
-      <div class="tab-pane fade" id="skilling-tab">
-        <div class="text-center">
-          <h2>Skilling</h2>
-          <div class="upgrade" onclick="handleSkillingClick('woodcutting')">Woodcutting</div>
-          <div class="upgrade" onclick="handleSkillingClick('mining')">Mining</div>
-          <div class="mt-3">
-            <div>Woodcutting Level: <span id="woodcutting-level">1</span></div>
-            <div>Mining Level: <span id="mining-level">1</span></div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Shop Tab -->
-      <div class="tab-pane fade" id="shop-tab">
-        <div class="text-center">
-          <h2>Shop</h2>
-          <div class="upgrade" onclick="buyUpgrade('knight')">Knight (<span id="knight-cost">10</span> coins)</div>
-          <audio id="knight-upgrade-sound">
-            <source src="upgradesound.mp3" type="audio/mp3">
-            Your browser does not support the audio element.
-          </audio>
-          <div class="upgrade" onclick="buyUpgrade('archer')">Archer (<span id="archer-cost">25</span> coins)</div>
-          <audio id="archer-upgrade-sound">
-            <source src="upgradesound.mp3" type="audio/mp3">
-            Your browser does not support the audio element.
-          </audio>
-          <div class="upgrade" onclick="buyUpgrade('wizard')">Wizard (<span id="wizard-cost">50</span> coins)</div>
-          <audio id="wizard-upgrade-sound">
-            <source src="upgradesound.mp3" type="audio/mp3">
-            Your browser does not support the audio element.
-          </audio>
-          <div class="upgrade" onclick="buyUpgrade('paladin')">Paladin (<span id="paladin-cost">100</span> coins)</div>
-          <audio id="paladin-upgrade-sound">
-            <source src="upgradesound.mp3" type="audio/mp3">
-            Your browser does not support the audio element.
-          </audio>
-        </div>
-      </div>
-
-      <!-- Settings Tab -->
-      <div class="tab-pane fade" id="settings-tab">
-        <div class="text-center">
-          <h2>Settings</h2>
-          <div class="form-check">
-            <label class="form-check-label">
-              <input type="checkbox" id="toggle-music"> Toggle Music
-            </label>
-          </div>
-          <div class="form-check">
-            <label class="form-check-label">
-              <input type="checkbox" id="toggle-sfx"> Toggle Sound Effects
-            </label>
-          </div>
-        </div>
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+        <a class="nav-link active" id="v-pills-castle-tab" data-toggle="pill" href="#castle-tab" role="tab"
+          aria-controls="v-pills-castle-tab" aria-selected="true">Castle</a>
+        <a class="nav-link" id="v-pills-skilling-tab" data-toggle="pill" href="#skilling-tab" role="tab"
+          aria-controls="v-pills-skilling-tab" aria-selected="false">Skilling</a>
+        <a class="nav-link" id="v-pills-shop-tab" data-toggle="pill" href="#shop-tab" role="tab"
+          aria-controls="v-pills-shop-tab" aria-selected="false">Shop</a>
+        <a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#settings-tab" role="tab"
+          aria-controls="v-pills-settings-tab" aria-selected="false">Settings</a>
       </div>
     </div>
 
-    <!-- Navigation -->
-    <div class="nav nav-pills nav-fill fixed-bottom">
-      <a class="nav-link active" data-toggle="pill" href="#castle-tab">Castle</a>
-      <a class="nav-link" data-toggle="pill" href="#skilling-tab">Skilling</a>
-      <a class="nav-link" data-toggle="pill" href="#shop-tab">Shop</a>
-      <a class="nav-link" data-toggle="pill" href="#settings-tab">Settings</a>
+    <!-- Main Content -->
+    <div class="main-content">
+      <div class="tab-content">
+        <!-- Castle Tab and Counter -->
+        <div class="tab-pane fade show active" id="castle-tab">
+          <div class="text-center">
+                      <img id="castle"
+              src="https://raw.githubusercontent.com/largefort/Medievalskilling/main/castle.png" alt="Castle"
+              class="castle-image" onclick="clickCastle()">
+            <div id="counter">
+              Gold coins: 0
+            </div>
+            <div id="owned-upgrades" class="mt-3">
+              <div>Knight: <span id="knight-count">0</span></div>
+              <div>Archer: <span id="archer-count">0</span></div>
+              <div>Wizard: <span id="wizard-count">0</span></div>
+              <div>Paladin: <span id="paladin-count">0</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Skilling Tab -->
+        <div class="tab-pane fade" id="skilling-tab">
+          <div class="text-center">
+            <h2>Skilling</h2>
+            <div class="upgrade" onclick="handleSkillingClick('woodcutting')">Woodcutting</div>
+            <div class="upgrade" onclick="handleSkillingClick('mining')">Mining</div>
+            <div class="mt-3">
+              <div>Woodcutting Level: <span id="woodcutting-level">1</span></div>
+              <div>Mining Level: <span id="mining-level">1</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Shop Tab -->
+        <div class="tab-pane fade" id="shop-tab">
+          <div class="text-center">
+            <h2>Shop</h2>
+            <div class="upgrade" onclick="buyUpgrade('knight')">Knight (<span id="knight-cost">10</span> coins)</div>
+            <audio id="knight-upgrade-sound">
+              <source src="upgradesound.mp3" type="audio/mp3">
+              Your browser does not support the audio element.
+            </audio>
+            <div class="upgrade" onclick="buyUpgrade('archer')">Archer (<span id="archer-cost">25</span> coins)</div>
+            <audio id="archer-upgrade-sound">
+              <source src="upgradesound.mp3" type="audio/mp3">
+              Your browser does not support the audio element.
+            </audio>
+            <div class="upgrade" onclick="buyUpgrade('wizard')">Wizard (<span id="wizard-cost">50</span> coins)</div>
+            <audio id="wizard-upgrade-sound">
+              <source src="upgradesound.mp3" type="audio/mp3">
+              Your browser does not support the audio element.
+            </audio>
+            <div class="upgrade" onclick="buyUpgrade('paladin')">Paladin (<span id="paladin-cost">100</span> coins)</div>
+            <audio id="paladin-upgrade-sound">
+              <source src="upgradesound.mp3" type="audio/mp3">
+              Your browser does not support the audio element.
+            </audio>
+          </div>
+        </div>
+
+        <!-- Settings Tab -->
+        <div class="tab-pane fade" id="settings-tab">
+          <div class="text-center">
+            <h2>Settings</h2>
+            <div class="form-check">
+              <label class="form-check-label">
+                <input type="checkbox" id="toggle-music"> Toggle Music
+              </label>
+            </div>
+            <div class="form-check">
+              <label class="form-check-label">
+                <input type="checkbox" id="toggle-sfx"> Toggle Sound Effects
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
