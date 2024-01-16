@@ -20,6 +20,16 @@ document.write(`
 // Preload the click sound
 const clickSound = new Audio("click-sound.mp3");
 
+// Function to update the gold coin counter in the Shop tab
+function updateGoldCounterShop() {
+    document.getElementById("gold-counter-shop").textContent = `Gold coins: ${compactNumberFormat(coins)}`;
+}
+
+// Function to update the gold coin counter in the Skilling tab
+function updateGoldCounterSkilling() {
+    document.getElementById("gold-counter-skilling").textContent = `Gold coins: ${compactNumberFormat(coins)}`;
+}
+
 function disableFingerZooming() {
     document.addEventListener('touchmove', function (event) {
         if (event.scale !== 1) { event.preventDefault(); }
@@ -178,7 +188,8 @@ function buyUpgrade(type) {
         case "paladin":
             cost = 100;
             upgradeCount = paladinCount;
-            if (coins >= cost) {
+            if (coins >= cost)
+             {
                 coins -= cost;
                 paladinCount++;
             }
@@ -190,6 +201,9 @@ function buyUpgrade(type) {
         const upgradeSound = document.getElementById("upgradeSound");
         upgradeSound.play();
     }
+
+    // Update the gold coin counter for Shop tab
+    updateGoldCounterShop();
 
     saveGameData();
     updateUI();
@@ -212,6 +226,10 @@ function handleSkillingClick(skill) {
             miningLevel++;
             break;
     }
+
+    // Update the gold coin counter for Skilling tab
+    updateGoldCounterSkilling();
+
     saveGameData();
     updateUI();
 }
@@ -234,6 +252,10 @@ function earnPassiveIncome() {
 
     coins += offlinePassiveIncome;
     lastSaveTime = currentTime; // Update the last save time
+
+    // Update the gold coin counters for both Shop and Skilling tabs
+    updateGoldCounterShop();
+    updateGoldCounterSkilling();
 
     saveGameData();
     updateUI();
