@@ -91,6 +91,8 @@ function loadGameData() {
             wizardCount = savedState.wizardCount;
             woodcuttingLevel = savedState.woodcuttingLevel;
             miningLevel = savedState.miningLevel;
+            fishingLevel = savedState.fishingLevel;
+            charismaLevel = savedState.charismaLevel;
             paladinCount = savedState.paladinCount;
             lastSaveTime = savedState.lastSaveTime; // Update the last save time
 
