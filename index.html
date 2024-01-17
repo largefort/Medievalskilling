@@ -151,7 +151,7 @@
         <img id="castle"
           src="https://raw.githubusercontent.com/largefort/Medievalskilling/main/castle.png" alt="Castle"
           class="castle-image" onclick="clickCastle()">
-        <div id="owned-upgrades" class="mt-3">
+          <div id="owned-upgrades" class="mt-3">
           <div>Knight: <span id="knight-count">0</span></div>
           <div>Archer: <span id="archer-count">0</span></div>
           <div>Wizard: <span id="wizard-count">0</span></div>
@@ -178,33 +178,35 @@
         </div>
       </div>
     </div>
-    <!-- Shop Tab and Counter -->
+ <!-- Shop Tab and Counter -->
 <div class="tab-pane fade" id="shop-tab">
   <div class="text-center">
     <div id="gold-counter-shop">
       Gold coins: 0
     </div>
     <h2>Shop</h2>
-    <div class="upgrade" onclick="buyUpgrade('knight')">Knight (<span id="knight-cost">10</span> coins)</div>
+    <div class="upgrade" onclick="buyUpgrade('knight')">Knight (<span id="knight-cost">10</span> coins) - Purchased: <span id="knight-upgrade-count">0</span></div>
     <audio id="knight-upgrade-sound">
       <source src="upgradesound.mp3" type="audio/mp3">
       Your browser does not support the audio element.
     </audio>
-    <div class="upgrade" onclick="buyUpgrade('archer')">Archer (<span id="archer-cost">25</span> coins)</div>
+    <div class="upgrade" onclick="buyUpgrade('archer')">Archer (<span id="archer-cost">25</span> coins) - Purchased: <span id="archer-upgrade-count">0</span></div>
     <audio id="archer-upgrade-sound">
       <source src="upgradesound.mp3" type="audio/mp3">
       Your browser does not support the audio element.
     </audio>
-    <div class="upgrade" onclick="buyUpgrade('wizard')">Wizard (<span id="wizard-cost">50</span> coins)</div>
+    <div class="upgrade" onclick="buyUpgrade('wizard')">Wizard (<span id="wizard-cost">50</span> coins) - Purchased: <span id="wizard-upgrade-count">0</span></div>
     <audio id="wizard-upgrade-sound">
       <source src="upgradesound.mp3" type="audio/mp3">
       Your browser does not support the audio element.
     </audio>
-    <div class="upgrade" onclick="buyUpgrade('paladin')">Paladin (<span id="paladin-cost">100</span> coins)</div>
+    <div class="upgrade" onclick="buyUpgrade('paladin')">Paladin (<span id="paladin-cost">100</span> coins) - Purchased: <span id="paladin-upgrade-count">0</span></div>
     <audio id="paladin-upgrade-sound">
       <source src="upgradesound.mp3" type="audio/mp3">
       Your browser does not support the audio element.
     </audio>
+  </div>
+</div>
   </div>
 </div>
 <!-- Settings Tab -->
