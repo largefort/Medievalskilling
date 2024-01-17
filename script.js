@@ -84,6 +84,10 @@ function saveGameData() {
         miningLevel,
         paladinCount,
         lastSaveTime: Date.now(), // Update the last save time
+        knightUpgradeCounter,
+        archerUpgradeCounter,
+        wizardUpgradeCounter,
+        paladinUpgradeCounter,
     };
 
     const transaction = db.transaction(["gameState"], "readwrite");
@@ -109,6 +113,12 @@ function loadGameData() {
             charismaLevel = savedState.charismaLevel;
             paladinCount = savedState.paladinCount;
             lastSaveTime = savedState.lastSaveTime; // Update the last save time
+
+            // Retrieve upgrade counters from the saved game state
+            knightUpgradeCounter = savedState.knightUpgradeCounter || 0;
+            archerUpgradeCounter = savedState.archerUpgradeCounter || 0;
+            wizardUpgradeCounter = savedState.wizardUpgradeCounter || 0;
+            paladinUpgradeCounter = savedState.paladinUpgradeCounter || 0;
 
             updateUI();
         }
@@ -308,4 +318,13 @@ function earnPassiveIncome() {
 
 setInterval(earnPassiveIncome, 1000);
 // Call initUpgradeCounters at the end of your script
-initUpgradeCounters();
+function initUpgradeCounters() {
+    // Retrieve upgrade counters from the saved game state
+    knightUpgradeCounter = savedState.knightUpgradeCounter || 0;
+    archerUpgradeCounter = savedState.archerUpgradeCounter || 0;
+    wizardUpgradeCounter = savedState.wizardUpgradeCounter || 0;
+    paladinUpgradeCounter = savedState.paladinUpgradeCounter || 0;
+
+    // Update the counters on the buttons
+    updateUpgradeCounters();
+}
