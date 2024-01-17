@@ -144,6 +144,8 @@ function updateUI() {
     document.getElementById("wizard-count").textContent = wizardCount;
     document.getElementById("woodcutting-level").textContent = woodcuttingLevel;
     document.getElementById("mining-level").textContent = miningLevel;
+    document.getElementById("fishing-level").textContent = fishingLevel;
+    document.getElementById("charisma-level").textContent = charismaLevel;
     document.getElementById("paladin-count").textContent = paladinCount;
 
     updatePassiveIncome();
@@ -226,6 +228,12 @@ function handleSkillingClick(skill) {
             break;
         case "mining":
             miningLevel++;
+            break;
+             case "fishing":
+            fishingLevel++;
+            break;
+             case "charisma":
+            charismaLevel++;
             break;
     }
 
