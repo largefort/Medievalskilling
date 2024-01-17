@@ -4,6 +4,8 @@ let archerCount = 0;
 let wizardCount = 0;
 let woodcuttingLevel = 1;
 let miningLevel = 1;
+let fishingLevel = 1;
+let charismaLevel = 1;
 let paladinCount = 0;
 let passiveIncome = 0;
 let db;
