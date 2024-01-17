@@ -11,6 +11,12 @@ let passiveIncome = 0;
 let db;
 let lastSaveTime = Date.now(); // Initialize lastSaveTime with the current time
 
+// Add upgrade counters
+let knightUpgradeCounter = 0;
+let archerUpgradeCounter = 0;
+let wizardUpgradeCounter = 0;
+let paladinUpgradeCounter = 0;
+
 // Add an HTML audio element for the upgrade sound
 document.write(`
 <audio id="upgradeSound">
@@ -30,6 +36,14 @@ function updateGoldCounterShop() {
 // Function to update the gold coin counter in the Skilling tab
 function updateGoldCounterSkilling() {
     document.getElementById("gold-counter-skilling").textContent = `Gold coins: ${compactNumberFormat(coins)}`;
+}
+
+// Function to update the upgrade counters on the buttons
+function updateUpgradeCounters() {
+    document.getElementById("knight-upgrade-count").textContent = knightUpgradeCounter;
+    document.getElementById("archer-upgrade-count").textContent = archerUpgradeCounter;
+    document.getElementById("wizard-upgrade-count").textContent = wizardUpgradeCounter;
+    document.getElementById("paladin-upgrade-count").textContent = paladinUpgradeCounter;
 }
 
 function disableFingerZooming() {
@@ -150,6 +164,9 @@ function updateUI() {
     document.getElementById("charisma-level").textContent = charismaLevel;
     document.getElementById("paladin-count").textContent = paladinCount;
 
+    // Update the upgrade counters on the buttons
+    updateUpgradeCounters();
+
     updatePassiveIncome();
 }
 
@@ -203,6 +220,22 @@ function buyUpgrade(type) {
     }
 
     if (cost > 0) {
+        // Update the upgrade counters
+        switch (type) {
+            case "knight":
+                document.getElementById("knight-upgrade-count").textContent = ++knightUpgradeCounter;
+                break;
+            case "archer":
+                document.getElementById("archer-upgrade-count").textContent = ++archerUpgradeCounter;
+                break;
+            case "wizard":
+                document.getElementById("wizard-upgrade-count").textContent = ++wizardUpgradeCounter;
+                break;
+            case "paladin":
+                document.getElementById("paladin-upgrade-count").textContent = ++paladinUpgradeCounter;
+                break;
+        }
+
         // Play the upgrade sound
         const upgradeSound = document.getElementById("upgradeSound");
         upgradeSound.play();
@@ -231,10 +264,10 @@ function handleSkillingClick(skill) {
         case "mining":
             miningLevel++;
             break;
-             case "fishing":
+        case "fishing":
             fishingLevel++;
             break;
-             case "charisma":
+        case "charisma":
             charismaLevel++;
             break;
     }
@@ -274,3 +307,5 @@ function earnPassiveIncome() {
 }
 
 setInterval(earnPassiveIncome, 1000);
+// Call initUpgradeCounters at the end of your script
+initUpgradeCounters();
