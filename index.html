@@ -2,11 +2,8 @@
 <html lang="en">
 
 <head>
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5816082932921993"
-    crossorigin="anonymous"></script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="google-adsense-account" content="ca-pub-5816082932921993">
   <title>Medieval Clicker</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -23,6 +20,26 @@
     }
 
     .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .main-content {
+      flex: 1;
+      padding: 20px;
+      background-color: #1b1511;
+      border-radius: 15px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
+    }
+
+    .adsbygoogle {
+      display: block;
+      text-align: center;
+      margin: 20px 0;
+    }
+        .container {
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -137,7 +154,8 @@
       font-family: 'MedievalFont';
       src: url('your-medieval-font.woff') format('woff');
     }
-  </style>
+
+     </style>
 </head>
     <!-- Main Content -->
 <div class="main-content">
@@ -234,12 +252,26 @@
       <a class="nav-link" data-toggle="pill" href="#settings-tab">Settings</a>
     </div>
   </div>
-
   
+    <!-- Navigation -->
+    <div class="nav nav-pills nav-fill fixed-bottom">
+      <a class="nav-link active" data-toggle="pill" href="#castle-tab">Castle</a>
+      <a class="nav-link" data-toggle="pill" href="#skilling-tab">Skilling</a>
+      <a class="nav-link" data-toggle="pill" href="#shop-tab">Shop</a>
+      <a class="nav-link" data-toggle="pill" href="#settings-tab">Settings</a>
+    </div>
+  </div>
+
   <!-- Fullscreen Button -->
   <button id="fullscreen-button" style="display: none;" onclick="autoEnterFullscreen()">Enter Fullscreen</button>
 
-  <!-- Scripts and Audio -->
+  <!-- Include the Google AdSense script -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <script>
+    (adsbygoogle = window.adsbygoogle || []).push({});
+  </script>
+
+  <!-- Your existing scripts and audio elements here -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
