@@ -48,20 +48,22 @@
     }
 
     .nav-pills .nav-link {
-      font-size: 18px;
-      padding: 10px 10px;
-      background-color: rgba(112, 67, 38, 0.8);
-      border-radius: 10px;
-      border: none;
-      color: #FFD700;
-      margin: 5px;
-    }
+  font-size: 18px;
+  padding: 10px 15px;
+  background-color: rgba(112, 67, 38, 0.8);
+  border-radius: 10px 10px 0 0;
+  border: 2px solid #8A5C2E;
+  color: #FFD700;
+  margin: 5px;
+  transition: background-color 0.3s, color 0.3s;
+}
 
-    .nav-pills .nav-link.active {
-      background-color: rgba(75, 37, 19, 0.8);
-      color: #8A5C2E;
-      font-weight: bold;
-    }
+.nav-pills .nav-link.active {
+  background-color: rgba(75, 37, 19, 0.8);
+  color: #8A5C2E;
+  font-weight: bold;
+  border-color: #5a3921;
+}
 
     #counter {
       text-align: center;
@@ -78,22 +80,23 @@
       color: #FFD700;
     }
 
-    .upgrade {
-      font-size: 18px;
-      color: #f7dfc4;
-      background-color: #8a5c2e;
-      border: 2px solid #5a3921;
-      padding: 15px;
-      margin-bottom: 10px;
-      cursor: pointer;
-      transition: background-color 0.3s, color 0.3s;
-      border-radius: 10px;
-    }
+    ..upgrade {
+  font-size: 18px;
+  color: #f7dfc4;
+  background-color: #8a5c2e;
+  border: 2px solid #5a3921;
+  padding: 15px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+  border-radius: 10px;
+  text-align: center;
+}
 
-    .upgrade:hover {
-      background-color: #5a3921;
-      color: #ffcc00;
-    }
+.upgrade:hover {
+  background-color: #5a3921;
+  color: #ffcc00;
+}
 
     .modal {
       display: none;
@@ -127,12 +130,16 @@
     }
 
     .castle-image {
-      border: 5px solid #532c08;
-      border-radius: 10px;
-      max-width: 100%;
-      height: auto;
-    }
+  border: 5px solid #532c08;
+  border-radius: 10px;
+  max-width: 100%;
+  height: auto;
+  transition: transform 0.2s ease-in-out;
+}
 
+.castle-image:hover {
+  transform: scale(1.1);
+}
     @font-face {
       font-family: 'MedievalFont';
       src: url('your-medieval-font.woff') format('woff');
