@@ -187,6 +187,14 @@ function clickCastle() {
 
     // Play the preloaded click sound
     clickSound.play();
+
+    // Trigger the falling gold coins animation
+    document.body.classList.add('falling-coins-active');
+
+    // Remove the animation class after a delay (adjust the delay as needed)
+    setTimeout(function () {
+      document.body.classList.remove('falling-coins-active');
+    }, 5000); // 5000 milliseconds (adjust as needed)
 }
 
 function buyUpgrade(type) {
@@ -328,3 +336,4 @@ function initUpgradeCounters() {
     // Update the counters on the buttons
     updateUpgradeCounters();
 }
+
