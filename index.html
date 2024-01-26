@@ -2,8 +2,6 @@
 <html lang="en">
 
 <head>
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5816082932921993"
-    crossorigin="anonymous"></script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="google-adsense-account" content="ca-pub-5816082932921993">
@@ -11,8 +9,8 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
-  <link rel="stylesheet" href="styles.css">
   <link rel="icon" href="/favicon.ico">
+  <link rel="stylesheet" href="styles.css">
   <style>
     body {
       font-family: 'MedievalFont', serif;
@@ -137,25 +135,60 @@
       font-family: 'MedievalFont';
       src: url('your-medieval-font.woff') format('woff');
     }
+       /* Bottom Navigation Styles */
+        .nav-pills .nav-link {
+            background-color: #5a3921;
+            color: #f4e4b5;
+            border-radius: 0;
+            border-top: 3px solid #8a5c2e;
+            border-bottom: 3px solid #3c1e0f;
+        }
+
+        .nav-pills .nav-link.active {
+            background-color: #3c1e0f;
+            color: #ffcc00;
+            border-top: 3px solid #3c1e0f;
+            border-bottom: 3px solid #8a5c2e;
+        }
+
+        .nav-pills {
+            background-color: #452c16;
+            border-top: 5px ridge #8a5c2e;
+            border-bottom: 5px groove #3c1e0f;
+        }
+
+        /* Upgrade Buttons Styles */
+        .upgrade {
+            color: #f4e4b5;
+            background-color: #5a3921;
+            border: 2px solid #8a5c2e;
+            padding: 10px;
+            margin-bottom: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .upgrade:hover {
+            background-color: #3c1e0f;
+        }
+
+        body {
+            background-color: #8a5c2e;
+            font-family: 'Old Standard TT', serif;
+        }
+
+        .container {
+            background-color: #5a3921;
+            border: 3px solid #8a5c2e;
+            padding: 20px;
+            border-radius: 10px;
+        }
+    </style>
+</head>
   </style>
 </head>
 
-<body>
-  <div class="container">
-    <!-- Sidebar -->
-    <div class="sidebar">
-      <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-        <a class="nav-link active" id="v-pills-castle-tab" data-toggle="pill" href="#castle-tab" role="tab"
-          aria-controls="v-pills-castle-tab" aria-selected="true">Castle</a>
-        <a class="nav-link" id="v-pills-skilling-tab" data-toggle="pill" href="#skilling-tab" role="tab"
-          aria-controls="v-pills-skilling-tab" aria-selected="false">Skilling</a>
-        <a class="nav-link" id="v-pills-shop-tab" data-toggle="pill" href="#shop-tab" role="tab"
-          aria-controls="v-pills-shop-tab" aria-selected="false">Shop</a>
-        <a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#settings-tab" role="tab"
-          aria-controls="v-pills-settings-tab" aria-selected="false">Settings</a>
-      </div>
-    </div>
-    <!-- Main Content -->
+<!-- Main Content -->
 <div class="main-content">
   <div class="tab-content">
     <!-- Castle Tab and Counter -->
@@ -167,7 +200,7 @@
         <img id="castle"
           src="https://raw.githubusercontent.com/largefort/Medievalskilling/main/castle.png" alt="Castle"
           class="castle-image" onclick="clickCastle()">
-        <div id="owned-upgrades" class="mt-3">
+          <div id="owned-upgrades" class="mt-3">
           <div>Knight: <span id="knight-count">0</span></div>
           <div>Archer: <span id="archer-count">0</span></div>
           <div>Wizard: <span id="wizard-count">0</span></div>
@@ -175,84 +208,111 @@
         </div>
       </div>
     </div>
-            <!-- Skilling Tab and Counter -->
+    <!-- Skilling Tab and Counter -->
     <div class="tab-pane fade" id="skilling-tab">
       <div class="text-center">
         <h2>Skilling</h2>
-        <div class="upgrade" onclick="handleSkillingClick('woodcutting')">Woodcutting (<span
-            id="woodcutting-cost">10</span> coins)</div>
-        <div class="upgrade" onclick="handleSkillingClick('mining')">Mining (<span id="mining-cost">25</span>
-          coins)</div>
+        <div class="upgrade" onclick="handleSkillingClick('woodcutting')">Woodcutting</div>
+        <div class="upgrade" onclick="handleSkillingClick('mining')">Mining</div>
+        <div class="upgrade" onclick="handleSkillingClick('fishing')">Fishing</div>
+        <div class="upgrade" onclick="handleSkillingClick('charisma')">Charisma</div>
         <div id="gold-counter-skilling">
           Gold coins: 0
         </div>
         <div class="mt-3">
           <div>Woodcutting Level: <span id="woodcutting-level">1</span></div>
           <div>Mining Level: <span id="mining-level">1</span></div>
+          <div>fishing Level: <span id="fishing-level">1</span></div>
+          <div>charisma Level: <span id="charisma-level">1</span></div>
         </div>
       </div>
     </div>
     <!-- Shop Tab and Counter -->
-<div class="tab-pane fade" id="shop-tab">
-  <div class="text-center">
-    <div id="gold-counter-shop">
-      Gold coins: 0
+    <div class="tab-pane fade" id="shop-tab">
+      <div class="text-center">
+        <div id="gold-counter-shop">
+          Gold coins: 0
+        </div>
+        <h2>Shop</h2>
+        <div class="upgrade" onclick="buyUpgrade('knight')">Knight (<span id="knight-cost">10</span> coins) - Purchased: <span
+            id="knight-upgrade-count">0</span></div>
+        <audio id="knight-upgrade-sound">
+          <source src="upgradesound.mp3" type="audio/mp3">
+          Your browser does not support the audio element.
+        </audio>
+        <div class="upgrade" onclick="buyUpgrade('archer')">Archer (<span id="archer-cost">25</span> coins) - Purchased: <span
+            id="archer-upgrade-count">0</span></div>
+        <audio id="archer-upgrade-sound">
+          <source src="upgradesound.mp3" type="audio/mp3">
+          Your browser does not support the audio element.
+        </audio>
+        <div class="upgrade" onclick="buyUpgrade('wizard')">Wizard (<span id="wizard-cost">50</span> coins) - Purchased: <span
+            id="wizard-upgrade-count">0</span></div>
+        <audio id="wizard-upgrade-sound">
+          <source src="upgradesound.mp3" type="audio/mp3">
+          Your browser does not support the audio element.
+        </audio>
+        <div class="upgrade" onclick="buyUpgrade('paladin')">Paladin (<span id="paladin-cost">100</span> coins) - Purchased: <span
+            id="paladin-upgrade-count">0</span></div>
+        <audio id="paladin-upgrade-sound">
+          <source src="upgradesound.mp3" type="audio/mp3">
+          Your browser does not support the audio element.
+        </audio>
+        <!-- AdSense Ad Unit -->
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5816082932921993"
+     crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-format="fluid"
+     data-ad-layout-key="-cx-2j+2o-8f+57"
+     data-ad-client="ca-pub-5816082932921993"
+     data-ad-slot="9423559255"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+      </div>
     </div>
-    <h2>Shop</h2>
-    <div class="upgrade" onclick="buyUpgrade('knight')">Knight (<span id="knight-cost">10</span> coins)</div>
-    <audio id="knight-upgrade-sound">
-      <source src="upgradesound.mp3" type="audio/mp3">
-      Your browser does not support the audio element.
-    </audio>
-    <div class="upgrade" onclick="buyUpgrade('archer')">Archer (<span id="archer-cost">25</span> coins)</div>
-    <audio id="archer-upgrade-sound">
-      <source src="upgradesound.mp3" type="audio/mp3">
-      Your browser does not support the audio element.
-    </audio>
-    <div class="upgrade" onclick="buyUpgrade('wizard')">Wizard (<span id="wizard-cost">50</span> coins)</div>
-    <audio id="wizard-upgrade-sound">
-      <source src="upgradesound.mp3" type="audio/mp3">
-      Your browser does not support the audio element.
-    </audio>
-    <div class="upgrade" onclick="buyUpgrade('paladin')">Paladin (<span id="paladin-cost">100</span> coins)</div>
-    <audio id="paladin-upgrade-sound">
-      <source src="upgradesound.mp3" type="audio/mp3">
-      Your browser does not support the audio element.
-    </audio>
+    <!-- Settings Tab -->
+    <div class="tab-pane fade" id="settings-tab">
+      <div class="text-center">
+        <h2>Settings</h2>
+        <div class="form-check">
+          <label class="form-check-label">
+            <input type="checkbox" id="toggle-music"> Toggle Music
+          </label>
+        </div>
+        <div class="form-check">
+          <label class="form-check-label">
+            <input type="checkbox" id="toggle-sfx"> Toggle Sound Effects
+          </label>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
-<!-- Settings Tab -->
-<div class="tab-pane fade" id="settings-tab">
-  <div class="text-center">
-    <h2>Settings</h2>
-    <div class="form-check">
-      <label class="form-check-label">
-        <input type="checkbox" id="toggle-music"> Toggle Music
-      </label>
-    </div>
-    <div class="form-check">
-      <label class="form-check-label">
-        <input type="checkbox" id="toggle-sfx"> Toggle Sound Effects
-      </label>
-    </div>
-  </div>
+<!-- Navigation -->
+<div class="nav nav-pills nav-fill fixed-bottom">
+  <a class="nav-link active" data-toggle="pill" href="#castle-tab">Castle</a>
+  <a class="nav-link" data-toggle="pill" href="#skilling-tab">Skilling</a>
+  <a class="nav-link" data-toggle="pill" href="#shop-tab">Shop</a>
+  <a class="nav-link" data-toggle="pill" href="#settings-tab">Settings</a>
 </div>
 </div>
-</div>
-  <!-- Fullscreen Button -->
-  <button id="fullscreen-button" style="display: none;" onclick="autoEnterFullscreen()">Enter Fullscreen</button>
 
-  <!-- Scripts and Audio -->
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-  <script src="https://consent.cookiefirst.com/sites/medievalclicker.online-1b7c356c-48c5-4fdd-b0f1-52d3a1e69017/consent.js"></script>
-  <script src="script.js"></script>
-  <audio id="medievaltheme" loop autoplay>
-    <source src="medievaltheme.mp3" type="audio/mp3">
-    Your browser does not support the audio element.
-  </audio>
-  <audio id="click-sound" src="click-sound.mp3" type="audio/mp3"></audio>
+<!-- Fullscreen Button -->
+<button id="fullscreen-button" style="display: none;" onclick="autoEnterFullscreen()">Enter Fullscreen</button>
+
+<!-- Scripts and Audio -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://consent.cookiefirst.com/sites/medievalclicker.online-1b7c356c-48c5-4fdd-b0f1-52d3a1e69017/consent.js"></script>
+<script src="script.js"></script>
+<audio id="medievaltheme" loop autoplay>
+  <source src="medievaltheme.mp3" type="audio/mp3">
+  Your browser does not support the audio element.
+</audio>
+<audio id="click-sound" src="click-sound.mp3" type="audio/mp3"></audio>
 </body>
 
 </html>

@@ -4,10 +4,18 @@ let archerCount = 0;
 let wizardCount = 0;
 let woodcuttingLevel = 1;
 let miningLevel = 1;
+let fishingLevel = 1;
+let charismaLevel = 1;
 let paladinCount = 0;
 let passiveIncome = 0;
 let db;
 let lastSaveTime = Date.now(); // Initialize lastSaveTime with the current time
+
+// Add upgrade counters
+let knightUpgradeCounter = 0;
+let archerUpgradeCounter = 0;
+let wizardUpgradeCounter = 0;
+let paladinUpgradeCounter = 0;
 
 // Add an HTML audio element for the upgrade sound
 document.write(`
@@ -28,6 +36,14 @@ function updateGoldCounterShop() {
 // Function to update the gold coin counter in the Skilling tab
 function updateGoldCounterSkilling() {
     document.getElementById("gold-counter-skilling").textContent = `Gold coins: ${compactNumberFormat(coins)}`;
+}
+
+// Function to update the upgrade counters on the buttons
+function updateUpgradeCounters() {
+    document.getElementById("knight-upgrade-count").textContent = knightUpgradeCounter;
+    document.getElementById("archer-upgrade-count").textContent = archerUpgradeCounter;
+    document.getElementById("wizard-upgrade-count").textContent = wizardUpgradeCounter;
+    document.getElementById("paladin-upgrade-count").textContent = paladinUpgradeCounter;
 }
 
 function disableFingerZooming() {
@@ -68,6 +84,10 @@ function saveGameData() {
         miningLevel,
         paladinCount,
         lastSaveTime: Date.now(), // Update the last save time
+        knightUpgradeCounter,
+        archerUpgradeCounter,
+        wizardUpgradeCounter,
+        paladinUpgradeCounter,
     };
 
     const transaction = db.transaction(["gameState"], "readwrite");
@@ -89,8 +109,16 @@ function loadGameData() {
             wizardCount = savedState.wizardCount;
             woodcuttingLevel = savedState.woodcuttingLevel;
             miningLevel = savedState.miningLevel;
+            fishingLevel = savedState.fishingLevel;
+            charismaLevel = savedState.charismaLevel;
             paladinCount = savedState.paladinCount;
             lastSaveTime = savedState.lastSaveTime; // Update the last save time
+
+            // Retrieve upgrade counters from the saved game state
+            knightUpgradeCounter = savedState.knightUpgradeCounter || 0;
+            archerUpgradeCounter = savedState.archerUpgradeCounter || 0;
+            wizardUpgradeCounter = savedState.wizardUpgradeCounter || 0;
+            paladinUpgradeCounter = savedState.paladinUpgradeCounter || 0;
 
             updateUI();
         }
@@ -142,7 +170,12 @@ function updateUI() {
     document.getElementById("wizard-count").textContent = wizardCount;
     document.getElementById("woodcutting-level").textContent = woodcuttingLevel;
     document.getElementById("mining-level").textContent = miningLevel;
+    document.getElementById("fishing-level").textContent = fishingLevel;
+    document.getElementById("charisma-level").textContent = charismaLevel;
     document.getElementById("paladin-count").textContent = paladinCount;
+
+    // Update the upgrade counters on the buttons
+    updateUpgradeCounters();
 
     updatePassiveIncome();
 }
@@ -154,6 +187,14 @@ function clickCastle() {
 
     // Play the preloaded click sound
     clickSound.play();
+
+    // Trigger the falling gold coins animation
+    document.body.classList.add('falling-coins-active');
+
+    // Remove the animation class after a delay (adjust the delay as needed)
+    setTimeout(function () {
+      document.body.classList.remove('falling-coins-active');
+    }, 5000); // 5000 milliseconds (adjust as needed)
 }
 
 function buyUpgrade(type) {
@@ -197,6 +238,22 @@ function buyUpgrade(type) {
     }
 
     if (cost > 0) {
+        // Update the upgrade counters
+        switch (type) {
+            case "knight":
+                document.getElementById("knight-upgrade-count").textContent = ++knightUpgradeCounter;
+                break;
+            case "archer":
+                document.getElementById("archer-upgrade-count").textContent = ++archerUpgradeCounter;
+                break;
+            case "wizard":
+                document.getElementById("wizard-upgrade-count").textContent = ++wizardUpgradeCounter;
+                break;
+            case "paladin":
+                document.getElementById("paladin-upgrade-count").textContent = ++paladinUpgradeCounter;
+                break;
+        }
+
         // Play the upgrade sound
         const upgradeSound = document.getElementById("upgradeSound");
         upgradeSound.play();
@@ -224,6 +281,12 @@ function handleSkillingClick(skill) {
             break;
         case "mining":
             miningLevel++;
+            break;
+        case "fishing":
+            fishingLevel++;
+            break;
+        case "charisma":
+            charismaLevel++;
             break;
     }
 
@@ -262,3 +325,15 @@ function earnPassiveIncome() {
 }
 
 setInterval(earnPassiveIncome, 1000);
+// Call initUpgradeCounters at the end of your script
+function initUpgradeCounters() {
+    // Retrieve upgrade counters from the saved game state
+    knightUpgradeCounter = savedState.knightUpgradeCounter || 0;
+    archerUpgradeCounter = savedState.archerUpgradeCounter || 0;
+    wizardUpgradeCounter = savedState.wizardUpgradeCounter || 0;
+    paladinUpgradeCounter = savedState.paladinUpgradeCounter || 0;
+
+    // Update the counters on the buttons
+    updateUpgradeCounters();
+}
+
