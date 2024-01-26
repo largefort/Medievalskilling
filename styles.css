@@ -34,3 +34,27 @@
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Drop shadow for a 3D effect */
     font-family: 'Times New Roman', serif; /* Medieval-style font */
 }
+
+/* Falling gold coins particle effect */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    width: 100%;
+    height: 100%;
+    background: url('https://example.com/path-to-your-gold-coin-image.png') center/contain no-repeat;
+    animation: fallingCoins 5s linear infinite;
+    z-index: 9999;
+}
+
+@keyframes fallingCoins {
+    0% {
+        transform: translateY(-100vh);
+    }
+    100% {
+        transform: translateY(100vh);
+    }
+}
+
