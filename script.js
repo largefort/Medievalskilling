@@ -63,6 +63,7 @@ function loadGameData() {
 }
 
 initializeDB();
+
 function clickCastle() {
     coins++;
     saveGameData();
@@ -137,3 +138,4 @@ function startPassiveIncome() {
 }
 
 startPassiveIncome();
+
