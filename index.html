@@ -1,165 +1,266 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="google-adsense-account" content="ca-pub-5816082932921993">
-    <title>Medieval Clicker</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="styles.css">
-    <style>
-        /* Original CSS Styles */
-        /* Bottom Navigation Styles */
-        .nav-pills .nav-link {
-            background-color: #5a3921;
-            color: #f4e4b5;
-            padding: 10px 10px;
-            border-radius: 10;
-            border-top: px solid #8a5c2e;
-            border-bottom: 10px solid #3c1e0f;
-        }
+<head><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5816082932921993"
+     crossorigin="anonymous"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="google-adsense-account" content="ca-pub-5816082932921993">
+  <title>Medieval Clicker</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+  <link rel="icon" href="/favicon.ico">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    body {
+      font-family: 'MedievalFont', serif;
+      background-color: #251c12;
+      color: #f7dfc4;
+      margin: 0;
+      padding: 0;
+    }
 
-        .nav-pills .nav-link.active {
-            background-color: #3c1e0f;
-            color: #ffcc00;
-            border-top: 5px solid #3c1e0f;
-            border-bottom: 5px solid #8a5c2e;
-        }
+    .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 100vh;
+    }
 
-        .nav-pills {
-            background-color: #452c16;
-            border-top: 5px ridge #8a5c2e;
-            border-bottom: 5px groove #3c1e0f;
-        }
+    .sidebar {
+      width: 200px;
+      background-color: rgba(0, 0, 0, 0.6);
+      border-right: 5px solid #8A5C2E;
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
+      height: 100%;
+    }
 
-        /* Upgrade Buttons Styles */
-        .upgrade {
-            color: #f4e4b5;
-            background-color: #5a3921;
-            border: 2px solid #8a5c2e;
-            padding: 5px;
-            margin-bottom: 0px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
+    .main-content {
+      flex: 1;
+      padding: 20px;
+      background-color: #1b1511;
+      border-radius: 15px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
+    }
 
-        .upgrade:hover {
-            background-color: #3c1e0f;
-        }
+    .nav-pills .nav-link {
+      font-size: 18px;
+      padding: 10px 10px;
+      background-color: rgba(112, 67, 38, 0.8);
+      border-radius: 10px;
+      border: none;
+      color: #FFD700;
+      margin: 5px;
+    }
 
-        body {
-            background-color: #8a5c2e;
-            font-family: 'Old Standard TT', serif;
-        }
+    .nav-pills .nav-link.active {
+      background-color: rgba(75, 37, 19, 0.8);
+      color: #8A5C2E;
+      font-weight: bold;
+    }
 
-        .container {
-            background-color: #5a3921;
-            border: 2px solid #8a5c2e;
-            padding: 8px;
-            border-radius: 8px;
-        }
+    #counter {
+      text-align: center;
+      font-size: 24px;
+      margin-top: 20px;
+      color: #FFD700;
+    }
 
-        /* Enhanced Medieval CSS Styles */
-        body.medieval {
-            background-color: darkolivegreen;
-        }
+    #gold-counter-shop,
+    #gold-counter-skilling {
+      text-align: center;
+      font-size: 24px;
+      margin-top: 20px;
+      color: #FFD700;
+    }
 
-        .version {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            font-size: 14px;
-            color: #333;
-        }
+    .upgrade {
+      font-size: 18px;
+      color: #f7dfc4;
+      background-color: #8a5c2e;
+      border: 2px solid #5a3921;
+      padding: 15px;
+      margin-bottom: 10px;
+      cursor: pointer;
+      transition: background-color 0.3s, color 0.3s;
+      border-radius: 10px;
+    }
 
-        .copyright {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            font-size: 14px;
-            color: #333;
-        }
-    </style>
-    <!-- Google AdSense Script -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-    <script>
-        (adsbygoogle = window.adsbygoogle || []).push({
-            google_ad_client: "pub-5816082932921993",
-            enable_page_level_ads: true
-        });
-    </script>
+    .upgrade:hover {
+      background-color: #5a3921;
+      color: #ffcc00;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.7);
+      z-index: 1;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-content {
+      background-color: #251c12;
+      color: #f7dfc4;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+      text-align: center;
+    }
+
+    .close {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      font-size: 24px;
+      color: #f7dfc4;
+      cursor: pointer;
+    }
+
+    .castle-image {
+      border: 5px solid #532c08;
+      border-radius: 10px;
+      max-width: 100%;
+      height: auto;
+    }
+
+    @font-face {
+      font-family: 'MedievalFont';
+      src: url('your-medieval-font.woff') format('woff');
+    }
+  </style>
 </head>
 
-<body>
-    <!-- Version Number -->
-    <div class="version">Version 1.0</div>
-
-    <!-- Copyright Text -->
-    <div class="copyright">Copyright © jafetegill</div>
-   <div class="container mt-5">
-        <div class="tab-content">
-            <!-- Castle Tab -->
-            <div class="tab-pane fade show active" id="castle-tab">
-                <div class="col-12 text-center">
-                    <div id="counter">Gold coins: 0</div>
-                    <img id="castle" src="https://raw.githubusercontent.com/largefort/Medievalskilling/main/castle.png"
-                        alt="Castle" onclick="clickCastle()" />
-                    <div id="owned-upgrades" class="mt-3">
-                        <div>Knights: <span id="knight-count">0</span></div>
-                        <div>Archers: <span id="archer-count">0</span></div>
-                        <div>Wizards: <span id="wizard-count">0</span></div>
-                    </div>
-                </div>
-            </div>
-            <!-- Skilling Tab -->
-            <div class="tab-pane fade" id="skilling-tab">
-                <div class="col-12 text-center">
-                    <h2>Skilling</h2>
-                    <div class="upgrade" onclick="handleSkillingClick('woodcutting')">Woodcutting</div>
-                    <div class="upgrade" onclick="handleSkillingClick('mining')">Mining</div>
-                    <div class="mt-3">
-                        <div>Woodcutting Level: <span id="woodcutting-level">1</span></div>
-                        <div>Mining Level: <span id="mining-level">1</span></div>
-                    </div>
-                </div>
-            </div>
-            <!-- Shop Tab -->
-            <div class="tab-pane fade" id="shop-tab">
-                <div class="col-12 text-center">
-                    <h2>Shop</h2>
-                    <div class="upgrade" onclick="buyUpgrade('knight')"><i class="fas fa-chess-knight"></i> Knight (<span
-                            id="knight-cost">10</span> coins)</div>
-                    <div class="upgrade" onclick="buyUpgrade('archer')"><i class="fas fa-bullseye"></i> Archer (<span
-                            id="archer-cost">25</span> coins)</div>
-                    <div class="upgrade" onclick="buyUpgrade('wizard')"><i class="fas fa-hat-wizard"></i> Wizard (<span
-                            id="wizard-cost">50</span> coins)</div>
-                </div>
-            </div>
-            <!-- Settings Tab -->
-            <div class="tab-pane fade" id="settings-tab">
-                <div class="col-12 text-center">
-                    <h2>Settings</h2>
-                    <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="enhanced-medieval-checkbox">
-                        <label class="form-check-label" for="enhanced-medieval-checkbox">Enhanced Medieval Mode</label>
-                    </div>
-                </div>
-            </div>
+<!-- Main Content -->
+<div class="main-content">
+  <div class="tab-content">
+    <!-- Castle Tab and Counter -->
+    <div class="tab-pane fade show active" id="castle-tab">
+      <div class="text-center">
+        <div id="counter">
+          Gold coins: 0
         </div>
-        <!-- Bottom Tab Navigation -->
-        <div class="nav nav-pills nav-fill fixed-bottom">
-            <a class="nav-link active" data-toggle="pill" href="#castle-tab"><i class="fas fa-castle"></i> Castle</a>
-            <a class="nav-link" data-toggle="pill" href="#skilling-tab"><i class="fas fa-hammer"></i> Skilling</a>
-            <a class="nav-link" data-toggle="pill" href="#shop-tab"><i class="fas fa-shopping-cart"></i> Shop</a>
-            <a class="nav-link" data-toggle="pill" href="#settings-tab"><i class="fas fa-cog"></i> Settings</a>
+        <img id="castle"
+          src="https://raw.githubusercontent.com/largefort/Medievalskilling/main/castle.png" alt="Castle"
+          class="castle-image" onclick="clickCastle()">
+          <div id="owned-upgrades" class="mt-3">
+          <div>Knight: <span id="knight-count">0</span></div>
+          <div>Archer: <span id="archer-count">0</span></div>
+          <div>Wizard: <span id="wizard-count">0</span></div>
+          <div>Paladin: <span id="paladin-count">0</span></div>
         </div>
+      </div>
     </div>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script src="script.js"></script>
+    <!-- Skilling Tab and Counter -->
+    <div class="tab-pane fade" id="skilling-tab">
+      <div class="text-center">
+        <h2>Skilling</h2>
+        <div class="upgrade" onclick="handleSkillingClick('woodcutting')">Woodcutting</div>
+        <div class="upgrade" onclick="handleSkillingClick('mining')">Mining</div>
+        <div class="upgrade" onclick="handleSkillingClick('fishing')">Fishing</div>
+        <div class="upgrade" onclick="handleSkillingClick('charisma')">Charisma</div>
+        </div>
+        <div class="mt-3">
+          <div>Woodcutting Level: <span id="woodcutting-level">1</span></div>
+          <div>Mining Level: <span id="mining-level">1</span></div>
+          <div>fishing Level: <span id="fishing-level">1</span></div>
+          <div>charisma Level: <span id="charisma-level">1</span></div>
+        </div>
+      </div>
+    </div>
+    <!-- Shop Tab and Counter -->
+    <div class="tab-pane fade" id="shop-tab">
+      <div class="text-center">
+        <div id="gold-counter-shop">
+          Gold coins: 0
+        </div>
+        <h2>Shop</h2>
+        <div class="upgrade" onclick="buyUpgrade('knight')">Knight (<span id="knight-cost">10</span> coins) - Purchased: <span
+            id="knight-upgrade-count">0</span></div>
+        <audio id="knight-upgrade-sound">
+          <source src="upgradesound.mp3" type="audio/mp3">
+          Your browser does not support the audio element.
+        </audio>
+        <div class="upgrade" onclick="buyUpgrade('archer')">Archer (<span id="archer-cost">25</span> coins) - Purchased: <span
+            id="archer-upgrade-count">0</span></div>
+        <audio id="archer-upgrade-sound">
+          <source src="upgradesound.mp3" type="audio/mp3">
+          Your browser does not support the audio element.
+        </audio>
+        <div class="upgrade" onclick="buyUpgrade('wizard')">Wizard (<span id="wizard-cost">50</span> coins) - Purchased: <span
+            id="wizard-upgrade-count">0</span></div>
+        <audio id="wizard-upgrade-sound">
+          <source src="upgradesound.mp3" type="audio/mp3">
+          Your browser does not support the audio element.
+        </audio>
+        <div class="upgrade" onclick="buyUpgrade('paladin')">Paladin (<span id="paladin-cost">100</span> coins) - Purchased: <span
+            id="paladin-upgrade-count">0</span></div>
+        <audio id="paladin-upgrade-sound">
+          <source src="upgradesound.mp3" type="audio/mp3">
+          Your browser does not support the audio element.
+        </audio>
+        <!-- AdSense Ad Unit -->
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5816082932921993"
+     crossorigin="anonymous"></script>
+<!-- mwofnfnif -->
+<ins class="adsbygoogle"
+     style="display:inline-block;width:728px;height:90px"
+     data-ad-client="ca-pub-5816082932921993"
+     data-ad-slot="6092842426"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+      </div>
+    </div>
+    <!-- Settings Tab -->
+    <div class="tab-pane fade" id="settings-tab">
+      <div class="text-center">
+        <h2>Settings</h2>
+        <div class="form-check">
+          <label class="form-check-label">
+            <input type="checkbox" id="toggle-music"> Toggle Music
+          </label>
+        </div>
+        <div class="form-check">
+          <label class="form-check-label">
+            <input type="checkbox" id="toggle-sfx"> Toggle Sound Effects
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Navigation -->
+<div class="nav nav-pills nav-fill fixed-bottom">
+  <a class="nav-link active" data-toggle="pill" href="#castle-tab">Castle</a>
+  <a class="nav-link" data-toggle="pill" href="#skilling-tab">Skilling</a>
+  <a class="nav-link" data-toggle="pill" href="#shop-tab">Shop</a>
+  <a class="nav-link" data-toggle="pill" href="#settings-tab">Settings</a>
+</div>
+</div>
+
+<!-- Fullscreen Button -->
+<button id="fullscreen-button" style="display: none;" onclick="autoEnterFullscreen()">Enter Fullscreen</button>
+
+<!-- Scripts and Audio -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://consent.cookiefirst.com/sites/medievalclicker.online-1b7c356c-48c5-4fdd-b0f1-52d3a1e69017/consent.js"></script>
+<script src="script.js"></script>
+<audio id="medievaltheme" loop autoplay>
+  <source src="medievaltheme.mp3" type="audio/mp3">
+  Your browser does not support the audio element.
+</audio>
+<audio id="click-sound" src="click-sound.mp3" type="audio/mp3"></audio>
 </body>
 
 </html>
