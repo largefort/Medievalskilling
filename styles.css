@@ -5,3 +5,61 @@
     -ms-user-select: none; /* Edge */
     user-select: none; /* Standard */
 }
+
+/* Medieval-themed styles */
+body {
+    background-color: #e5d3b3; /* Parchment-like background color */
+    font-family: 'Times New Roman', serif; /* Choose a medieval-style font */
+    color: #4d3319; /* Dark brown text color */
+}
+
+h1, h2, h3 {
+    color: #8b4513; /* Saddle Brown heading color */
+}
+
+/* Medieval-style buttons */
+.button {
+    background-color: #cd853f; /* Peru button color */
+    color: #fff; /* White text color */
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.button:hover {
+    background-color: #8b4513; /* Saddle Brown hover color */
+}
+
+/* Medieval-style borders */
+.container {
+    border: 2px solid #8b4513; /* Saddle Brown border */
+    padding: 20px;
+    border-radius: 10px;
+}
+
+/* Medieval-themed links */
+a {
+    color: #4d3319; /* Dark brown link color */
+    text-decoration: none;
+}
+
+a:hover {
+    color: #8b4513; /* Saddle Brown hover color */
+}
+
+/* Medieval-themed images */
+img {
+    border-radius: 5px;
+}
+
+/* Medieval-style form input */
+input {
+    padding: 8px;
+    margin: 5px 0;
+    border: 1px solid #8b4513; /* Saddle Brown border */
+    border-radius: 5px;
+}
+
+/* Customize other styles according to your needs */
