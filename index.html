@@ -176,11 +176,11 @@
         </div>
       </div>
     </div>
-    <!-- Shop Tab and Counter -->
+ <!-- Shop Tab and Counter -->
 <div class="tab-pane fade" id="shop-tab">
   <div class="text-center">
     <div id="gold-counter-shop">
-      Gold coins: 0
+      Gold coins: <span id="gold-counter">0</span>
     </div>
     <h2>Shop</h2>
     <div class="upgrade" onclick="buyUpgrade('knight')">Knight (<span id="knight-cost">10</span> coins)</div>
@@ -205,6 +205,20 @@
     </audio>
   </div>
 </div>
+
+<script>
+// Function to initialize the counters
+function initializeCounters() {
+  document.getElementById('gold-counter').innerText = 0;
+  document.getElementById('knight-cost').innerText = 10;
+  document.getElementById('archer-cost').innerText = 25;
+  document.getElementById('wizard-cost').innerText = 50;
+  document.getElementById('paladin-cost').innerText = 100;
+}
+
+// Call the function when the page loads
+window.onload = initializeCounters;
+</script>
 <!-- Settings Tab -->
 <div class="tab-pane fade" id="settings-tab">
   <div class="text-center">
