@@ -176,7 +176,7 @@
         </div>
       </div>
     </div>
- <!-- Shop Tab and Counter -->
+<!-- Shop Tab and Counter -->
 <div class="tab-pane fade" id="shop-tab">
   <div class="text-center">
     <div id="gold-counter-shop">
@@ -207,6 +207,12 @@
 </div>
 
 <script>
+// Variables to track the amount of upgrades purchased
+let knights = 0;
+let archers = 0;
+let wizards = 0;
+let paladins = 0;
+
 // Function to initialize the counters
 function initializeCounters() {
   document.getElementById('gold-counter').innerText = 0;
@@ -214,6 +220,49 @@ function initializeCounters() {
   document.getElementById('archer-cost').innerText = 25;
   document.getElementById('wizard-cost').innerText = 50;
   document.getElementById('paladin-cost').innerText = 100;
+}
+
+// Function to update counters and deduct gold when an upgrade is purchased
+function buyUpgrade(type) {
+  let goldCounter = document.getElementById('gold-counter');
+  let gold = parseInt(goldCounter.innerText);
+
+  // Check the type of upgrade and update variables and counters accordingly
+  switch (type) {
+    case 'knight':
+      if (gold >= 10) {
+        gold -= 10;
+        knights++;
+        document.getElementById('knight-cost').innerText = 10 + knights * 5; // Increase cost for each knight purchased
+      }
+      break;
+    case 'archer':
+      if (gold >= 25) {
+        gold -= 25;
+        archers++;
+        document.getElementById('archer-cost').innerText = 25 + archers * 10; // Increase cost for each archer purchased
+      }
+      break;
+    case 'wizard':
+      if (gold >= 50) {
+        gold -= 50;
+        wizards++;
+        document.getElementById('wizard-cost').innerText = 50 + wizards * 20; // Increase cost for each wizard purchased
+      }
+      break;
+    case 'paladin':
+      if (gold >= 100) {
+        gold -= 100;
+        paladins++;
+        document.getElementById('paladin-cost').innerText = 100 + paladins * 50; // Increase cost for each paladin purchased
+      }
+      break;
+    default:
+      break;
+  }
+
+  // Update the gold counter
+  goldCounter.innerText = gold;
 }
 
 // Call the function when the page loads
