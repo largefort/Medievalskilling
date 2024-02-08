@@ -175,108 +175,36 @@
           <div>Mining Level: <span id="mining-level">1</span></div>
         </div>
       </div>
-    </div><!-- Shop Tab and Counter -->
+    </div>
+    <!-- Shop Tab and Counter -->
 <div class="tab-pane fade" id="shop-tab">
   <div class="text-center">
     <div id="gold-counter-shop">
-      Gold coins: <span id="gold-counter">0</span>
+      Gold coins: 0
     </div>
     <h2>Shop</h2>
-    <div class="upgrade" onclick="buyUpgrade('knight')">Knight (<span id="knight-cost">10</span> coins) - Owned: <span id="knight-count">0</span></div>
+    <div class="upgrade" onclick="buyUpgrade('knight')">Knight (<span id="knight-cost">10</span> coins)</div>
     <audio id="knight-upgrade-sound">
       <source src="upgradesound.mp3" type="audio/mp3">
       Your browser does not support the audio element.
     </audio>
-    <div class="upgrade" onclick="buyUpgrade('archer')">Archer (<span id="archer-cost">25</span> coins) - Owned: <span id="archer-count">0</span></div>
+    <div class="upgrade" onclick="buyUpgrade('archer')">Archer (<span id="archer-cost">25</span> coins)</div>
     <audio id="archer-upgrade-sound">
       <source src="upgradesound.mp3" type="audio/mp3">
       Your browser does not support the audio element.
     </audio>
-    <div class="upgrade" onclick="buyUpgrade('wizard')">Wizard (<span id="wizard-cost">50</span> coins) - Owned: <span id="wizard-count">0</span></div>
+    <div class="upgrade" onclick="buyUpgrade('wizard')">Wizard (<span id="wizard-cost">50</span> coins)</div>
     <audio id="wizard-upgrade-sound">
       <source src="upgradesound.mp3" type="audio/mp3">
       Your browser does not support the audio element.
     </audio>
-    <div class="upgrade" onclick="buyUpgrade('paladin')">Paladin (<span id="paladin-cost">100</span> coins) - Owned: <span id="paladin-count">0</span></div>
+    <div class="upgrade" onclick="buyUpgrade('paladin')">Paladin (<span id="paladin-cost">100</span> coins)</div>
     <audio id="paladin-upgrade-sound">
       <source src="upgradesound.mp3" type="audio/mp3">
       Your browser does not support the audio element.
     </audio>
   </div>
 </div>
-
-<script>
-// Variables to track the amount of upgrades purchased
-let knights = 0;
-let archers = 0;
-let wizards = 0;
-let paladins = 0;
-
-// Function to initialize the counters
-function initializeCounters() {
-  document.getElementById('gold-counter').innerText = 0;
-  document.getElementById('knight-cost').innerText = 10;
-  document.getElementById('archer-cost').innerText = 25;
-  document.getElementById('wizard-cost').innerText = 50;
-  document.getElementById('paladin-cost').innerText = 100;
-
-  // Initialize upgrade counts
-  document.getElementById('knight-count').innerText = knights;
-  document.getElementById('archer-count').innerText = archers;
-  document.getElementById('wizard-count').innerText = wizards;
-  document.getElementById('paladin-count').innerText = paladins;
-}
-
-// Function to update counters and deduct gold when an upgrade is purchased
-function buyUpgrade(type) {
-  let goldCounter = document.getElementById('gold-counter');
-  let gold = parseInt(goldCounter.innerText);
-
-  // Check the type of upgrade and update variables and counters accordingly
-  switch (type) {
-    case 'knight':
-      if (gold >= 10) {
-        gold -= 10;
-        knights++;
-        document.getElementById('knight-cost').innerText = 10 + knights * 5; // Increase cost for each knight purchased
-        document.getElementById('knight-count').innerText = knights; // Update knight count
-      }
-      break;
-    case 'archer':
-      if (gold >= 25) {
-        gold -= 25;
-        archers++;
-        document.getElementById('archer-cost').innerText = 25 + archers * 10; // Increase cost for each archer purchased
-        document.getElementById('archer-count').innerText = archers; // Update archer count
-      }
-      break;
-    case 'wizard':
-      if (gold >= 50) {
-        gold -= 50;
-        wizards++;
-        document.getElementById('wizard-cost').innerText = 50 + wizards * 20; // Increase cost for each wizard purchased
-        document.getElementById('wizard-count').innerText = wizards; // Update wizard count
-      }
-      break;
-    case 'paladin':
-      if (gold >= 100) {
-        gold -= 100;
-        paladins++;
-        document.getElementById('paladin-cost').innerText = 100 + paladins * 50; // Increase cost for each paladin purchased
-        document.getElementById('paladin-count').innerText = paladins; // Update paladin count
-      }
-      break;
-    default:
-      break;
-  }
-
-  // Update the gold counter
-  goldCounter.innerText = gold;
-}
-
-// Call the function when the page loads
-window.onload = initializeCounters;
-</script>
 <!-- Settings Tab -->
 <div class="tab-pane fade" id="settings-tab">
   <div class="text-center">
@@ -322,3 +250,4 @@ window.onload = initializeCounters;
 </body>
 
 </html>
+
