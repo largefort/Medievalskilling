@@ -63,3 +63,38 @@ input {
 }
 
 /* Customize other styles according to your needs */
+/* Add Medieval-Themed High-Def UI Styles for Settings Tab */
+#settings-tab {
+  padding: 20px;
+  background-color: #1b1511;
+  border-radius: 15px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
+}
+
+.form-check-label {
+  font-size: 18px;
+  color: #FFD700;
+  margin-bottom: 15px;
+}
+
+.form-check-input {
+  margin-right: 10px;
+}
+
+/* Medieval-Themed Styles */
+#settings-tab h2 {
+  font-size: 24px;
+  color: #8A5C2E;
+  margin-bottom: 20px;
+}
+
+.form-check-label::before {
+  content: '\2713'; /* Medieval-themed checkmark */
+  font-size: 24px;
+  color: #8A5C2E;
+  margin-right: 5px;
+}
+
+.form-check-input:checked + .form-check-label::before {
+  content: '\2714'; /* Medieval-themed checked checkmark */
+}
