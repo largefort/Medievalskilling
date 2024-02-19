@@ -181,13 +181,21 @@ function updateUI() {
 }
 
 // Fixed the function declaration and added missing parts
-function clickCastle() {
+function clickCastle(element) {
     coins++;
     saveGameData();
     updateUI();
 
     // Play the preloaded click sound
     clickSound.play();
+
+    // Add 'animated' and 'heartBeat' classes to the castle image
+    element.classList.add('animated', 'heartBeat');
+
+    // Remove the 'animated' and 'heartBeat' classes after the animation completes
+    element.addEventListener('animationend', function () {
+        element.classList.remove('animated', 'heartBeat');
+    });
 }
 
 function buyUpgrade(type) {
