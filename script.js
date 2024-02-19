@@ -180,6 +180,7 @@ function updateUI() {
     updatePassiveIncome();
 }
 
+// Fixed the function declaration and added missing parts
 function clickCastle() {
     coins++;
     saveGameData();
@@ -221,8 +222,7 @@ function buyUpgrade(type) {
         case "paladin":
             cost = 100;
             upgradeCount = paladinCount;
-            if (coins >= cost)
-             {
+            if (coins >= cost) {
                 coins -= cost;
                 paladinCount++;
             }
@@ -317,6 +317,7 @@ function earnPassiveIncome() {
 }
 
 setInterval(earnPassiveIncome, 1000);
+
 // Call initUpgradeCounters at the end of your script
 function initUpgradeCounters() {
     // Retrieve upgrade counters from the saved game state
