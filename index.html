@@ -228,14 +228,12 @@
           </div>
         </div>
       </div>
-      <!-- Quest Tab and Content -->
+      <!-- Quests Tab -->
       <div class="tab-pane fade" id="quests-tab">
         <div class="text-center">
           <h2>Quests</h2>
+          <ul id="quest-list"></ul>
           <button onclick="generateQuest()">Generate Quest</button>
-          <ul id="quest-list">
-            <!-- Quests dynamically added here by quest.js -->
-          </ul>
         </div>
       </div>
     </div>
@@ -259,7 +257,8 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   <script src="https://consent.cookiefirst.com/sites/medievalclicker.online-1b7c356c-48c5-4fdd-b0f1-52d3a1e69017/consent.js"></script>
   <script src="script.js"></script>
-  <script src="quest.js"></script> <!-- Include quest.js after script.js -->
+  <script src="levelsystem.js"></script>
+  <script src="quest.js"></script>
   <audio id="medievaltheme" loop autoplay>
     <source src="medievaltheme.mp3" type="audio/mp3">
     Your browser does not support the audio element.
