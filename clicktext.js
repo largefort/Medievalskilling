@@ -20,8 +20,23 @@ function initializeClickerGame() {
   // Variable to store the number of gold coins
   let goldCoins = 0;
 
+  // Variable to store the total number of clicks
+  let clickCount = 0;
+
+  // Create an HTML element to display the click count
+  const clickCountElement = document.createElement('div');
+  clickCountElement.id = 'clickCount';
+  clickCountElement.textContent = 'Clicks: 0';
+  document.body.appendChild(clickCountElement);
+
   // Function to handle click events on the castle
-  function handleClick(event) {
+  function clickCastle() {
+    // Increment the click count
+    clickCount++;
+
+    // Update the display
+    updateClickCountDisplay();
+
     // Get the coordinates of the click relative to the canvas
     const x = event.clientX - canvas.offsetLeft;
     const y = event.clientY - canvas.offsetTop;
@@ -34,6 +49,11 @@ function initializeClickerGame() {
       // Display the number text
       displayNumberText(x, y, goldCoins);
     }
+  }
+
+  // Function to update the click count display
+  function updateClickCountDisplay() {
+    clickCountElement.textContent = 'Clicks: ' + clickCount;
   }
 
   // Function to display the number text
@@ -55,7 +75,7 @@ function initializeClickerGame() {
   }
 
   // Attach the click event handler to the castle image
-  castleImage.addEventListener('click', handleClick);
+  castleImage.addEventListener('click', clickCastle);
 }
 
 // Call the function to initialize the clicker game when the window loads
